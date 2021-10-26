@@ -2,10 +2,10 @@
 -- version 5.1.1
 -- https://www.phpmyadmin.net/
 --
--- Servidor: 127.0.0.1
--- Tiempo de generación: 23-10-2021 a las 15:24:03
+-- Servidor: localhost
+-- Tiempo de generación: 26-10-2021 a las 15:01:15
 -- Versión del servidor: 10.4.21-MariaDB
--- Versión de PHP: 8.0.11
+-- Versión de PHP: 7.4.24
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -18,7 +18,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Base de datos: `torneo tenis`
+-- Base de datos: `TenisCorrecion`
 --
 
 -- --------------------------------------------------------
@@ -36,7 +36,8 @@ CREATE TABLE `encuentro` (
   `jugadorGanador` int(11) DEFAULT NULL,
   `estado` varchar(30) NOT NULL,
   `idEstadio` int(11) NOT NULL,
-  `activo` tinyint(1) NOT NULL
+  `activo` tinyint(1) NOT NULL,
+  `idTorneo` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -116,7 +117,6 @@ CREATE TABLE `torneo` (
   `nombre` varchar(40) NOT NULL,
   `fechaNacInicio` date NOT NULL,
   `fechaNacFinal` date NOT NULL,
-  `idEncuentro` int(11) NOT NULL,
   `activo` tinyint(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -132,7 +132,8 @@ ALTER TABLE `encuentro`
   ADD KEY `j1` (`jugador1`),
   ADD KEY `j2` (`jugador2`),
   ADD KEY `ganador2` (`jugadorGanador`),
-  ADD KEY `estadio` (`idEstadio`);
+  ADD KEY `estadio` (`idEstadio`),
+  ADD KEY `torneo` (`idTorneo`);
 
 --
 -- Indices de la tabla `estadio`
@@ -165,8 +166,7 @@ ALTER TABLE `sponsor`
 -- Indices de la tabla `torneo`
 --
 ALTER TABLE `torneo`
-  ADD PRIMARY KEY (`idTorneo`),
-  ADD KEY `encuentro` (`idEncuentro`);
+  ADD PRIMARY KEY (`idTorneo`);
 
 --
 -- AUTO_INCREMENT de las tablas volcadas
@@ -212,7 +212,8 @@ ALTER TABLE `torneo`
 ALTER TABLE `encuentro`
   ADD CONSTRAINT `estadio` FOREIGN KEY (`idEstadio`) REFERENCES `estadio` (`idEstadio`),
   ADD CONSTRAINT `j1` FOREIGN KEY (`jugador1`) REFERENCES `jugador` (`idJugador`),
-  ADD CONSTRAINT `j2` FOREIGN KEY (`jugador2`) REFERENCES `jugador` (`idJugador`);
+  ADD CONSTRAINT `j2` FOREIGN KEY (`jugador2`) REFERENCES `jugador` (`idJugador`),
+  ADD CONSTRAINT `torneo` FOREIGN KEY (`idTorneo`) REFERENCES `torneo` (`idTorneo`);
 
 --
 -- Filtros para la tabla `patrocinio`
@@ -220,12 +221,6 @@ ALTER TABLE `encuentro`
 ALTER TABLE `patrocinio`
   ADD CONSTRAINT `jugador` FOREIGN KEY (`idJugador`) REFERENCES `jugador` (`idJugador`),
   ADD CONSTRAINT `patrocinio` FOREIGN KEY (`idPatrociador`) REFERENCES `sponsor` (`idPatrocinadores`);
-
---
--- Filtros para la tabla `torneo`
---
-ALTER TABLE `torneo`
-  ADD CONSTRAINT `encuentro` FOREIGN KEY (`idEncuentro`) REFERENCES `encuentro` (`idPartido`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
