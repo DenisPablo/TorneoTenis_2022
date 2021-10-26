@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: localhost
--- Tiempo de generación: 26-10-2021 a las 15:01:15
+-- Tiempo de generación: 26-10-2021 a las 15:54:36
 -- Versión del servidor: 10.4.21-MariaDB
 -- Versión de PHP: 7.4.24
 
@@ -73,7 +73,7 @@ CREATE TABLE `jugador` (
   `manoHabil` tinyint(1) NOT NULL,
   `torneosGanados` int(11) NOT NULL,
   `ranking` int(11) NOT NULL,
-  `idPatrocinadores` int(11) NOT NULL,
+  `idTorneo` int(11) NOT NULL,
   `puntaje` int(11) NOT NULL,
   `activo` tinyint(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
@@ -146,7 +146,7 @@ ALTER TABLE `estadio`
 --
 ALTER TABLE `jugador`
   ADD PRIMARY KEY (`idJugador`),
-  ADD KEY `Sponsor` (`idPatrocinadores`);
+  ADD KEY `Sponsor` (`idTorneo`);
 
 --
 -- Indices de la tabla `patrocinio`
