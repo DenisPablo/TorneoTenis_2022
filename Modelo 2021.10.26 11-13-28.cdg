@@ -1,0 +1,429 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ClassDiagram name="Modelo">
+  <ClassDiagramComponents>
+    <Class name="Conexion" package="Modelo" visibility="public" xPosition="84.0" yPosition="834.0">
+      <Fields>
+        <Field name="url" type="String" visibility="private"/>
+        <Field name="usuario" type="String" visibility="private"/>
+        <Field name="password" type="String" visibility="private"/>
+        <Field name="conexion" type="Connection" visibility="private"/>
+      </Fields>
+      <Constructors>
+        <Constructor visibility="public"/>
+        <Constructor visibility="public">
+          <Argument type="String" name="url"/>
+          <Argument type="String" name="usuario"/>
+          <Argument type="String" name="password"/>
+        </Constructor>
+      </Constructors>
+      <Methods>
+        <Method name="getConexion" returnType="Connection" visibility="public"/>
+      </Methods>
+    </Class>
+    <Class name="Encuentro" package="Modelo" visibility="public" xPosition="84.0" yPosition="20.0">
+      <Fields>
+        <Field name="idPartido" type="int" visibility="private"/>
+        <Field name="jugador1" type="Jugador" visibility="private"/>
+        <Field name="jugador2" type="Jugador" visibility="private"/>
+        <Field name="fechaEncuentro" type="LocalDate" visibility="private"/>
+        <Field name="resultado" type="int" visibility="private"/>
+        <Field name="jugadorGanador" type="Jugador" visibility="private"/>
+        <Field name="estado" type="String" visibility="private"/>
+        <Field name="idEstadio" type="Estadio" visibility="private"/>
+        <Field name="activo" type="boolean" visibility="private"/>
+        <Field name="idTorneo" type="Torneo" visibility="private"/>
+      </Fields>
+      <Constructors>
+        <Constructor visibility="public">
+          <Argument type="int" name="idPartido"/>
+          <Argument type="Jugador" name="jugador1"/>
+          <Argument type="Jugador" name="jugador2"/>
+          <Argument type="LocalDate" name="fechaEncuentro"/>
+          <Argument type="int" name="resultado"/>
+          <Argument type="Jugador" name="jugadorGanador"/>
+          <Argument type="String" name="estado"/>
+          <Argument type="Estadio" name="idEstadio"/>
+          <Argument type="boolean" name="activo"/>
+          <Argument type="Torneo" name="idTorneo"/>
+        </Constructor>
+        <Constructor visibility="public">
+          <Argument type="Jugador" name="jugador1"/>
+          <Argument type="Jugador" name="jugador2"/>
+          <Argument type="LocalDate" name="fechaEncuentro"/>
+          <Argument type="int" name="resultado"/>
+          <Argument type="Jugador" name="jugadorGanador"/>
+          <Argument type="String" name="estado"/>
+          <Argument type="Estadio" name="idEstadio"/>
+          <Argument type="boolean" name="activo"/>
+          <Argument type="Torneo" name="idTorneo"/>
+        </Constructor>
+        <Constructor visibility="public"/>
+      </Constructors>
+      <Methods>
+        <Method name="getIdPartido" returnType="int" visibility="public"/>
+        <Method name="setIdPartido" returnType="void" visibility="public">
+          <Argument type="int" name="idPartido"/>
+        </Method>
+        <Method name="getJugador1" returnType="Jugador" visibility="public"/>
+        <Method name="setJugador1" returnType="void" visibility="public">
+          <Argument type="Jugador" name="jugador1"/>
+        </Method>
+        <Method name="getJugador2" returnType="Jugador" visibility="public"/>
+        <Method name="setJugador2" returnType="void" visibility="public">
+          <Argument type="Jugador" name="jugador2"/>
+        </Method>
+        <Method name="getFechaEncuentro" returnType="LocalDate" visibility="public"/>
+        <Method name="setFechaEncuentro" returnType="void" visibility="public">
+          <Argument type="LocalDate" name="fechaEncuentro"/>
+        </Method>
+        <Method name="getResultado" returnType="int" visibility="public"/>
+        <Method name="setResultado" returnType="void" visibility="public">
+          <Argument type="int" name="resultado"/>
+        </Method>
+        <Method name="getJugadorGanador" returnType="Jugador" visibility="public"/>
+        <Method name="setJugadorGanador" returnType="void" visibility="public">
+          <Argument type="Jugador" name="jugadorGanador"/>
+        </Method>
+        <Method name="getEstado" returnType="String" visibility="public"/>
+        <Method name="setEstado" returnType="void" visibility="public">
+          <Argument type="String" name="estado"/>
+        </Method>
+        <Method name="getIdEstadio" returnType="Estadio" visibility="public"/>
+        <Method name="setIdEstadio" returnType="void" visibility="public">
+          <Argument type="Estadio" name="idEstadio"/>
+        </Method>
+        <Method name="isActivo" returnType="boolean" visibility="public"/>
+        <Method name="setActivo" returnType="void" visibility="public">
+          <Argument type="boolean" name="activo"/>
+        </Method>
+        <Method name="getIdTorneo" returnType="Torneo" visibility="public"/>
+        <Method name="setIdTorneo" returnType="void" visibility="public">
+          <Argument type="Torneo" name="idTorneo"/>
+        </Method>
+      </Methods>
+    </Class>
+    <Class name="Estadio" package="Modelo" visibility="public" xPosition="620.0" yPosition="20.0">
+      <Fields>
+        <Field name="idEstadio" type="int" visibility="private"/>
+        <Field name="nombre" type="String" visibility="private"/>
+        <Field name="ciudad" type="String" visibility="private"/>
+        <Field name="categoria" type="String" visibility="private"/>
+        <Field name="activo" type="boolean" visibility="private"/>
+        <Field name="direccionComercial" type="String" visibility="private"/>
+        <Field name="dimension" type="String" visibility="private"/>
+      </Fields>
+      <Constructors>
+        <Constructor visibility="public">
+          <Argument type="int" name="idEstadio"/>
+          <Argument type="String" name="nombre"/>
+          <Argument type="String" name="ciudad"/>
+          <Argument type="String" name="categoria"/>
+          <Argument type="boolean" name="activo"/>
+          <Argument type="String" name="direccionComercial"/>
+          <Argument type="String" name="dimension"/>
+        </Constructor>
+        <Constructor visibility="public">
+          <Argument type="String" name="nombre"/>
+          <Argument type="String" name="ciudad"/>
+          <Argument type="String" name="categoria"/>
+          <Argument type="boolean" name="activo"/>
+          <Argument type="String" name="direccionComercial"/>
+          <Argument type="String" name="dimension"/>
+        </Constructor>
+        <Constructor visibility="public"/>
+      </Constructors>
+      <Methods>
+        <Method name="getIdEstadio" returnType="int" visibility="public"/>
+        <Method name="setIdEstadio" returnType="void" visibility="public">
+          <Argument type="int" name="idEstadio"/>
+        </Method>
+        <Method name="getNombre" returnType="String" visibility="public"/>
+        <Method name="setNombre" returnType="void" visibility="public">
+          <Argument type="String" name="nombre"/>
+        </Method>
+        <Method name="getCiudad" returnType="String" visibility="public"/>
+        <Method name="setCiudad" returnType="void" visibility="public">
+          <Argument type="String" name="ciudad"/>
+        </Method>
+        <Method name="getCategoria" returnType="String" visibility="public"/>
+        <Method name="setCategoria" returnType="void" visibility="public">
+          <Argument type="String" name="categoria"/>
+        </Method>
+        <Method name="isActivo" returnType="boolean" visibility="public"/>
+        <Method name="setActivo" returnType="void" visibility="public">
+          <Argument type="boolean" name="activo"/>
+        </Method>
+        <Method name="getDireccionComercial" returnType="String" visibility="public"/>
+        <Method name="setDireccionComercial" returnType="void" visibility="public">
+          <Argument type="String" name="direccionComercial"/>
+        </Method>
+        <Method name="getDimension" returnType="String" visibility="public"/>
+        <Method name="setDimension" returnType="void" visibility="public">
+          <Argument type="String" name="dimension"/>
+        </Method>
+      </Methods>
+    </Class>
+    <Class name="Jugador" package="Modelo" visibility="public" xPosition="920.0" yPosition="20.0">
+      <Fields>
+        <Field name="idJugador" type="int" visibility="private"/>
+        <Field name="nombre" type="String" visibility="private"/>
+        <Field name="dni" type="int" visibility="private"/>
+        <Field name="fechaNac" type="LocalDate" visibility="private"/>
+        <Field name="altura" type="double" visibility="private"/>
+        <Field name="peso" type="double" visibility="private"/>
+        <Field name="estilo" type="String" visibility="private"/>
+        <Field name="manoHabil" type="String" visibility="private"/>
+        <Field name="torneoGanados" type="int" visibility="private"/>
+        <Field name="ranking" type="int" visibility="private"/>
+        <Field name="torneo" type="Torneo" visibility="private"/>
+        <Field name="puntaje" type="int" visibility="private"/>
+        <Field name="activo" type="boolean" visibility="private"/>
+      </Fields>
+      <Constructors>
+        <Constructor visibility="public">
+          <Argument type="int" name="idJugador"/>
+          <Argument type="String" name="nombre"/>
+          <Argument type="int" name="dni"/>
+          <Argument type="LocalDate" name="fechaNac"/>
+          <Argument type="double" name="altura"/>
+          <Argument type="double" name="peso"/>
+          <Argument type="String" name="estilo"/>
+          <Argument type="String" name="manoHabil"/>
+          <Argument type="int" name="torneoGanados"/>
+          <Argument type="int" name="ranking"/>
+          <Argument type="Torneo" name="torneo"/>
+          <Argument type="int" name="puntaje"/>
+          <Argument type="boolean" name="activo"/>
+        </Constructor>
+        <Constructor visibility="public">
+          <Argument type="String" name="nombre"/>
+          <Argument type="int" name="dni"/>
+          <Argument type="LocalDate" name="fechaNac"/>
+          <Argument type="double" name="altura"/>
+          <Argument type="double" name="peso"/>
+          <Argument type="String" name="estilo"/>
+          <Argument type="String" name="manoHabil"/>
+          <Argument type="int" name="torneoGanados"/>
+          <Argument type="int" name="ranking"/>
+          <Argument type="Torneo" name="torneo"/>
+          <Argument type="int" name="puntaje"/>
+          <Argument type="boolean" name="activo"/>
+        </Constructor>
+        <Constructor visibility="public"/>
+      </Constructors>
+      <Methods>
+        <Method name="getIdJugador" returnType="int" visibility="public"/>
+        <Method name="setIdJugador" returnType="void" visibility="public">
+          <Argument type="int" name="idJugador"/>
+        </Method>
+        <Method name="getNombre" returnType="String" visibility="public"/>
+        <Method name="setNombre" returnType="void" visibility="public">
+          <Argument type="String" name="nombre"/>
+        </Method>
+        <Method name="getDni" returnType="int" visibility="public"/>
+        <Method name="setDni" returnType="void" visibility="public">
+          <Argument type="int" name="dni"/>
+        </Method>
+        <Method name="getFechaNac" returnType="LocalDate" visibility="public"/>
+        <Method name="setFechaNac" returnType="void" visibility="public">
+          <Argument type="LocalDate" name="fechaNac"/>
+        </Method>
+        <Method name="getAltura" returnType="double" visibility="public"/>
+        <Method name="setAltura" returnType="void" visibility="public">
+          <Argument type="double" name="altura"/>
+        </Method>
+        <Method name="getPeso" returnType="double" visibility="public"/>
+        <Method name="setPeso" returnType="void" visibility="public">
+          <Argument type="double" name="peso"/>
+        </Method>
+        <Method name="getEstilo" returnType="String" visibility="public"/>
+        <Method name="setEstilo" returnType="void" visibility="public">
+          <Argument type="String" name="estilo"/>
+        </Method>
+        <Method name="getManoHabil" returnType="String" visibility="public"/>
+        <Method name="setManoHabil" returnType="void" visibility="public">
+          <Argument type="String" name="manoHabil"/>
+        </Method>
+        <Method name="getTorneoGanados" returnType="int" visibility="public"/>
+        <Method name="setTorneoGanados" returnType="void" visibility="public">
+          <Argument type="int" name="torneoGanados"/>
+        </Method>
+        <Method name="getRanking" returnType="int" visibility="public"/>
+        <Method name="setRanking" returnType="void" visibility="public">
+          <Argument type="int" name="ranking"/>
+        </Method>
+        <Method name="getTorneo" returnType="Torneo" visibility="public"/>
+        <Method name="setTorneo" returnType="void" visibility="public">
+          <Argument type="Torneo" name="torneo"/>
+        </Method>
+        <Method name="getPuntaje" returnType="int" visibility="public"/>
+        <Method name="setPuntaje" returnType="void" visibility="public">
+          <Argument type="int" name="puntaje"/>
+        </Method>
+        <Method name="isActivo" returnType="boolean" visibility="public"/>
+        <Method name="setActivo" returnType="void" visibility="public">
+          <Argument type="boolean" name="activo"/>
+        </Method>
+        <Method name="toString" returnType="String" visibility="public"/>
+      </Methods>
+    </Class>
+    <Class name="Patrocinio" package="Modelo" visibility="public" xPosition="1220.0" yPosition="20.0">
+      <Fields>
+        <Field name="idPatrocinio" type="int" visibility="private"/>
+        <Field name="idPatrocinador" type="Sponsor" visibility="private"/>
+        <Field name="idJugador" type="Jugador" visibility="private"/>
+        <Field name="fechaInicioContrato" type="LocalDate" visibility="private"/>
+        <Field name="fechaFinContrato" type="LocalDate" visibility="private"/>
+        <Field name="activo" type="boolean" visibility="private"/>
+      </Fields>
+      <Constructors>
+        <Constructor visibility="public">
+          <Argument type="int" name="idPatrocinio"/>
+          <Argument type="Sponsor" name="idPatrocinador"/>
+          <Argument type="Jugador" name="idJugador"/>
+          <Argument type="LocalDate" name="fechaInicioContrato"/>
+          <Argument type="LocalDate" name="fechaFinContrato"/>
+          <Argument type="boolean" name="activo"/>
+        </Constructor>
+        <Constructor visibility="public">
+          <Argument type="Sponsor" name="idPatrocinador"/>
+          <Argument type="Jugador" name="idJugador"/>
+          <Argument type="LocalDate" name="fechaInicioContrato"/>
+          <Argument type="LocalDate" name="fechaFinContrato"/>
+          <Argument type="boolean" name="activo"/>
+        </Constructor>
+        <Constructor visibility="public"/>
+      </Constructors>
+      <Methods>
+        <Method name="getIdPatrocinio" returnType="int" visibility="public"/>
+        <Method name="setIdPatrocinio" returnType="void" visibility="public">
+          <Argument type="int" name="idPatrocinio"/>
+        </Method>
+        <Method name="getIdPatrocinador" returnType="Sponsor" visibility="public"/>
+        <Method name="setIdPatrocinador" returnType="void" visibility="public">
+          <Argument type="Sponsor" name="idPatrocinador"/>
+        </Method>
+        <Method name="getIdJugador" returnType="Jugador" visibility="public"/>
+        <Method name="setIdJugador" returnType="void" visibility="public">
+          <Argument type="Jugador" name="idJugador"/>
+        </Method>
+        <Method name="getFechaInicioContrato" returnType="LocalDate" visibility="public"/>
+        <Method name="setFechaInicioContrato" returnType="void" visibility="public">
+          <Argument type="LocalDate" name="fechaInicioContrato"/>
+        </Method>
+        <Method name="getFechaFinContrato" returnType="LocalDate" visibility="public"/>
+        <Method name="setFechaFinContrato" returnType="void" visibility="public">
+          <Argument type="LocalDate" name="fechaFinContrato"/>
+        </Method>
+        <Method name="isActivo" returnType="boolean" visibility="public"/>
+        <Method name="setActivo" returnType="void" visibility="public">
+          <Argument type="boolean" name="activo"/>
+        </Method>
+      </Methods>
+    </Class>
+    <Class name="Sponsor" package="Modelo" visibility="public" xPosition="2098.0" yPosition="43.0">
+      <Fields>
+        <Field name="idPatrocinadores" type="int" visibility="private"/>
+        <Field name="marca" type="String" visibility="private"/>
+        <Field name="indumentaria" type="String" visibility="private"/>
+        <Field name="activo" type="boolean" visibility="private"/>
+      </Fields>
+      <Constructors>
+        <Constructor visibility="public">
+          <Argument type="int" name="idPatrocinadores"/>
+          <Argument type="String" name="marca"/>
+          <Argument type="String" name="indumentaria"/>
+          <Argument type="boolean" name="activo"/>
+        </Constructor>
+        <Constructor visibility="public">
+          <Argument type="String" name="marca"/>
+          <Argument type="String" name="indumentaria"/>
+          <Argument type="boolean" name="activo"/>
+        </Constructor>
+        <Constructor visibility="public"/>
+      </Constructors>
+      <Methods>
+        <Method name="getIdPatrocinadores" returnType="int" visibility="public"/>
+        <Method name="setIdPatrocinadores" returnType="void" visibility="public">
+          <Argument type="int" name="idPatrocinadores"/>
+        </Method>
+        <Method name="getMarca" returnType="String" visibility="public"/>
+        <Method name="setMarca" returnType="void" visibility="public">
+          <Argument type="String" name="marca"/>
+        </Method>
+        <Method name="getIndumentaria" returnType="String" visibility="public"/>
+        <Method name="setIndumentaria" returnType="void" visibility="public">
+          <Argument type="String" name="indumentaria"/>
+        </Method>
+        <Method name="isActivo" returnType="boolean" visibility="public"/>
+        <Method name="setActivo" returnType="void" visibility="public">
+          <Argument type="boolean" name="activo"/>
+        </Method>
+      </Methods>
+    </Class>
+    <Class name="Torneo" package="Modelo" visibility="public" xPosition="1913.0" yPosition="461.0">
+      <Fields>
+        <Field name="idTorneo" type="int" visibility="private"/>
+        <Field name="nombre" type="String" visibility="private"/>
+        <Field name="fechaNacInicio" type="LocalDate" visibility="private"/>
+        <Field name="fehcaNacFinal" type="LocalDate" visibility="private"/>
+        <Field name="activo" type="boolean" visibility="private"/>
+      </Fields>
+      <Constructors>
+        <Constructor visibility="public">
+          <Argument type="int" name="idTorneo"/>
+          <Argument type="String" name="nombre"/>
+          <Argument type="LocalDate" name="fechaNacInicio"/>
+          <Argument type="LocalDate" name="fehcaNacFinal"/>
+          <Argument type="boolean" name="activo"/>
+        </Constructor>
+        <Constructor visibility="public">
+          <Argument type="String" name="nombre"/>
+          <Argument type="LocalDate" name="fechaNacInicio"/>
+          <Argument type="LocalDate" name="fehcaNacFinal"/>
+          <Argument type="boolean" name="activo"/>
+        </Constructor>
+        <Constructor visibility="public"/>
+      </Constructors>
+      <Methods>
+        <Method name="getIdTorneo" returnType="int" visibility="public"/>
+        <Method name="setIdTorneo" returnType="void" visibility="public">
+          <Argument type="int" name="idTorneo"/>
+        </Method>
+        <Method name="getNombre" returnType="String" visibility="public"/>
+        <Method name="setNombre" returnType="void" visibility="public">
+          <Argument type="String" name="nombre"/>
+        </Method>
+        <Method name="getFechaNacInicio" returnType="LocalDate" visibility="public"/>
+        <Method name="setFechaNacInicio" returnType="void" visibility="public">
+          <Argument type="LocalDate" name="fechaNacInicio"/>
+        </Method>
+        <Method name="getFehcaNacFinal" returnType="LocalDate" visibility="public"/>
+        <Method name="setFehcaNacFinal" returnType="void" visibility="public">
+          <Argument type="LocalDate" name="fehcaNacFinal"/>
+        </Method>
+        <Method name="isActivo" returnType="boolean" visibility="public"/>
+        <Method name="setActivo" returnType="void" visibility="public">
+          <Argument type="boolean" name="activo"/>
+        </Method>
+      </Methods>
+    </Class>
+  </ClassDiagramComponents>
+  <ClassDiagramRelations>
+    <HasRelation name="idPatrocinador" source="Modelo.Patrocinio" target="Modelo.Sponsor" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <UseRelation source="Modelo.Encuentro" target="Modelo.Torneo" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <UseRelation source="Modelo.Patrocinio" target="Modelo.Sponsor" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <HasRelation name="idTorneo" source="Modelo.Encuentro" target="Modelo.Torneo" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <HasRelation name="jugador1" source="Modelo.Encuentro" target="Modelo.Jugador" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <HasRelation name="jugador2" source="Modelo.Encuentro" target="Modelo.Jugador" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <HasRelation name="idJugador" source="Modelo.Patrocinio" target="Modelo.Jugador" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <UseRelation source="Modelo.Jugador" target="Modelo.Torneo" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <HasRelation name="idEstadio" source="Modelo.Encuentro" target="Modelo.Estadio" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <UseRelation source="Modelo.Encuentro" target="Modelo.Estadio" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <HasRelation name="jugadorGanador" source="Modelo.Encuentro" target="Modelo.Jugador" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <UseRelation source="Modelo.Patrocinio" target="Modelo.Jugador" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <HasRelation name="torneo" source="Modelo.Jugador" target="Modelo.Torneo" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <UseRelation source="Modelo.Encuentro" target="Modelo.Jugador" sourceCardinality="1..1" targetCardinality="1..1"/>
+  </ClassDiagramRelations>
+</ClassDiagram>
