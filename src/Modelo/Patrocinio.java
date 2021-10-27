@@ -12,31 +12,11 @@ import java.time.LocalDate;
  */
 public class Patrocinio {
     private int idPatrocinio;
-    private Sponsor idPatrocinador;
-    private Jugador idJugador;
+    private Sponsor Patrocinador;
+    private Jugador Jugador;
     private LocalDate fechaInicioContrato;
     private LocalDate fechaFinContrato;
     private boolean activo;
-
-    public Patrocinio(int idPatrocinio, Sponsor idPatrocinador, Jugador idJugador, LocalDate fechaInicioContrato, LocalDate fechaFinContrato, boolean activo) {
-        this.idPatrocinio = idPatrocinio;
-        this.idPatrocinador = idPatrocinador;
-        this.idJugador = idJugador;
-        this.fechaInicioContrato = fechaInicioContrato;
-        this.fechaFinContrato = fechaFinContrato;
-        this.activo = activo;
-    }
-
-    public Patrocinio(Sponsor idPatrocinador, Jugador idJugador, LocalDate fechaInicioContrato, LocalDate fechaFinContrato, boolean activo) {
-        this.idPatrocinador = idPatrocinador;
-        this.idJugador = idJugador;
-        this.fechaInicioContrato = fechaInicioContrato;
-        this.fechaFinContrato = fechaFinContrato;
-        this.activo = activo;
-    }
-
-    public Patrocinio() {
-    }
 
     public int getIdPatrocinio() {
         return idPatrocinio;
@@ -46,20 +26,20 @@ public class Patrocinio {
         this.idPatrocinio = idPatrocinio;
     }
 
-    public Sponsor getIdPatrocinador() {
-        return idPatrocinador;
+    public Sponsor getPatrocinador() {
+        return Patrocinador;
     }
 
-    public void setIdPatrocinador(Sponsor idPatrocinador) {
-        this.idPatrocinador = idPatrocinador;
+    public void setPatrocinador(Sponsor Patrocinador) {
+        this.Patrocinador = Patrocinador;
     }
 
-    public Jugador getIdJugador() {
-        return idJugador;
+    public Jugador getJugador() {
+        return Jugador;
     }
 
-    public void setIdJugador(Jugador idJugador) {
-        this.idJugador = idJugador;
+    public void setJugador(Jugador Jugador) {
+        this.Jugador = Jugador;
     }
 
     public LocalDate getFechaInicioContrato() {
@@ -85,6 +65,27 @@ public class Patrocinio {
     public void setActivo(boolean activo) {
         this.activo = activo;
     }
+
+    public Patrocinio() {
+    }
+
+    public Patrocinio(Sponsor Patrocinador, Jugador Jugador, LocalDate fechaInicioContrato, LocalDate fechaFinContrato, boolean activo) {
+        this.Patrocinador = Patrocinador;
+        this.Jugador = Jugador;
+        this.fechaInicioContrato = fechaInicioContrato;
+        this.fechaFinContrato = fechaFinContrato;
+        this.activo = activo;
+    }
+
+    public Patrocinio(int idPatrocinio, Sponsor Patrocinador, Jugador Jugador, LocalDate fechaInicioContrato, LocalDate fechaFinContrato, boolean activo) {
+        this.idPatrocinio = idPatrocinio;
+        this.Patrocinador = Patrocinador;
+        this.Jugador = Jugador;
+        this.fechaInicioContrato = fechaInicioContrato;
+        this.fechaFinContrato = fechaFinContrato;
+        this.activo = activo;
+    }
+
 
     
     
