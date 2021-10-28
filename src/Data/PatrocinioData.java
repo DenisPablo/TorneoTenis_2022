@@ -5,10 +5,169 @@
  */
 package Data;
 
+import Modelo.Conexion;
+import Modelo.Jugador;
+import Modelo.Patrocinio;
+import Modelo.Sponsor;
+import java.sql.Connection;
+import java.sql.Date;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 /**
  *
  * @author Romi
  */
 public class PatrocinioData {
+        private Connection con;
+
+    public PatrocinioData(Conexion conexion) {
+        try {
+            this.con = conexion.getConexion();
+        } catch (SQLException ex) {
+            System.out.println("Error en la conexion");
+        }
+    }
+     public void guardarPatrocinio(Patrocinio patrocinio) {
+     
+            String sql = "INSERT INTO `patrocinio`(`idPatrocinio`, `idPatrociador`, `idJugador`, `fechIniContrato`, `fechFinContrato`, `activo`) VALUES (?,?,?,?,?,?))";
+            try {
+                PreparedStatement ps = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+                
+                ps.setInt(1, patrocinio.getIdPatrocinio());
+                ps.setInt(2, patrocinio.getPatrocinador().getIdPatrocinadores());
+                ps.setInt(3, patrocinio.getJugador().getIdJugador());
+                ps.setDate(4,Date.valueOf( patrocinio.getFechaInicioContrato()));
+                ps.setDate(5,Date.valueOf(  patrocinio.getFechaFinContrato()));
+                ps.setBoolean(6,patrocinio.isActivo());
+                ps.executeUpdate();
+                
+                System.out.println("Patrocinio guardado con exito.");
+        } catch (SQLException ex) {
+            System.out.println("Error al guardar Sponsor "+ex);
+        }}
+        
+   public Patrocinio buscarPatrocinio (int ID){
+        Patrocinio pat = new Patrocinio();
+         try{
+             Conexion p = new Conexion();
+             SponsorData s=new SponsorData(p);
+             Sponsor spon=new Sponsor();
+             JugadorData j=new JugadorData(p);
+             Jugador jug=new Jugador();
+             String sql = "SELECT * FROM patrocinio Where idPatrocinio=?";
+             try{
+                 PreparedStatement ps = con.prepareStatement(sql);
+                 ps.setInt(1, ID);
+                 ResultSet rs = ps.executeQuery();
+                 if(rs.next()) {
+                     pat = new Patrocinio();
+                     pat.setIdPatrocinio(rs.getInt(1));
+                     spon=s.buscarSponsor(rs.getInt(2));
+                     pat.setPatrocinador(spon);
+                     jug=j.buscarJugador(rs.getInt(3));
+                     pat.setJugador(jug);
+                     pat.setFechaInicioContrato(rs.getDate(4).toLocalDate());
+                     pat.setFechaFinContrato(rs.getDate(5).toLocalDate());
+                     pat.setActivo(rs.getBoolean(6));
+                 }
+             }
+             catch(SQLException ex){
+                 System.out.println("Patrocinio no encontrado: " + ex);
+             }
+         }
+        catch(ClassNotFoundException ex){
+                Logger.getLogger(PatrocinioData.class.getName()).log(Level.SEVERE, null, ex);
+        }
+          return pat;
+}   
+      public void bajaPatrocinio (int id){
+         String sql = "UPDATE patrocinio SET activo=? WHERE idPatrocinio=?";
+         try{
+         PreparedStatement ps = con.prepareStatement(sql);
+            ps.setBoolean(1, false);
+            ps.setInt(2, id);
+            ps.executeUpdate();
+            ps.close();
+            }
+         catch(SQLException ex){
+             System.out.println("Patrocinio no encontrado: " + ex);
+            }
+}   
+      
+      public void altaSponsor (int id){
+          String sql = "UPDATE patrocinio SET activo=? WHERE idPatrocinio=?";
+         try{
+         PreparedStatement ps = con.prepareStatement(sql);
+            ps.setBoolean(1, true);
+            ps.setInt(2, id);
+            ps.executeUpdate();
+            ps.close();
+        }
+        catch(SQLException ex){
+         System.out.println("Patrocinio no encontrado: " + ex);
+        }
+}
+      
+      public void borrarPatrocinio(int id){
+            String sql="DELETE FROM patrocinio WHERE idPatrocinio=?";
+            PreparedStatement ps;
+            try {
+                ps = con.prepareStatement(sql);
+                ps.setInt(1, id);
+                ps.executeUpdate();
+                ps.close();
+
+                System.out.println("Patrocinio borrado definitivamente");
+            } 
+            catch (SQLException ex) {
+                 System.out.println("Error al borrar "+ex);
+            }
+    }
+     public List<Patrocinio> buscarTodosPatrocinio(){
+          List<Patrocinio> resultados;
+          resultados = new ArrayList<>();
+        try{
+            Conexion p = new Conexion();
+            Patrocinio patrocinio= null;
+            SponsorData s=new SponsorData(p);
+            Sponsor spon=new Sponsor();
+            JugadorData j=new JugadorData(p);
+            Jugador jug=new Jugador();
+            String sql = "SELECT * FROM patrocinio ";
+            try{
+                PreparedStatement ps = con.prepareStatement(sql);
+                ResultSet rs = ps.executeQuery();
+                while(rs.next()){
+                    patrocinio=new Patrocinio();
+                    patrocinio.setIdPatrocinio(rs.getInt(1));
+                    spon=s.buscarSponsor(rs.getInt(2));
+                    patrocinio.setPatrocinador(spon);
+                    jug=j.buscarJugador(rs.getInt(3));
+                    patrocinio.setJugador(jug);
+                    patrocinio.setFechaInicioContrato(rs.getDate(4).toLocalDate());
+                    patrocinio.setFechaFinContrato(rs.getDate(5).toLocalDate());
+                    patrocinio.setActivo(rs.getBoolean(6));
+                    resultados.add(patrocinio);
+                }
+                ps.close();
+            }
+            catch(SQLException ex){
+                System.out.println("No se encontraron resultados: "+ ex);
+            }
+            
+        }
+        catch(ClassNotFoundException ex){
+                Logger.getLogger(PatrocinioData.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        return resultados;
+  }
     
 }

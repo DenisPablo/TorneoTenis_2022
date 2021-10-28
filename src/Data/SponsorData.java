@@ -30,6 +30,10 @@ public class SponsorData {
             System.out.println("Error en la conexion");
         }
     }
+
+    SponsorData() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
      public void guardarSponsor(Sponsor sponsor) {
      
             String sql = "INSERT INTO `sponsor`(`idPatrocinadores`, `marca`, `indumentaria`, `activo`) VALUES (?,?,?,?)";
