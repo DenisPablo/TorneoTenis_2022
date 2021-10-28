@@ -47,13 +47,33 @@ public class PatrocinioData {
                 ps.setDate(4,Date.valueOf( patrocinio.getFechaInicioContrato()));
                 ps.setDate(5,Date.valueOf(  patrocinio.getFechaFinContrato()));
                 ps.setBoolean(6,patrocinio.isActivo());
+                ps.setString(7, patrocinio.getIndumentaria());
                 ps.executeUpdate();
                 
                 System.out.println("Patrocinio guardado con exito.");
         } catch (SQLException ex) {
             System.out.println("Error al guardar Sponsor "+ex);
         }}
-        
+   public void modificadarPatrocicio (Patrocinio patrocinio) {
+        String sql = "UPDATE patrocinio SET `idPatrocinio`=?,`idPatrociador`=?,`idJugador`=?,`fechIniContrato`=?,`fechFinContrato`=?,`activo`=?,'indumentaria'=? Where `idPatrocinio`=?";
+        try{
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setInt(1, patrocinio.getIdPatrocinio());
+            ps.setInt(2, patrocinio.getPatrocinador().getIdPatrocinadores());
+            ps.setInt(3, patrocinio.getJugador().getIdJugador());
+            ps.setDate(4,Date.valueOf( patrocinio.getFechaInicioContrato()));
+            ps.setDate(5,Date.valueOf(  patrocinio.getFechaFinContrato()));
+            ps.setBoolean(6,patrocinio.isActivo());
+            ps.setString(7, patrocinio.getIndumentaria()); 
+            ps.executeUpdate();
+            ps.close();
+                System.out.println("Materia modificada con exito.");
+        }
+        catch (SQLException ex){
+                System.out.println("Error al actualizar materia: "+ex);
+        }
+
+ }
    public Patrocinio buscarPatrocinio (int ID){
         Patrocinio pat = new Patrocinio();
          try{
@@ -77,6 +97,8 @@ public class PatrocinioData {
                      pat.setFechaInicioContrato(rs.getDate(4).toLocalDate());
                      pat.setFechaFinContrato(rs.getDate(5).toLocalDate());
                      pat.setActivo(rs.getBoolean(6));
+                     pat.setIndumentaria(rs.getString(7));
+                     
                  }
              }
              catch(SQLException ex){
@@ -155,6 +177,7 @@ public class PatrocinioData {
                     patrocinio.setFechaInicioContrato(rs.getDate(4).toLocalDate());
                     patrocinio.setFechaFinContrato(rs.getDate(5).toLocalDate());
                     patrocinio.setActivo(rs.getBoolean(6));
+                    sponsor.setIndumentaria(rs.getString(7));
                     resultados.add(patrocinio);
                 }
                 ps.close();

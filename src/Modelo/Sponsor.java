@@ -11,23 +11,11 @@ package Modelo;
 public class Sponsor {
     private int idPatrocinadores;
     private String marca;
-    private String indumentaria;
     private boolean activo;
 
-    public Sponsor(int idPatrocinadores, String marca, String indumentaria, boolean activo) {
-        this.idPatrocinadores = idPatrocinadores;
-        this.marca = marca;
-        this.indumentaria = indumentaria;
-        this.activo = activo;
-    }
-
-    public Sponsor(String marca, String indumentaria, boolean activo) {
-        this.marca = marca;
-        this.indumentaria = indumentaria;
-        this.activo = activo;
-    }
-
-    public Sponsor() {
+    @Override
+    public String toString() {
+        return "Sponsor{" + "idPatrocinadores=" + idPatrocinadores + ", marca=" + marca + ", activo=" + activo + '}';
     }
 
     public int getIdPatrocinadores() {
@@ -46,14 +34,6 @@ public class Sponsor {
         this.marca = marca;
     }
 
-    public String getIndumentaria() {
-        return indumentaria;
-    }
-
-    public void setIndumentaria(String indumentaria) {
-        this.indumentaria = indumentaria;
-    }
-
     public boolean isActivo() {
         return activo;
     }
@@ -61,7 +41,20 @@ public class Sponsor {
     public void setActivo(boolean activo) {
         this.activo = activo;
     }
-    
-    
+
+    public Sponsor() {
+    }
+
+    public Sponsor(String marca, boolean activo) {
+        this.marca = marca;
+        this.activo = activo;
+    }
+
+    public Sponsor(int idPatrocinadores, String marca, boolean activo) {
+        this.idPatrocinadores = idPatrocinadores;
+        this.marca = marca;
+        this.activo = activo;
+    }
+
     
 }

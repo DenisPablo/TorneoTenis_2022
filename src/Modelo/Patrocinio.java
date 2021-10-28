@@ -14,9 +14,15 @@ public class Patrocinio {
     private int idPatrocinio;
     private Sponsor Patrocinador;
     private Jugador Jugador;
+    private String indumentaria;
     private LocalDate fechaInicioContrato;
     private LocalDate fechaFinContrato;
     private boolean activo;
+
+    @Override
+    public String toString() {
+        return "Patrocinio{" + "idPatrocinio=" + idPatrocinio + ", Patrocinador=" + Patrocinador + ", Jugador=" + Jugador + ", indumentaria=" + indumentaria + ", fechaInicioContrato=" + fechaInicioContrato + ", fechaFinContrato=" + fechaFinContrato + ", activo=" + activo + '}';
+    }
 
     public int getIdPatrocinio() {
         return idPatrocinio;
@@ -40,6 +46,14 @@ public class Patrocinio {
 
     public void setJugador(Jugador Jugador) {
         this.Jugador = Jugador;
+    }
+
+    public String getIndumentaria() {
+        return indumentaria;
+    }
+
+    public void setIndumentaria(String indumentaria) {
+        this.indumentaria = indumentaria;
     }
 
     public LocalDate getFechaInicioContrato() {
@@ -69,23 +83,24 @@ public class Patrocinio {
     public Patrocinio() {
     }
 
-    public Patrocinio(Sponsor Patrocinador, Jugador Jugador, LocalDate fechaInicioContrato, LocalDate fechaFinContrato, boolean activo) {
+    public Patrocinio(Sponsor Patrocinador, Jugador Jugador, String indumentaria, LocalDate fechaInicioContrato, LocalDate fechaFinContrato, boolean activo) {
         this.Patrocinador = Patrocinador;
         this.Jugador = Jugador;
+        this.indumentaria = indumentaria;
         this.fechaInicioContrato = fechaInicioContrato;
         this.fechaFinContrato = fechaFinContrato;
         this.activo = activo;
     }
 
-    public Patrocinio(int idPatrocinio, Sponsor Patrocinador, Jugador Jugador, LocalDate fechaInicioContrato, LocalDate fechaFinContrato, boolean activo) {
+    public Patrocinio(int idPatrocinio, Sponsor Patrocinador, Jugador Jugador, String indumentaria, LocalDate fechaInicioContrato, LocalDate fechaFinContrato, boolean activo) {
         this.idPatrocinio = idPatrocinio;
         this.Patrocinador = Patrocinador;
         this.Jugador = Jugador;
+        this.indumentaria = indumentaria;
         this.fechaInicioContrato = fechaInicioContrato;
         this.fechaFinContrato = fechaFinContrato;
         this.activo = activo;
     }
-
 
     
     

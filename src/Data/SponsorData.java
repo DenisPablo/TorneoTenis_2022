@@ -42,8 +42,7 @@ public class SponsorData {
                 
                 ps.setInt(1, sponsor.getIdPatrocinadores());
                 ps.setString(2, sponsor.getMarca());
-                ps.setString(3, sponsor.getIndumentaria());
-                ps.setBoolean(4, sponsor.isActivo());
+                ps.setBoolean(3, sponsor.isActivo());
                 ps.executeUpdate();
                 
                 System.out.println("Sposor guardado con exito.");
@@ -62,8 +61,7 @@ public class SponsorData {
             spon = new Sponsor();
             spon.setIdPatrocinadores(rs.getInt(1));
             spon.setMarca(rs.getString(2));
-            spon.setIndumentaria(rs.getString(3));
-            spon.setActivo(rs.getBoolean(4));
+            spon.setActivo(rs.getBoolean(3));
            
  
         }
@@ -73,6 +71,23 @@ public class SponsorData {
         }
         return spon;
 }   
+    public void modificadarSponsor (Sponsor s) {
+        String sql = "UPDATE sponsor SET marca=? , activo=? Where idMateria=?";
+        try{
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setString(1,s.getMarca());
+            ps.setBoolean(2, s.isActivo());
+            ps.setInt(3, s.getIdPatrocinadores());
+
+            ps.executeUpdate();
+            ps.close();
+                System.out.println("Materia modificada con exito.");
+        }
+        catch (SQLException ex){
+                System.out.println("Error al actualizar materia: "+ex);
+        }
+
+ }
       public Sponsor bajaSponsor (int id){
          Sponsor spon = new Sponsor();
          String sql = "UPDATE sponsor SET activo=? WHERE idPatrocinadores=?";
@@ -129,8 +144,7 @@ public class SponsorData {
                  sponsor=new Sponsor();
                  sponsor.setIdPatrocinadores(rs.getInt(1));
                  sponsor.setMarca(rs.getString(2));
-                 sponsor.setIndumentaria(rs.getString(3));
-                 sponsor.setActivo(rs.getBoolean(4));
+                 sponsor.setActivo(rs.getBoolean(3));
                  resultados.add(sponsor);
             }
             ps.close();

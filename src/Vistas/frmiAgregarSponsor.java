@@ -5,6 +5,12 @@
  */
 package Vistas;
 
+import Data.SponsorData;
+import Modelo.Conexion;
+import Modelo.Sponsor;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 /**
  *
  * @author Romi
@@ -42,6 +48,11 @@ public class frmiAgregarSponsor extends javax.swing.JInternalFrame {
         jLabel2.setText("Activo");
 
         jButton1.setText("Cargar");
+        jButton1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jButton1MouseClicked(evt);
+            }
+        });
 
         btnLimpiar.setText("Limpiar");
         btnLimpiar.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -96,6 +107,19 @@ public class frmiAgregarSponsor extends javax.swing.JInternalFrame {
         tfMarca.setText("");
         cbActivo.setSelected(false);
     }//GEN-LAST:event_btnLimpiarMouseClicked
+
+    private void jButton1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton1MouseClicked
+        try {
+            Conexion con = new Conexion();
+            Sponsor s=new Sponsor();
+            s.setMarca(tfMarca.getText());
+            s.setActivo(cbActivo.isSelected());
+            SponsorData sponsor=new SponsorData(con);
+            sponsor.guardarSponsor(s);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(frmiAgregarSponsor.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_jButton1MouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
