@@ -8,6 +8,7 @@ package Vistas;
 import Data.SponsorData;
 import Modelo.Conexion;
 import Modelo.Sponsor;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -22,8 +23,22 @@ public class frmiModificarSponsor extends javax.swing.JInternalFrame {
      */
     public frmiModificarSponsor() {
         initComponents();
+        cargarCbo();
     }
-
+ public void cargarCbo(){
+        try {
+            Conexion con = new Conexion();
+            SponsorData sponsor=new SponsorData(con);
+            
+            sponsor.buscarTodosSposor();
+            List<Sponsor> spon= sponsor.buscarTodosSposor();
+            for (int i = 0; i < spon.size(); i++) {
+                cboSponsor.addItem(spon.get(i)); 
+            }
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(frmiModificarSponsor.class.getName()).log(Level.SEVERE, null, ex);
+        }
+ }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -38,7 +53,7 @@ public class frmiModificarSponsor extends javax.swing.JInternalFrame {
         jLabel2 = new javax.swing.JLabel();
         tfMarca = new javax.swing.JTextField();
         cbActivo = new javax.swing.JCheckBox();
-        jComboBox1 = new javax.swing.JComboBox<>();
+        cboSponsor = new javax.swing.JComboBox<>();
         jLabel3 = new javax.swing.JLabel();
         btnBuscar = new javax.swing.JButton();
         btnLimpiar = new javax.swing.JButton();
@@ -97,7 +112,7 @@ public class frmiModificarSponsor extends javax.swing.JInternalFrame {
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jLabel3)
                                 .addGap(43, 43, 43)
-                                .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 196, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addComponent(cboSponsor, javax.swing.GroupLayout.PREFERRED_SIZE, 196, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGap(51, 51, 51))))
         );
         layout.setVerticalGroup(
@@ -105,7 +120,7 @@ public class frmiModificarSponsor extends javax.swing.JInternalFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGap(27, 27, 27)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(cboSponsor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel3))
                 .addGap(18, 18, 18)
                 .addComponent(btnBuscar)
@@ -131,7 +146,7 @@ public class frmiModificarSponsor extends javax.swing.JInternalFrame {
        
         tfMarca.setText("");
         cbActivo.setSelected(false);
-        jComboBox1.setSelectedIndex(0);
+        cboSponsor.setSelectedIndex(0);
     }//GEN-LAST:event_btnLimpiarMouseClicked
 
     private void btnModificarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnModificarMouseClicked
@@ -153,7 +168,7 @@ public class frmiModificarSponsor extends javax.swing.JInternalFrame {
     private javax.swing.JButton btnLimpiar;
     private javax.swing.JButton btnModificar;
     private javax.swing.JCheckBox cbActivo;
-    private javax.swing.JComboBox<String> jComboBox1;
+    private javax.swing.JComboBox<Sponsor> cboSponsor;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

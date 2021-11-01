@@ -5,6 +5,13 @@
  */
 package Vistas;
 
+import Data.SponsorData;
+import Modelo.Conexion;
+import Modelo.Sponsor;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 /**
  *
  * @author Romi
@@ -16,8 +23,28 @@ public class frmiEliminarSponsor extends javax.swing.JInternalFrame {
      */
     public frmiEliminarSponsor() {
         initComponents();
+        cargarCbo();
     }
-
+    public void cargarCbo(){
+        try {
+            Conexion con = new Conexion();
+            SponsorData sponsor=new SponsorData(con);
+            
+            sponsor.buscarTodosSposor();
+            List<Sponsor> spone= sponsor.buscarTodosSposor();
+            for (int i = 0; i < spone.size(); i++) {
+                if(spone.get(i).isActivo()==true)
+                CboEliminarSponsor.addItem(spone.get(i)); 
+              
+            }
+             List<Sponsor> spona= sponsor.buscarTodosSposor();
+            for (int i = 0; i < spona.size(); i++) {
+                if(spona.get(i).isActivo()==false)
+                CboActivarSponsor.addItem(spona.get(i)); }
+        } catch (ClassNotFoundException ex) {
+            System.out.println("Error al cargar cbo" +ex);
+        }
+ }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -46,10 +73,20 @@ public class frmiEliminarSponsor extends javax.swing.JInternalFrame {
         jLabel37.setText("Activar");
 
         jButton1.setText("Eliminar");
+        jButton1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jButton1MouseClicked(evt);
+            }
+        });
 
         jLabel34.setText("Sponsor");
 
         btnActivar1.setText("Activar");
+        btnActivar1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnActivar1MouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -112,10 +149,34 @@ public class frmiEliminarSponsor extends javax.swing.JInternalFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void jButton1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton1MouseClicked
+        try {
+            Conexion con = new Conexion();
+            Sponsor s=new Sponsor();
+            SponsorData sponsor=new SponsorData(con);
+            s=(Sponsor)CboEliminarSponsor.getSelectedItem();
+            sponsor.bajaSponsor(s.getIdPatrocinadores());
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(frmiEliminarSponsor.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_jButton1MouseClicked
+
+    private void btnActivar1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnActivar1MouseClicked
+         try {
+            Conexion con = new Conexion();
+            Sponsor s=new Sponsor();
+            SponsorData sponsor=new SponsorData(con);
+            s=(Sponsor)CboEliminarSponsor.getSelectedItem();
+            sponsor.altaSponsor(s.getIdPatrocinadores());
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(frmiEliminarSponsor.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_btnActivar1MouseClicked
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JComboBox<String> CboActivarSponsor;
-    private javax.swing.JComboBox<String> CboEliminarSponsor;
+    private javax.swing.JComboBox<Sponsor> CboActivarSponsor;
+    private javax.swing.JComboBox<Sponsor> CboEliminarSponsor;
     private javax.swing.JButton btnActivar1;
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel34;

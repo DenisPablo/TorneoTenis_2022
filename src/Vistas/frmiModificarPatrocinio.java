@@ -5,6 +5,18 @@
  */
 package Vistas;
 
+import Data.PatrocinioData;
+import Data.SponsorData;
+import Modelo.Conexion;
+import Modelo.Jugador;
+import Modelo.Patrocinio;
+import Modelo.Sponsor;
+import java.text.DateFormat;
+import java.time.LocalDate;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 /**
  *
  * @author Romi
@@ -14,10 +26,34 @@ public class frmiModificarPatrocinio extends javax.swing.JInternalFrame {
     /**
      * Creates new form frmiModificarPatrocinio
      */
+     DateFormat df =DateFormat.getDateInstance();//para el JCalendar
     public frmiModificarPatrocinio() {
         initComponents();
+          cargarCbo();
     }
-
+public void cargarCbo(){
+        try {
+            Conexion con = new Conexion();
+            PatrocinioData patdat=new PatrocinioData(con);
+           
+            List<Patrocinio> patdats= patdat.buscarTodosPatrocinio();
+            for (int i = 0; i < patdats.size(); i++) {
+               
+                CboPatrocinio.addItem(patdats.get(i)); 
+            }
+            SponsorData sponsor=new SponsorData(con);
+            List<Sponsor> spone= sponsor.buscarTodosSposor();
+            for (int i = 0; i < spone.size(); i++) {
+                cboSponsor.addItem(spone.get(i)); 
+              
+            }
+            JugadorData jugador=new JugadorData(con);
+             List<Jugador> spona= jugador.buscarTodosJugadores();
+            for (int i = 0; i < jugador.size(); i++) {
+                cboJugador.addItem(jugador.get(i)); }
+        } catch (ClassNotFoundException ex) {
+            System.out.println("Error al cargar cbo" +ex);
+        }}
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -27,37 +63,25 @@ public class frmiModificarPatrocinio extends javax.swing.JInternalFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jLabel10 = new javax.swing.JLabel();
         cbActivo = new javax.swing.JCheckBox();
-        jLabel11 = new javax.swing.JLabel();
         jLabel12 = new javax.swing.JLabel();
         btnCargar = new javax.swing.JButton();
         cboIndumentaria = new javax.swing.JComboBox<>();
         cboSponsor = new javax.swing.JComboBox<>();
         cboJugador = new javax.swing.JComboBox<>();
-        tfDiaI = new javax.swing.JTextField();
-        tfMesI = new javax.swing.JTextField();
-        tfAñoI = new javax.swing.JTextField();
-        tfDiaF = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
-        jLabel6 = new javax.swing.JLabel();
-        jLabel7 = new javax.swing.JLabel();
-        jLabel8 = new javax.swing.JLabel();
-        tfMesF = new javax.swing.JTextField();
-        jLabel9 = new javax.swing.JLabel();
-        tfAñoF = new javax.swing.JTextField();
         jLabel13 = new javax.swing.JLabel();
-        jComboBox1 = new javax.swing.JComboBox<>();
+        CboPatrocinio = new javax.swing.JComboBox<>();
         jButton1 = new javax.swing.JButton();
         btnLimpiar = new javax.swing.JButton();
+        jcInicio = new com.toedter.calendar.JDateChooser();
+        jcFin = new com.toedter.calendar.JDateChooser();
 
         setClosable(true);
-
-        jLabel10.setText("MM");
 
         cbActivo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -65,11 +89,14 @@ public class frmiModificarPatrocinio extends javax.swing.JInternalFrame {
             }
         });
 
-        jLabel11.setText("AAAA");
-
         jLabel12.setText("Indumentaria");
 
         btnCargar.setText("Modificar");
+        btnCargar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnCargarMouseClicked(evt);
+            }
+        });
 
         cboIndumentaria.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Zapatillas", "Ropa", "Raquetas", "Relojes" }));
 
@@ -82,14 +109,6 @@ public class frmiModificarPatrocinio extends javax.swing.JInternalFrame {
         jLabel4.setText("Fecha Fin del Contrato");
 
         jLabel5.setText("Activo");
-
-        jLabel6.setText("DD");
-
-        jLabel7.setText("MM");
-
-        jLabel8.setText("AAAA");
-
-        jLabel9.setText("DD");
 
         jLabel13.setText("Patrocinio");
 
@@ -116,60 +135,44 @@ public class frmiModificarPatrocinio extends javax.swing.JInternalFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(cboSponsor, 0, 305, Short.MAX_VALUE)
                     .addComponent(cboJugador, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jComboBox1, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(CboPatrocinio, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(103, Short.MAX_VALUE)
+                .addContainerGap(46, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(jButton1)
-                        .addGap(38, 38, 38))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                            .addGap(135, 135, 135)
-                            .addComponent(jLabel5)
-                            .addGap(18, 18, 18)
-                            .addComponent(cbActivo)
-                            .addGap(170, 170, 170))
-                        .addGroup(layout.createSequentialGroup()
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addComponent(jButton1)
+                                .addGap(38, 38, 38))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                    .addGap(135, 135, 135)
+                                    .addComponent(jLabel5)
+                                    .addGap(18, 18, 18)
+                                    .addComponent(cbActivo)
+                                    .addGap(170, 170, 170))
                                 .addGroup(layout.createSequentialGroup()
                                     .addComponent(jLabel12)
                                     .addGap(93, 93, 93)
-                                    .addComponent(cboIndumentaria, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGroup(layout.createSequentialGroup()
-                                    .addGap(19, 19, 19)
-                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(jLabel3)
-                                        .addGroup(layout.createSequentialGroup()
-                                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                                .addComponent(tfDiaI)
-                                                .addComponent(tfMesI)
-                                                .addComponent(tfAñoI, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                            .addGap(18, 18, 18)
-                                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                                .addComponent(jLabel6)
-                                                .addComponent(jLabel7)
-                                                .addComponent(jLabel8))))
-                                    .addGap(37, 37, 37)
-                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(jLabel4)
-                                        .addGroup(layout.createSequentialGroup()
-                                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                                .addComponent(tfMesF, javax.swing.GroupLayout.Alignment.LEADING)
-                                                .addComponent(tfDiaF, javax.swing.GroupLayout.Alignment.LEADING)
-                                                .addComponent(tfAñoF, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                            .addGap(18, 18, 18)
-                                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                                .addComponent(jLabel10)
-                                                .addComponent(jLabel11)
-                                                .addComponent(jLabel9))))))
-                            .addGap(89, 89, 89)))
+                                    .addComponent(cboIndumentaria, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGap(155, 155, 155)))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addComponent(btnCargar)
+                                .addGap(18, 18, 18)
+                                .addComponent(btnLimpiar)
+                                .addGap(56, 56, 56))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addComponent(jcFin, javax.swing.GroupLayout.PREFERRED_SIZE, 171, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(55, 55, 55)))
+                        .addGroup(layout.createSequentialGroup()
+                            .addComponent(jLabel3)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jLabel4)
+                            .addGap(85, 85, 85)))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(btnCargar)
-                        .addGap(18, 18, 18)
-                        .addComponent(btnLimpiar)
-                        .addGap(56, 56, 56))))
+                        .addComponent(jcInicio, javax.swing.GroupLayout.PREFERRED_SIZE, 164, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(267, 267, 267))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -177,57 +180,44 @@ public class frmiModificarPatrocinio extends javax.swing.JInternalFrame {
                 .addGap(33, 33, 33)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel13)
-                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(CboPatrocinio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(22, 22, 22)
                 .addComponent(jButton1)
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1)
-                    .addComponent(cboSponsor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel2)
-                    .addComponent(cboJugador, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(42, 42, 42)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jLabel3))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
+                        .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel6)
-                            .addComponent(tfDiaI, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(tfDiaF, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                            .addComponent(jLabel1)
+                            .addComponent(cboSponsor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel7)
-                            .addComponent(tfMesI, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(tfMesF, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel8)
-                            .addComponent(tfAñoI, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(tfAñoF, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(jLabel2)
+                            .addComponent(cboJugador, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel9)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jLabel10)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jLabel11)))
-                .addGap(23, 23, 23)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel12, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(cboIndumentaria, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel5)
-                    .addComponent(cbActivo))
-                .addGap(28, 28, 28)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnCargar)
-                    .addComponent(btnLimpiar))
-                .addGap(70, 70, 70))
+                        .addGap(109, 109, 109)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel3)
+                            .addComponent(jLabel4))))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jcInicio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 93, Short.MAX_VALUE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel12, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(cboIndumentaria, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel5)
+                            .addComponent(cbActivo))
+                        .addGap(28, 28, 28)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(btnCargar)
+                            .addComponent(btnLimpiar))
+                        .addGap(70, 70, 70))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jcFin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
         );
 
         pack();
@@ -238,47 +228,53 @@ public class frmiModificarPatrocinio extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_cbActivoActionPerformed
 
     private void btnLimpiarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnLimpiarMouseClicked
-        tfAñoF.setText("");
-        tfAñoI.setText("");
-        tfDiaF.setText("");
-        tfDiaI.setText("");
-        tfMesF.setText("");
-        tfMesI.setText("");
+   
         cbActivo.setSelected(false);
         cboIndumentaria.setSelectedIndex(0);
         cboJugador.setSelectedIndex(0);
         cboSponsor.setSelectedIndex(0);
-        jComboBox1.setSelectedIndex(0);
+        CboPatrocinio.setSelectedIndex(0);
     }//GEN-LAST:event_btnLimpiarMouseClicked
+
+    private void btnCargarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCargarMouseClicked
+          try {
+            Conexion con = new Conexion();
+            Patrocinio p=new Patrocinio();
+             Sponsor s=new Sponsor();
+            Jugador j=new Jugador();
+            PatrocinioData pat=new PatrocinioData(con);
+            j=(Jugador) cboJugador.getSelectedItem();
+            p.setJugador(j);
+            s=(Sponsor) cboSponsor.getSelectedItem();
+            p.setPatrocinador(s);
+            String a=df.format(jcInicio.getDate().toString());
+            p.setFechaInicioContrato(LocalDate.parse(a));
+            p.setActivo(cbActivo.isSelected());
+            SponsorData sponsor=new SponsorData(con);
+            pat.modificadarPatrocicio(p);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(frmiAgregarSponsor.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_btnCargarMouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JComboBox<Patrocinio> CboPatrocinio;
     private javax.swing.JButton btnCargar;
     private javax.swing.JButton btnLimpiar;
     private javax.swing.JCheckBox cbActivo;
     private javax.swing.JComboBox<String> cboIndumentaria;
     private javax.swing.JComboBox<String> cboJugador;
-    private javax.swing.JComboBox<String> cboSponsor;
+    private javax.swing.JComboBox<Sponsor> cboSponsor;
     private javax.swing.JButton jButton1;
-    private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel10;
-    private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel7;
-    private javax.swing.JLabel jLabel8;
-    private javax.swing.JLabel jLabel9;
-    private javax.swing.JTextField tfAñoF;
-    private javax.swing.JTextField tfAñoI;
-    private javax.swing.JTextField tfDiaF;
-    private javax.swing.JTextField tfDiaI;
-    private javax.swing.JTextField tfMesF;
-    private javax.swing.JTextField tfMesI;
+    private com.toedter.calendar.JDateChooser jcFin;
+    private com.toedter.calendar.JDateChooser jcInicio;
     // End of variables declaration//GEN-END:variables
 }

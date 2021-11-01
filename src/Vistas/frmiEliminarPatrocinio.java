@@ -5,6 +5,13 @@
  */
 package Vistas;
 
+import Data.PatrocinioData;
+import Data.SponsorData;
+import Modelo.Conexion;
+import Modelo.Patrocinio;
+import Modelo.Sponsor;
+import java.util.List;
+
 /**
  *
  * @author Romi
@@ -16,8 +23,26 @@ public class frmiEliminarPatrocinio extends javax.swing.JInternalFrame {
      */
     public frmiEliminarPatrocinio() {
         initComponents();
+        cargarCbo();
     }
-
+public void cargarCbo(){
+        try {
+            Conexion con = new Conexion();
+            PatrocinioData sponsor=new PatrocinioData(con);
+           
+            List<Patrocinio> spone= sponsor.buscarTodosPatrocinio();
+            for (int i = 0; i < spone.size(); i++) {
+                if(spone.get(i).isActivo()==true)
+                CboEliminarPatrocinio.addItem(spone.get(i)); 
+              
+            }
+             List<Patrocinio> spona= sponsor.buscarTodosPatrocinio();
+            for (int i = 0; i < spona.size(); i++) {
+                if(spona.get(i).isActivo()==false)
+                CboActivarPatrocinio.addItem(spona.get(i)); }
+        } catch (ClassNotFoundException ex) {
+            System.out.println("Error al cargar cbo" +ex);
+        }}
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -28,9 +53,9 @@ public class frmiEliminarPatrocinio extends javax.swing.JInternalFrame {
     private void initComponents() {
 
         jLabel13 = new javax.swing.JLabel();
-        Cbo = new javax.swing.JComboBox<>();
+        CboEliminarPatrocinio = new javax.swing.JComboBox<>();
         jLabel14 = new javax.swing.JLabel();
-        jComboBox2 = new javax.swing.JComboBox<>();
+        CboActivarPatrocinio = new javax.swing.JComboBox<>();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
@@ -72,14 +97,14 @@ public class frmiEliminarPatrocinio extends javax.swing.JInternalFrame {
                     .addGap(10, 10, 10)
                     .addComponent(jLabel14)
                     .addGap(39, 39, 39)
-                    .addComponent(jComboBox2, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addComponent(CboActivarPatrocinio, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
                         .addComponent(jLabel13)
                         .addGap(39, 39, 39)
-                        .addComponent(Cbo, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(CboEliminarPatrocinio, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(152, 152, 152)
                         .addComponent(jLabel1)
@@ -94,7 +119,7 @@ public class frmiEliminarPatrocinio extends javax.swing.JInternalFrame {
                 .addGap(31, 31, 31)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel13)
-                    .addComponent(Cbo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(CboEliminarPatrocinio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(31, 31, 31)
                 .addComponent(jButton1)
                 .addGap(46, 46, 46)
@@ -102,7 +127,7 @@ public class frmiEliminarPatrocinio extends javax.swing.JInternalFrame {
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel14)
-                    .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(CboActivarPatrocinio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(38, 38, 38)
                 .addComponent(jButton2)
                 .addContainerGap(59, Short.MAX_VALUE))
@@ -113,10 +138,10 @@ public class frmiEliminarPatrocinio extends javax.swing.JInternalFrame {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JComboBox<String> Cbo;
+    private javax.swing.JComboBox<Patrocinio> CboActivarPatrocinio;
+    private javax.swing.JComboBox<Patrocinio> CboEliminarPatrocinio;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
-    private javax.swing.JComboBox<String> jComboBox2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
