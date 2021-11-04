@@ -21,11 +21,10 @@ public class Jugador {
     private String manoHabil;
     private int torneoGanados;
     private int ranking;
-    private Torneo torneo;
     private int puntaje;
     private boolean activo;
 
-    public Jugador(int idJugador, String nombre, int dni, LocalDate fechaNac, double altura, double peso, String estilo, String manoHabil, int torneoGanados, int ranking, Torneo torneo, int puntaje, boolean activo) {
+    public Jugador(int idJugador, String nombre, int dni, LocalDate fechaNac, double altura, double peso, String estilo, String manoHabil, int torneoGanados, int ranking, int puntaje, boolean activo) {
         this.idJugador = idJugador;
         this.nombre = nombre;
         this.dni = dni;
@@ -36,12 +35,11 @@ public class Jugador {
         this.manoHabil = manoHabil;
         this.torneoGanados = torneoGanados;
         this.ranking = ranking;
-        this.torneo = torneo;
         this.puntaje = puntaje;
         this.activo = activo;
     }
 
-    public Jugador(String nombre, int dni, LocalDate fechaNac, double altura, double peso, String estilo, String manoHabil, int torneoGanados, int ranking, Torneo torneo, int puntaje, boolean activo) {
+    public Jugador(String nombre, int dni, LocalDate fechaNac, double altura, double peso, String estilo, String manoHabil, int torneoGanados, int ranking, int puntaje, boolean activo) {
         this.nombre = nombre;
         this.dni = dni;
         this.fechaNac = fechaNac;
@@ -51,7 +49,6 @@ public class Jugador {
         this.manoHabil = manoHabil;
         this.torneoGanados = torneoGanados;
         this.ranking = ranking;
-        this.torneo = torneo;
         this.puntaje = puntaje;
         this.activo = activo;
     }
@@ -139,13 +136,6 @@ public class Jugador {
         this.ranking = ranking;
     }
 
-    public Torneo getTorneo() {
-        return torneo;
-    }
-
-    public void setTorneo(Torneo torneo) {
-        this.torneo = torneo;
-    }
 
     public int getPuntaje() {
         return puntaje;

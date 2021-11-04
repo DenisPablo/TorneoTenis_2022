@@ -15,14 +15,14 @@ public class Encuentro {
     private Jugador jugador1;
     private Jugador jugador2;
     private LocalDate fechaEncuentro;
-    private int resultado;
+    private String resultado;
     private Jugador jugadorGanador;
     private String estado;
-    private Estadio idEstadio;
+    private Estadio estadio;
     private boolean activo;
-    private Torneo idTorneo;
+    private Torneo torneo;
 
-    public Encuentro(int idPartido, Jugador jugador1, Jugador jugador2, LocalDate fechaEncuentro, int resultado, Jugador jugadorGanador, String estado, Estadio idEstadio, boolean activo, Torneo idTorneo) {
+    public Encuentro(int idPartido, Jugador jugador1, Jugador jugador2, LocalDate fechaEncuentro, String resultado, Jugador jugadorGanador, String estado, Estadio idEstadio, boolean activo, Torneo idTorneo) {
         this.idPartido = idPartido;
         this.jugador1 = jugador1;
         this.jugador2 = jugador2;
@@ -30,21 +30,21 @@ public class Encuentro {
         this.resultado = resultado;
         this.jugadorGanador = jugadorGanador;
         this.estado = estado;
-        this.idEstadio = idEstadio;
+        this.estadio = idEstadio;
         this.activo = activo;
-        this.idTorneo = idTorneo;
+        this.torneo = idTorneo;
     }
 
-    public Encuentro(Jugador jugador1, Jugador jugador2, LocalDate fechaEncuentro, int resultado, Jugador jugadorGanador, String estado, Estadio idEstadio, boolean activo, Torneo idTorneo) {
+    public Encuentro(Jugador jugador1, Jugador jugador2, LocalDate fechaEncuentro, String resultado, Jugador jugadorGanador, String estado, Estadio idEstadio, boolean activo, Torneo idTorneo) {
         this.jugador1 = jugador1;
         this.jugador2 = jugador2;
         this.fechaEncuentro = fechaEncuentro;
         this.resultado = resultado;
         this.jugadorGanador = jugadorGanador;
         this.estado = estado;
-        this.idEstadio = idEstadio;
+        this.estadio = idEstadio;
         this.activo = activo;
-        this.idTorneo = idTorneo;
+        this.torneo = idTorneo;
     }
 
     public Encuentro() {
@@ -82,11 +82,11 @@ public class Encuentro {
         this.fechaEncuentro = fechaEncuentro;
     }
 
-    public int getResultado() {
+    public String getResultado() {
         return resultado;
     }
 
-    public void setResultado(int resultado) {
+    public void setResultado(String resultado) {
         this.resultado = resultado;
     }
 
@@ -106,12 +106,12 @@ public class Encuentro {
         this.estado = estado;
     }
 
-    public Estadio getIdEstadio() {
-        return idEstadio;
+    public Estadio getEstadio() {
+        return estadio;
     }
 
-    public void setIdEstadio(Estadio idEstadio) {
-        this.idEstadio = idEstadio;
+    public void setEstadio(Estadio estadio) {
+        this.estadio = estadio;
     }
 
     public boolean isActivo() {
@@ -122,12 +122,12 @@ public class Encuentro {
         this.activo = activo;
     }
 
-    public Torneo getIdTorneo() {
-        return idTorneo;
+    public Torneo getTorneo() {
+        return torneo;
     }
 
-    public void setIdTorneo(Torneo idTorneo) {
-        this.idTorneo = idTorneo;
+    public void setTorneo(Torneo torneo) {
+        this.torneo = torneo;
     }
     
     

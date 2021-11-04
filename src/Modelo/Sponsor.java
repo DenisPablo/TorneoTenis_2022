@@ -9,21 +9,30 @@ package Modelo;
  * @author martinbordon
  */
 public class Sponsor {
-    private int idPatrocinadores;
+    private int idSponsor;
     private String marca;
     private boolean activo;
 
-    @Override
-    public String toString() {
-        return "Sponsor{" + "idPatrocinadores=" + idPatrocinadores + ", marca=" + marca + ", activo=" + activo + '}';
+    public Sponsor(int idSponsor, String marca, boolean activo) {
+        this.idSponsor = idSponsor;
+        this.marca = marca;
+        this.activo = activo;
     }
 
-    public int getIdPatrocinadores() {
-        return idPatrocinadores;
+    public Sponsor(String marca, boolean activo) {
+        this.marca = marca;
+        this.activo = activo;
     }
 
-    public void setIdPatrocinadores(int idPatrocinadores) {
-        this.idPatrocinadores = idPatrocinadores;
+    public Sponsor() {
+    }
+
+    public int getIdSponsor() {
+        return idSponsor;
+    }
+
+    public void setIdSponsor(int idSponsor) {
+        this.idSponsor = idSponsor;
     }
 
     public String getMarca() {
@@ -42,19 +51,11 @@ public class Sponsor {
         this.activo = activo;
     }
 
-    public Sponsor() {
+    @Override
+    public String toString() {
+        return "Sponsor{" + "idSponsor=" + idSponsor + ", marca=" + marca + ", activo=" + activo + '}';
     }
 
-    public Sponsor(String marca, boolean activo) {
-        this.marca = marca;
-        this.activo = activo;
-    }
-
-    public Sponsor(int idPatrocinadores, String marca, boolean activo) {
-        this.idPatrocinadores = idPatrocinadores;
-        this.marca = marca;
-        this.activo = activo;
-    }
-
+    
     
 }
