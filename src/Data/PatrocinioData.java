@@ -91,7 +91,7 @@ public class PatrocinioData {
                      pat = new Patrocinio();
                      pat.setIdPatrocinio(rs.getInt(1));
                      spon=s.buscarSponsor(rs.getInt(2));
-                     pat.setPatrocinador(spon);
+                     pat.setSponsor(spon);
                      jug=j.buscarJugador(rs.getInt(3));
                      pat.setJugador(jug);
                      pat.setFechaInicioContrato(rs.getDate(4).toLocalDate());
