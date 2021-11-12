@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.0.2
+-- version 5.1.1
 -- https://www.phpmyadmin.net/
 --
--- Servidor: localhost
--- Tiempo de generación: 05-11-2021 a las 00:11:44
--- Versión del servidor: 10.4.13-MariaDB
--- Versión de PHP: 7.4.8
+-- Servidor: 127.0.0.1
+-- Tiempo de generación: 12-11-2021 a las 17:24:48
+-- Versión del servidor: 10.4.21-MariaDB
+-- Versión de PHP: 8.0.11
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -18,7 +18,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Base de datos: `TenisFinal`
+-- Base de datos: `torneotenis2`
 --
 
 -- --------------------------------------------------------
@@ -28,7 +28,7 @@ SET time_zone = "+00:00";
 --
 
 CREATE TABLE `encuentro` (
-  `idPartido` int(11) NOT NULL,
+  `idEncuentro` int(11) NOT NULL,
   `jugador1` int(11) NOT NULL,
   `jugador2` int(11) NOT NULL,
   `fechaEncuentro` date NOT NULL,
@@ -70,10 +70,10 @@ CREATE TABLE `jugador` (
   `altura` double NOT NULL,
   `peso` double NOT NULL,
   `estilo` varchar(40) NOT NULL,
-  `manoHabil` tinyint(1) NOT NULL,
+  `manoHabil` varchar(30) NOT NULL,
   `torneosGanados` int(11) NOT NULL,
   `ranking` int(11) NOT NULL,
-  `idTorneo` int(11) NOT NULL,
+  `idPatrocinadores` int(11) NOT NULL,
   `puntaje` int(11) NOT NULL,
   `activo` tinyint(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
@@ -86,11 +86,12 @@ CREATE TABLE `jugador` (
 
 CREATE TABLE `patrocinio` (
   `idPatrocinio` int(11) NOT NULL,
-  `idPatrociador` int(11) NOT NULL,
+  `idSponsor` int(11) NOT NULL,
   `idJugador` int(11) NOT NULL,
   `fechIniContrato` date NOT NULL,
   `fechFinContrato` date NOT NULL,
-  `activo` tinyint(1) NOT NULL
+  `activo` tinyint(1) NOT NULL,
+  `Indumentaria` varchar(30) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -100,9 +101,8 @@ CREATE TABLE `patrocinio` (
 --
 
 CREATE TABLE `sponsor` (
-  `idPatrocinadores` int(11) NOT NULL,
+  `idSponsor` int(11) NOT NULL,
   `marca` varchar(40) NOT NULL,
-  `indumentaria` varchar(40) NOT NULL,
   `activo` tinyint(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -128,12 +128,11 @@ CREATE TABLE `torneo` (
 -- Indices de la tabla `encuentro`
 --
 ALTER TABLE `encuentro`
-  ADD PRIMARY KEY (`idPartido`),
+  ADD PRIMARY KEY (`idEncuentro`),
   ADD KEY `j1` (`jugador1`),
   ADD KEY `j2` (`jugador2`),
   ADD KEY `ganador2` (`jugadorGanador`),
-  ADD KEY `estadio` (`idEstadio`),
-  ADD KEY `torneo` (`idTorneo`);
+  ADD KEY `estadio` (`idEstadio`);
 
 --
 -- Indices de la tabla `estadio`
@@ -146,21 +145,21 @@ ALTER TABLE `estadio`
 --
 ALTER TABLE `jugador`
   ADD PRIMARY KEY (`idJugador`),
-  ADD KEY `Sponsor` (`idTorneo`);
+  ADD KEY `Sponsor` (`idPatrocinadores`);
 
 --
 -- Indices de la tabla `patrocinio`
 --
 ALTER TABLE `patrocinio`
   ADD PRIMARY KEY (`idPatrocinio`),
-  ADD KEY `patrocinio` (`idPatrociador`),
+  ADD KEY `patrocinio` (`idSponsor`),
   ADD KEY `jugador` (`idJugador`);
 
 --
 -- Indices de la tabla `sponsor`
 --
 ALTER TABLE `sponsor`
-  ADD PRIMARY KEY (`idPatrocinadores`);
+  ADD PRIMARY KEY (`idSponsor`);
 
 --
 -- Indices de la tabla `torneo`
@@ -176,7 +175,7 @@ ALTER TABLE `torneo`
 -- AUTO_INCREMENT de la tabla `encuentro`
 --
 ALTER TABLE `encuentro`
-  MODIFY `idPartido` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `idEncuentro` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT de la tabla `estadio`
@@ -194,7 +193,7 @@ ALTER TABLE `jugador`
 -- AUTO_INCREMENT de la tabla `sponsor`
 --
 ALTER TABLE `sponsor`
-  MODIFY `idPatrocinadores` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `idSponsor` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT de la tabla `torneo`
@@ -210,17 +209,18 @@ ALTER TABLE `torneo`
 -- Filtros para la tabla `encuentro`
 --
 ALTER TABLE `encuentro`
+  ADD CONSTRAINT `encuentro_ibfk_1` FOREIGN KEY (`idEncuentro`) REFERENCES `torneo` (`idTorneo`),
   ADD CONSTRAINT `estadio` FOREIGN KEY (`idEstadio`) REFERENCES `estadio` (`idEstadio`),
   ADD CONSTRAINT `j1` FOREIGN KEY (`jugador1`) REFERENCES `jugador` (`idJugador`),
   ADD CONSTRAINT `j2` FOREIGN KEY (`jugador2`) REFERENCES `jugador` (`idJugador`),
-  ADD CONSTRAINT `torneo` FOREIGN KEY (`idTorneo`) REFERENCES `torneo` (`idTorneo`);
+  ADD CONSTRAINT `jGanador` FOREIGN KEY (`jugadorGanador`) REFERENCES `jugador` (`idJugador`);
 
 --
 -- Filtros para la tabla `patrocinio`
 --
 ALTER TABLE `patrocinio`
   ADD CONSTRAINT `jugador` FOREIGN KEY (`idJugador`) REFERENCES `jugador` (`idJugador`),
-  ADD CONSTRAINT `patrocinio` FOREIGN KEY (`idPatrociador`) REFERENCES `sponsor` (`idPatrocinadores`);
+  ADD CONSTRAINT `patrocinio` FOREIGN KEY (`idSponsor`) REFERENCES `sponsor` (`idSponsor`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

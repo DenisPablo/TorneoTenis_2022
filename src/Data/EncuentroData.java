@@ -38,7 +38,7 @@ public class EncuentroData {
     
     public void agregarEncuentro(Encuentro en){
     
-     String sql = "INSERT INTO encuentro (jugador1,jugador2,fechaEncuentro,resultado,jugadorGanador,estado,IdEstadio,activo) VALUES (?,?,?,?,?,?,?,?)";
+     String sql = "INSERT INTO encuentro (jugador1,jugador2,fechaEncuentro,resultado,jugadorGanador,estado,activo) VALUES (?,?,?,?,?,?,?,?)";
 
      try{
         PreparedStatement ps = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
@@ -46,11 +46,11 @@ public class EncuentroData {
         ps.setObject(2, en.getJugador2());
         
          ps.setDate(3, Date.valueOf(en.getFechaEncuentro()));
-         ps.setInt(4,en.getResultado());
+         ps.setString(4,en.getResultado());
          ps.setObject(5, en.getJugadorGanador());
          
          ps.setString(6, en.getEstado());
-         ps.setObject(7, en.getIdEstadio());
+        
          ps.setBoolean(8, en.isActivo());
         
          ps.executeUpdate();
@@ -81,7 +81,7 @@ public class EncuentroData {
         en.setJugador2(rs.getObject(jugadorData.buscarjugador(rs.getInt("idJugador2")), Jugador));
  
         en.setFechaEncuentro(rs.getDate("fechaEncuentro").toLocalDate());
-        en.setResultado(rs.getInt("resultado"));
+        en.setResultado(rs.getString("resultado"));
         en.setJugadorGanador(rs.getObject(jugadorData.buscarjugador(rs.getInt("jugadorGanador")), Jugador));
         en.setEstado("estado");
         
