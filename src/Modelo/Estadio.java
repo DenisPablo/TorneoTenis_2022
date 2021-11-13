@@ -97,7 +97,7 @@ public class Estadio {
     }
     @Override
     public String toString() {
-        return "Estadio{" + "nombre=" + nombre + ", ciudad=" + ciudad + ", categoria=" + categoria + ", direccionComercial=" + direccionComercial + ", dimension=" + dimension + ", activo=" + activo + '}';
+        return "Estadio{" + "idEstadio=" + idEstadio + "nombre=" + nombre + ", ciudad=" + ciudad + ", categoria=" + categoria + ", direccionComercial=" + direccionComercial + ", dimension=" + dimension + ", activo=" + activo + '}';
     }
     
     

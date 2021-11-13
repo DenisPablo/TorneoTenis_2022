@@ -96,7 +96,7 @@ public class EncuentroData {
                 j3 = jugadorData.buscarPorID(rs.getInt(6));
                 en.setJugadorGanador(j3);
                 en.setEstado(rs.getString(7));
-                e1 = estadioData.bajaEstadio(rs.getInt(8));
+                e1 = estadioData.buscarEstadio(rs.getInt(8));
                 en.setEstadio(e1);
                 en.setActivo(rs.getBoolean(9));
                 t=torneoData.buscarTorneo(rs.getInt(10));

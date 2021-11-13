@@ -38,7 +38,7 @@ public class EstadioData {
      
        public void guardarEstadio(Estadio estadio) {
      
-            String sql = "INSERT INTO estadio(nombre,ciudad,categoria, activo, direccionComercial, dimension) VALUES (?,?,?,?,?,?)";
+            String sql = "INSERT INTO estadio(nombre,ciudad,categoria, activo, direComercial, dimension) VALUES (?,?,?,?,?,?)";
             try {
                 PreparedStatement ps = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
                 
@@ -81,7 +81,7 @@ public class EstadioData {
         return estadio;
 }     
 
-      public void modificadarSponsor (Estadio e) {
+      public void modificadarEstadio (Estadio e) {
         String sql = "UPDATE estadio SET `nombre`=?,`ciudad`=?,`categoria`=?,`activo`=?,`direComercial`=?,`dimension`=?  Where idEstadio=?";
         try{
             PreparedStatement ps = con.prepareStatement(sql);
