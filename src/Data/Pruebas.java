@@ -25,29 +25,36 @@ public class Pruebas {
     public static void main(String[] args) {
         
 //    //Guardar agregarEncuentro        
-         try {
-              Conexion con = new Conexion();
-              
-              EncuentroData encuD = new EncuentroData(con);
-              Encuentro encuentro = new Encuentro("Martin", "Denis",LocalDate.parse("1999-03-11"), "5-4","Martin","activo", "Monumental", true,"LigaA" ); 
-              encuD.agregarEncuentro(encuentro);
-              
-          } catch (ClassNotFoundException ex) {
-              Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
-          } 
+//         try {
+//              Conexion con = new Conexion();
+//              
+//              EncuentroData encuD = new EncuentroData(con);
+//              JugadorData juD = new JugadorData(con);
+//              Jugador j1 = juD.buscarJugador(4);
+//              Jugador j2 = juD.buscarJugador(5);
+//              EstadioData estD = new EstadioData(con);
+//              Estadio est1 = estD.buscarEstadio(es);
+//              Encuentro e1 = new Encuentro(j1, j2,LocalDate.parse("1999-03-11"), "5-4",j1,"activo", "Monumental", true,"LigaA");
+//              encuD.agregarEncuentro(en);
+//              
+//              encuD.agregarEncuentro(encuentro);
+//              
+//          } catch (ClassNotFoundException ex) {
+//              Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
+//          } 
          
 
    ////// Guardar Jugador          
-          try {
-              Conexion con = new Conexion();
-              JugadorData jugD = new JugadorData(con);
-              Jugador juga1 = new Jugador("Martin",12235235,LocalDate.parse("1996-03-19"),1.85,78.3,"agresivo","derecho",0,0,0,true);
-              Jugador juga2 = new Jugador("Denis",23565565,LocalDate.parse("1996-03-22"),1.78,78.3,"agresivo","Zurdo",0,0,0,true);
-              jugD.guardarJugador(juga1);
-              jugD.guardarJugador(juga2);
-          } catch (ClassNotFoundException ex) {
-              Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
-          }
+//          try {
+//              Conexion con = new Conexion();
+//              JugadorData jugD = new JugadorData(con);
+//              Jugador juga1 = new Jugador("Martin",12235235,LocalDate.parse("1996-03-19"),1.85,78.3,"agresivo","derecho",0,0,0,true);
+//              Jugador juga2 = new Jugador("Denis",23565565,LocalDate.parse("1996-03-22"),1.78,78.3,"agresivo","Zurdo",0,0,0,true);
+//              jugD.guardarJugador(juga1);
+//              jugD.guardarJugador(juga2);
+//          } catch (ClassNotFoundException ex) {
+//              Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
+//          }
 
 //////////  Guardar Estadio          
           try {
@@ -61,16 +68,16 @@ public class Pruebas {
           }
           
           
-           try {
-              Conexion con = new Conexion();
-              
-               TorneoData torneoD = new TorneoData(con);
-              Torneo to = new Torneo("LigaA",LocalDate.parse("2020-12-01"),LocalDate.parse("2020-12-29"), true); 
-              torneoD.agregarTorneo(to);
-              
-          } catch (ClassNotFoundException ex) {
-              Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
-          }
+//           try {
+//              Conexion con = new Conexion();
+//              
+//               TorneoData torneoD = new TorneoData(con);
+//              Torneo to = new Torneo("LigaA",LocalDate.parse("2020-12-01"),LocalDate.parse("2020-12-29"), true); 
+//              torneoD.agregarTorneo(to);
+//              
+//          } catch (ClassNotFoundException ex) {
+//              Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
+//          }
     }
     
 

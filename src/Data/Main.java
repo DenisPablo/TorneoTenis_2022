@@ -121,22 +121,22 @@ public class Main {
 // 
  /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //Guardar Patrocinio          
-          try {
-              Conexion con = new Conexion();
-              JugadorData jugD = new JugadorData(con);
-              Jugador jug = jugD.buscarJugador(4);
-              SponsorData sponD = new SponsorData(con);
-              Sponsor spon1 =sponD.buscarSponsor(2);
-              PatrocinioData patD=new PatrocinioData(con);
-              Patrocinio pat = new Patrocinio(spon1,jug,"Calsado",LocalDate.parse("2021-03-05"),LocalDate.parse("2025-03-05"),true);
-              Jugador jug2 = jugD.buscarJugador(5);
-              Sponsor spon2 =sponD.buscarSponsor(3);
-              Patrocinio pat1 = new Patrocinio(spon2,jug2,"Indumentaria",LocalDate.parse("2021-03-05"),LocalDate.parse("2025-03-05"),true);
-              patD.guardarPatrocinio(pat);
-              patD.guardarPatrocinio(pat1);
-          } catch (ClassNotFoundException ex) {
-              Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
-          }
+//          try {
+//              Conexion con = new Conexion();
+//              JugadorData jugD = new JugadorData(con);
+//              Jugador jug = jugD.buscarJugador(4);
+//              SponsorData sponD = new SponsorData(con);
+//              Sponsor spon1 =sponD.buscarSponsor(2);
+//              PatrocinioData patD=new PatrocinioData(con);
+//              Patrocinio pat = new Patrocinio(spon1,jug,"Calsado",LocalDate.parse("2021-03-05"),LocalDate.parse("2025-03-05"),true);
+//              Jugador jug2 = jugD.buscarJugador(5);
+//              Sponsor spon2 =sponD.buscarSponsor(3);
+//              Patrocinio pat1 = new Patrocinio(spon2,jug2,"Indumentaria",LocalDate.parse("2021-03-05"),LocalDate.parse("2025-03-05"),true);
+//              patD.guardarPatrocinio(pat);
+//              patD.guardarPatrocinio(pat1);
+//          } catch (ClassNotFoundException ex) {
+//              Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
+//          }
 ////Buscar Patrocinio
 //    try {
 //              Conexion con = new Conexion();
