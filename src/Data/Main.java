@@ -6,9 +6,12 @@
 package Data;
 
 import Modelo.Conexion;
+import Modelo.Encuentro;
+import Modelo.Estadio;
 import Modelo.Jugador;
 import Modelo.Patrocinio;
 import Modelo.Sponsor;
+import Modelo.Torneo;
 import java.time.LocalDate;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -121,32 +124,81 @@ public class Main {
 // 
  /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //Guardar Patrocinio          
-          try {
-              Conexion con = new Conexion();
-              JugadorData jugD = new JugadorData(con);
-              Jugador jug = jugD.buscarJugador(4);
-              SponsorData sponD = new SponsorData(con);
-              Sponsor spon1 =sponD.buscarSponsor(2);
-              PatrocinioData patD=new PatrocinioData(con);
-              Patrocinio pat = new Patrocinio(spon1,jug,"Calsado",LocalDate.parse("2021-03-05"),LocalDate.parse("2025-03-05"),true);
-              Jugador jug2 = jugD.buscarJugador(5);
-              Sponsor spon2 =sponD.buscarSponsor(3);
-              Patrocinio pat1 = new Patrocinio(spon2,jug2,"Indumentaria",LocalDate.parse("2021-03-05"),LocalDate.parse("2025-03-05"),true);
-              patD.guardarPatrocinio(pat);
-              patD.guardarPatrocinio(pat1);
-          } catch (ClassNotFoundException ex) {
-              Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
-          }
-////Buscar Patrocinio
-//    try {
+//          try {
 //              Conexion con = new Conexion();
 //              JugadorData jugD = new JugadorData(con);
 //              Jugador jug = jugD.buscarJugador(4);
+//              SponsorData sponD = new SponsorData(con);
+//              Sponsor spon1 =sponD.buscarSponsor(2);
+//              PatrocinioData patD=new PatrocinioData(con);
+//              Patrocinio pat = new Patrocinio(spon1,jug,"Calsado",LocalDate.parse("2021-03-05"),LocalDate.parse("2025-03-05"),true);
+//              Jugador jug2 = jugD.buscarJugador(5);
+//              Sponsor spon2 =sponD.buscarSponsor(3);
+//              Patrocinio pat1 = new Patrocinio(spon2,jug2,"Indumentaria",LocalDate.parse("2021-03-05"),LocalDate.parse("2025-03-05"),true);
+//              patD.guardarPatrocinio(pat);
+//              patD.guardarPatrocinio(pat1);
+//          } catch (ClassNotFoundException ex) {
+//              Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
+//          }
+////Buscar Patrocinio
+//    try {
+//              Conexion con = new Conexion();
+//              PatrocinioData patD=new PatrocinioData(con);
+//              Patrocinio pat = patD.buscarPatrocinio(1);
+//              System.out.println(pat.toString());
+//          } catch (ClassNotFoundException ex) {
+//              Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
+//          }
+////////modificar Patrocinio
+//        try {
+//              Conexion con = new Conexion();
+//              PatrocinioData patD=new PatrocinioData(con);
+//              Patrocinio pat = patD.buscarPatrocinio(1);
+//               System.out.println("Patrocinio sin modificar:"+pat.toString());
+//              pat.setIndumentaria("indumentaria");
+//              patD.modificadarPatrocicio(pat);
+//              Patrocinio pat1 =patD.buscarPatrocinio(1);
+//              System.out.println("Patrocinio Modificado: "+pat1.toString());
+//          } catch (ClassNotFoundException ex) {
+//              Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
+//          }
+//// //Desactivar y activar Patrocinio
+// try {
+//              Conexion con = new Conexion();
+//              
+//              PatrocinioData patD=new PatrocinioData(con);
+//              patD.bajaPatrocinio(1);
+//              Patrocinio pat =patD.buscarPatrocinio(1);
+//              System.out.println("Desactivar: "+pat.toString());
+//              patD.altaSponsor(1);
+//              Patrocinio pat1 =patD.buscarPatrocinio(1);
+//              System.out.println("Activar: "+pat1.toString());
+//              
+//          } catch (ClassNotFoundException ex) {
+//              Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
+//          }
+// //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//Guardar Estadio          
+//          try {
+//              Conexion con = new Conexion();
+//              EstadioData estD = new EstadioData(con);
+//              Estadio est = new Estadio("Juan Gilberto Funes","La Punta","Cemento",true,"Av Los Tilos","20*30");
+//              Estadio est1 = new Estadio("La Lucha","San Luis","cesped",true,"Av Los puqios","25*30");
+//              estD.guardarEstadio(est);
+//              estD.guardarEstadio(est1);
+//          } catch (ClassNotFoundException ex) {
+//              Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
+//          }
+////Buscar Estadio
+//    try {
+//              Conexion con = new Conexion();
+//               EstadioData estD = new EstadioData(con);
+//              Estadio est  = estD.buscarEstadio(0)
 //              System.out.println(jug.toString());
 //          } catch (ClassNotFoundException ex) {
 //              Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
 //          }
-//////modificar Patrocinio
+//////modificar Estadio
 //        try {
 //              Conexion con = new Conexion();
 //              JugadorData jugD = new JugadorData(con);
@@ -157,7 +209,7 @@ public class Main {
 //          } catch (ClassNotFoundException ex) {
 //              Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
 //          }
-// //Desactivar y activar Patrocinio
+// //Desactivar y activar Estadio
 // try {
 //              Conexion con = new Conexion();
 //              
@@ -172,8 +224,28 @@ public class Main {
 //          } catch (ClassNotFoundException ex) {
 //              Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
 //          }
+//          
 //  
-
+//Guardar agregarEncuentro        
+         try {
+              Conexion con = new Conexion();
+              
+              EncuentroData encuD = new EncuentroData(con);
+              JugadorData juD = new JugadorData(con);
+              Jugador j1 = juD.buscarJugador(4);
+              Jugador j2 = juD.buscarJugador(5);
+              EstadioData estD = new EstadioData(con);
+              Estadio est1 = estD.buscarEstadio(3);
+              Torneo t=new Torneo();
+              TorneoData  td=new TorneoData(con);
+              t=td.buscarTorneo(2);
+              Encuentro e1 = new Encuentro(j1, j2,LocalDate.parse("1999-03-11"), "5-4",j1,"activo", est1, true,t);
+              encuD.agregarEncuentro(e1);
+              
+              
+          } catch (ClassNotFoundException ex) {
+              Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
+          }
 }
 
 }

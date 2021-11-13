@@ -41,20 +41,19 @@ public class EncuentroData {
     
     public void agregarEncuentro(Encuentro en){
     
-     String sql = "INSERT INTO encuentro (jugador1,jugador2,fechaEncuentro,resultado,jugadorGanador,estado,activo) VALUES (?,?,?,?,?,?,?,?)";
+     String sql = "INSERT INTO encuentro (`jugador1`, `jugador2`, `fechaEncuentro`, `resultado`, `jugadorGanador`, `estado`, `idEstadio`, `activo`, `idTorneo`) VALUES (?,?,?,?,?,?,?,?,?)";
 
      try{
         PreparedStatement ps = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
-        ps.setObject(1,en.getJugador1());
-        ps.setObject(2, en.getJugador2());
-        
+        ps.setObject(1,en.getJugador1().getIdJugador());
+        ps.setObject(2, en.getJugador2().getIdJugador());
          ps.setDate(3, Date.valueOf(en.getFechaEncuentro()));
          ps.setString(4,en.getResultado());
-         ps.setObject(5, en.getJugadorGanador());
-         
+         ps.setObject(5, en.getJugadorGanador().getIdJugador());
          ps.setString(6, en.getEstado());
-        
+         ps.setObject(7, en.getEstadio().getIdEstadio());
          ps.setBoolean(8, en.isActivo());
+         ps.setObject(9, en.getTorneo().getIdTorneo());
         
          ps.executeUpdate();
          System.out.println("Encuentro Guardado con Exito");

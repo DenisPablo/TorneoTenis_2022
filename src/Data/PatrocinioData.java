@@ -58,8 +58,7 @@ public class PatrocinioData {
                Jugador j1 = new Jugador();
                j1 = patrocinio.getJugador();
                j1.setPuntaje( j1.getPuntaje() +1);
-               
-                 Conexion con;
+               Conexion con;
                 try {
                     con = new Conexion();
                     JugadorData jd = new JugadorData(con);
@@ -77,7 +76,7 @@ public class PatrocinioData {
         }}
  
      public void modificadarPatrocicio (Patrocinio patrocinio) {
-        String sql = "UPDATE patrocinio SET `idPatrocinio`=?,`idSponsor`=?,`idJugador`=?,`fechIniContrato`=?,`fechFinContrato`=?,`activo`=?,'indumentaria'=? Where `idPatrocinio`=?";
+        String sql = "UPDATE patrocinio SET `idPatrocinio`=?,`idSponsor`=?,`idJugador`=?,`fechIniContrato`=?,`fechFinContrato`=?,`activo`=?,`indumentaria`=? Where `idPatrocinio`=?";
         try{
             PreparedStatement ps = con.prepareStatement(sql);
             ps.setInt(1, patrocinio.getIdPatrocinio());
@@ -87,12 +86,13 @@ public class PatrocinioData {
             ps.setDate(5,Date.valueOf(  patrocinio.getFechaFinContrato()));
             ps.setBoolean(6,patrocinio.isActivo());
             ps.setString(7, patrocinio.getIndumentaria()); 
+             ps.setInt(8, patrocinio.getIdPatrocinio());
             ps.executeUpdate();
             ps.close();
-                System.out.println("Materia modificada con exito.");
+                System.out.println("Patrocinio modificada con exito.");
         }
         catch (SQLException ex){
-                System.out.println("Error al actualizar materia: "+ex);
+                System.out.println("Error al actualizar Patrocinio: "+ex);
         }
 
  }
