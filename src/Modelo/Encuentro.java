@@ -14,7 +14,7 @@ public class Encuentro {
     private int idEncuentro; 
     private Jugador jugador1;
     private Jugador jugador2;
-    private LocalDate fechaEncuentro;
+    private LocalDate fechaEncuentro; 
     private String resultado= "0-0";
     private Jugador jugadorGanador;
     private String estado = "Pendiente";
