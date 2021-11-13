@@ -82,7 +82,25 @@ public class TorneoData {
     }
     
     return t;
-}
+}  public void modificadarTorneo (Torneo t) {
+        String sql = "UPDATE `torneo` SET `nombre`=?,`fechaNacInicio`=?,`fechaNacFinal`=?,`activo`=? WHERE idTorneo=?";
+        try{
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setString(1,t.getNombre());
+            ps.setDate(2, Date.valueOf(t.getFechaNacInicio()));
+            ps.setDate(3, Date.valueOf(t.getFehcaNacFinal()));
+            ps.setBoolean(4, t.isActivo());
+            ps.setInt(5, t.getIdTorneo());
+
+            ps.executeUpdate();
+            ps.close();
+                System.out.println("Sponsor modificada con exito.");
+        }
+        catch (SQLException ex){
+                System.out.println("Error al actualizar sponsor: "+ex);
+        }
+
+ }
      
  
      public void darBajaTorneo(int id){
@@ -189,13 +207,7 @@ public class TorneoData {
          return resultado;
      }
      
-     public List<Sponsor> listarSponsors(){
-     
-         ArrayList<Sponsor> resultados = new ArrayList();
-         
-         
-         return resultados;
-     }
+
      
      
     

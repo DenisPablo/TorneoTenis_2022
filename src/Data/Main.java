@@ -23,7 +23,7 @@ import java.util.logging.Logger;
 public class Main {
       public static void main(String[] args) {
           
-//Guardar Sponsor          
+////Guardar Sponsor          
 //          try {
 //              Conexion con = new Conexion();
 //              
@@ -72,9 +72,9 @@ public class Main {
 //          } catch (ClassNotFoundException ex) {
 //              Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
 //          }
-        
+//        
 // //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-//Guardar Jugador          
+////Guardar Jugador          
 //          try {
 //              Conexion con = new Conexion();
 //              JugadorData jugD = new JugadorData(con);
@@ -122,8 +122,8 @@ public class Main {
 //          }
 //          
 // 
- /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-//Guardar Patrocinio          
+// ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+////Guardar Patrocinio          
 //          try {
 //              Conexion con = new Conexion();
 //              JugadorData jugD = new JugadorData(con);
@@ -178,7 +178,7 @@ public class Main {
 //              Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
 //          }
 // //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-//Guardar Estadio          
+////Guardar Estadio          
 //          try {
 //              Conexion con = new Conexion();
 //              EstadioData estD = new EstadioData(con);
@@ -204,7 +204,7 @@ public class Main {
 //              EstadioData estD = new EstadioData(con);
 //              Estadio est  = estD.buscarEstadio(3); 
 //              est.setCategoria("Cemento");
-//              estD.modificadarSponsor(est);
+//              estD.modificadarEstadio(est);
 //              System.out.println(est.toString());
 //          } catch (ClassNotFoundException ex) {
 //              Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
@@ -245,7 +245,7 @@ public class Main {
 //          } catch (ClassNotFoundException ex) {
 //              Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
 //          }
-///Buscar Encuentro
+////Buscar Encuentro
 // try {
 //              Conexion con = new Conexion();
 //               EncuentroData encuD = new EncuentroData(con);
@@ -281,8 +281,53 @@ public class Main {
 //              Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
 //          }
 //          
-//  //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
+  //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//Guardar Torneo        
+//         try {
+//              Conexion con = new Conexion();
+//              TorneoData torD = new TorneoData(con);
+//              Torneo tor = new Torneo("The Champion",LocalDate.parse("2021-03-11"),LocalDate.parse("2022-03-11"),true);
+//              torD.agregarTorneo(tor);
+//          } catch (ClassNotFoundException ex) {
+//              Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
+//          }
+////Buscar Torneo
+// try {
+//              Conexion con = new Conexion();
+//               TorneoData torD = new TorneoData(con);
+//              Torneo tor =  torD.buscarTorneo(2);
+//              System.out.println(tor.toString());
+//          } catch (ClassNotFoundException ex) {
+//              Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
+//          }
+//////////modificar Torneo
+//        try {
+//              Conexion con = new Conexion();
+//              TorneoData torD = new TorneoData(con);
+//              Torneo tor = torD.buscarTorneo(2);
+//              tor.setFechaNacInicio(LocalDate.parse("2021-01-11"));
+//              torD.modificadarTorneo(tor);
+//              Torneo t1 = torD.buscarTorneo(2);
+//              System.out.println(t1.toString());
+//          } catch (ClassNotFoundException ex) {
+//              Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
+//          }
+//// //Desactivar y activar Torneo
+ try {
+              Conexion con = new Conexion();
+               TorneoData torD = new TorneoData(con);
+              torD.darBajaTorneo(2);
+              Torneo t  = torD.buscarTorneo(2);
+              System.out.println(t.toString());
+              torD.darAltaTorneo(2);
+               Torneo t1  = torD.buscarTorneo(2);
+              System.out.println(t1.toString());
+              
+          } catch (ClassNotFoundException ex) {
+              Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
+          }
+          
 }
 
 }
