@@ -190,42 +190,42 @@ public class Main {
 //              Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
 //          }
 ////Buscar Estadio
-    try {
-              Conexion con = new Conexion();
-               EstadioData estD = new EstadioData(con);
-              Estadio est  = estD.buscarEstadio(3);
-              System.out.println(est.toString());
-          } catch (ClassNotFoundException ex) {
-              Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
-          }
-//////modificar Estadio
-        try {
-              Conexion con = new Conexion();
-              EstadioData estD = new EstadioData(con);
-              Estadio est  = estD.buscarEstadio(3); 
-              est.setCategoria("Cemento");
-              estD.modificadarSponsor(est);
-              System.out.println(est.toString());
-          } catch (ClassNotFoundException ex) {
-              Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
-          }
-// //Desactivar y activar Estadio
- try {
-              Conexion con = new Conexion();
-             EstadioData estD = new EstadioData(con);
-              estD.bajaEstadio(3);
-              Estadio est  = estD.buscarEstadio(3); 
-              System.out.println(est.toString());
-              estD.altaEstadio(3);
-              Estadio est1  = estD.buscarEstadio(3); 
-              System.out.println(est1.toString());
-              
-          } catch (ClassNotFoundException ex) {
-              Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
-          }
-          
-  
-//Guardar agregarEncuentro        
+//    try {
+//              Conexion con = new Conexion();
+//               EstadioData estD = new EstadioData(con);
+//              Estadio est  = estD.buscarEstadio(3);
+//              System.out.println(est.toString());
+//          } catch (ClassNotFoundException ex) {
+//              Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
+//          }
+////////modificar Estadio
+//        try {
+//              Conexion con = new Conexion();
+//              EstadioData estD = new EstadioData(con);
+//              Estadio est  = estD.buscarEstadio(3); 
+//              est.setCategoria("Cemento");
+//              estD.modificadarSponsor(est);
+//              System.out.println(est.toString());
+//          } catch (ClassNotFoundException ex) {
+//              Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
+//          }
+//// //Desactivar y activar Estadio
+// try {
+//              Conexion con = new Conexion();
+//             EstadioData estD = new EstadioData(con);
+//              estD.bajaEstadio(3);
+//              Estadio est  = estD.buscarEstadio(3); 
+//              System.out.println(est.toString());
+//              estD.altaEstadio(3);
+//              Estadio est1  = estD.buscarEstadio(3); 
+//              System.out.println(est1.toString());
+//              
+//          } catch (ClassNotFoundException ex) {
+//              Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
+//          }
+//          
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//Guardar Encuentro        
 //         try {
 //              Conexion con = new Conexion();
 //              
@@ -245,6 +245,43 @@ public class Main {
 //          } catch (ClassNotFoundException ex) {
 //              Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
 //          }
+///Buscar Encuentro
+ try {
+              Conexion con = new Conexion();
+               EncuentroData encuD = new EncuentroData(con);
+              Encuentro e1 =  encuD.buscarEncuentro(2);
+              System.out.println(e1.toString());
+          } catch (ClassNotFoundException ex) {
+              Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
+          }
+////////modificar Encuentro
+        try {
+              Conexion con = new Conexion();
+              EncuentroData encuD = new EncuentroData(con);
+              Encuentro e1 = encuD.buscarEncuentro(2);
+              e1.setResultado("60-30");
+              encuD.modificarEncuentro(e1);
+              Encuentro e11 = encuD.buscarEncuentro(2);
+              System.out.println(e11.toString());
+          } catch (ClassNotFoundException ex) {
+              Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
+          }
+//// //Desactivar y activar Encuentro
+// try {
+//              Conexion con = new Conexion();
+//             EstadioData estD = new EstadioData(con);
+//              estD.bajaEstadio(3);
+//              Estadio est  = estD.buscarEstadio(3); 
+//              System.out.println(est.toString());
+//              estD.altaEstadio(3);
+//              Estadio est1  = estD.buscarEstadio(3); 
+//              System.out.println(est1.toString());
+//              
+//          } catch (ClassNotFoundException ex) {
+//              Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
+//          }
+//          
+//  
 }
 
 }

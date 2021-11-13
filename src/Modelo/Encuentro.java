@@ -129,6 +129,10 @@ public class Encuentro {
     public void setTorneo(Torneo torneo) {
         this.torneo = torneo;
     }
+    @Override
+    public String toString() {
+        return "Encuentro{" + "idEncuentro=" + idEncuentro + ", jugador1=" + jugador1 + ", jugador2=" + jugador2 + ", fechaEncuentro=" + fechaEncuentro + ", resultado=" + resultado + ", jugadorGanador=" + jugadorGanador + ", estado=" + estado + ", estadio=" + estadio + ", activo=" + activo + ", torneo=" + torneo + '}';
+    }
     
 }
 

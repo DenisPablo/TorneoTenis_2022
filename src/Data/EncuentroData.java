@@ -10,6 +10,7 @@ import Modelo.Encuentro;
 import Modelo.Estadio;
 import Modelo.Jugador;
 import Modelo.Sponsor;
+import Modelo.Torneo;
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
@@ -69,51 +70,38 @@ public class EncuentroData {
        Encuentro en = new Encuentro();
         
     try{
-        
         Jugador j1 = new Jugador();
         Jugador j2 = new Jugador();
         Jugador j3 = new Jugador();
-    
         Estadio e1 = new Estadio();
-        
-        
+        Torneo t =new Torneo();
         Conexion con1 = new Conexion();
-        
-               
         JugadorData jugadorData = new JugadorData(con1);
         EstadioData estadioData = new EstadioData(con1);
-        
-        
-        String sql = "SELECT * FROM encuentro Where idEncuentro=?";
-        
+        TorneoData torneoData=new TorneoData(con1);
+        String sql = "SELECT * FROM `encuentro` WHERE encuentro.idEncuentro=?";
         try{
 
             PreparedStatement ps = con.prepareStatement(sql);
             ps.setInt(1, id);
             ResultSet rs = ps.executeQuery();
             if(rs.next()) {
-        
-                en.setIdEncuentro(rs.getInt("id"));
-                
-                j1 = jugadorData.buscarPorID(rs.getInt("Jugador1"));
+                en.setIdEncuentro(rs.getInt(1));
+                j1 = jugadorData.buscarPorID(rs.getInt(2));
                 en.setJugador1(j1);
-                
-                j2 = jugadorData.buscarPorID(rs.getInt("Jugador2"));
+                j2 = jugadorData.buscarPorID(rs.getInt(3));
                 en.setJugador1(j2);
-                
-                j3 = jugadorData.buscarPorID(rs.getInt("JugadorGanador"));
+                en.setFechaEncuentro(rs.getDate(4).toLocalDate());
+                en.setResultado(rs.getString(5));
+                j3 = jugadorData.buscarPorID(rs.getInt(6));
                 en.setJugadorGanador(j3);
-
-                
-                e1 = estadioData.bajaEstadio(rs.getInt("idEstadio"));
+                en.setEstado(rs.getString(7));
+                e1 = estadioData.bajaEstadio(rs.getInt(8));
                 en.setEstadio(e1);
+                en.setActivo(rs.getBoolean(9));
+                t=torneoData.buscarTorneo(rs.getInt(10));
+                en.setTorneo(t);
                 
-                en.setFechaEncuentro(rs.getDate("fechaEncuentro").toLocalDate());
-                en.setResultado(rs.getString("resultado"));
-                en.setEstado("estado");
-                
-               
-                en.setActivo(rs.getBoolean("activo"));
             }
         }
         catch(SQLException ex){
@@ -269,22 +257,20 @@ public class EncuentroData {
     
     public void modificarEncuentro(Encuentro en){
     
-        String sql = "UPDATE encuentro SET jugador1=?, jugador2=?, fechaEncuentro=?, resultado=?, jugadorGanador=?, estado=?, idEstadio=? , activo=?, idTorneo=? Where idEncuentro=?";
+        String sql = "UPDATE encuentro SET `jugador1`=?,`jugador2`=?,`fechaEncuentro`=?,`resultado`=?,`jugadorGanador`=?,`estado`=?,`idEstadio`=?,`activo`=?,`idTorneo`=? Where idEncuentro=?";
         
         try {
         PreparedStatement ps = con.prepareStatement(sql);
-            
-         ps.setObject(1,en.getJugador1());
-         ps.setObject(2, en.getJugador2());
-        
+         ps.setObject(1,en.getJugador1().getIdJugador());
+         ps.setObject(2, en.getJugador2().getIdJugador());
          ps.setDate(3, Date.valueOf(en.getFechaEncuentro()));
          ps.setString(4,en.getResultado());
-         ps.setObject(5, en.getJugadorGanador());
-         
+         ps.setObject(5, en.getJugadorGanador().getIdJugador());
          ps.setString(6, en.getEstado());
-        
-         
+         ps.setObject(7, en.getEstadio().getIdEstadio());
          ps.setBoolean(8, en.isActivo());
+         ps.setObject(9, en.getTorneo().getIdTorneo());
+         ps.setInt(10, en.getIdEncuentro());
          ps.executeUpdate();
          ps.close();
 
