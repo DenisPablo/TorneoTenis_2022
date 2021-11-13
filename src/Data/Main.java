@@ -190,62 +190,61 @@ public class Main {
 //              Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
 //          }
 ////Buscar Estadio
-//    try {
-//              Conexion con = new Conexion();
-//               EstadioData estD = new EstadioData(con);
-//              Estadio est  = estD.buscarEstadio(0)
-//              System.out.println(jug.toString());
-//          } catch (ClassNotFoundException ex) {
-//              Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
-//          }
-//////modificar Estadio
-//        try {
-//              Conexion con = new Conexion();
-//              JugadorData jugD = new JugadorData(con);
-//              Jugador jug = new Jugador(4,"Julio",12235235,LocalDate.parse("1996-03-23"),1.78,78.3,"agresivo","derecho",0,0,0,true); 
-//              jugD.actualizarJugador(jug);
-//              Jugador jug1 =jugD.buscarJugador(4);
-//              System.out.println(jug1.toString());
-//          } catch (ClassNotFoundException ex) {
-//              Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
-//          }
-// //Desactivar y activar Estadio
-// try {
-//              Conexion con = new Conexion();
-//              
-//              JugadorData jugD = new JugadorData(con);
-//              jugD.desactivarJugador(4);
-//              Jugador jug =jugD.buscarPorID(4);
-//              System.out.println(jug.toString());
-//              jugD.activarJugador(4);
-//              Jugador jug1 =jugD.buscarPorID(4);
-//              System.out.println(jug1.toString());
-//              
-//          } catch (ClassNotFoundException ex) {
-//              Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
-//          }
-//          
-//  
-//Guardar agregarEncuentro        
-         try {
+    try {
               Conexion con = new Conexion();
-              
-              EncuentroData encuD = new EncuentroData(con);
-              JugadorData juD = new JugadorData(con);
-              Jugador j1 = juD.buscarJugador(4);
-              Jugador j2 = juD.buscarJugador(5);
+               EstadioData estD = new EstadioData(con);
+              Estadio est  = estD.buscarEstadio(3);
+              System.out.println(est.toString());
+          } catch (ClassNotFoundException ex) {
+              Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
+          }
+//////modificar Estadio
+        try {
+              Conexion con = new Conexion();
               EstadioData estD = new EstadioData(con);
-              Estadio est1 = estD.buscarEstadio(3);
-              Torneo t=new Torneo();
-              TorneoData  td=new TorneoData(con);
-              t=td.buscarTorneo(2);
-              Encuentro e1 = new Encuentro(j1, j2,LocalDate.parse("1999-03-11"), "5-4",j1,"activo", est1, true,t);
-              encuD.agregarEncuentro(e1);
-              
+              Estadio est  = estD.buscarEstadio(3); 
+              est.setCategoria("Cemento");
+              estD.modificadarSponsor(est);
+              System.out.println(est.toString());
+          } catch (ClassNotFoundException ex) {
+              Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
+          }
+// //Desactivar y activar Estadio
+ try {
+              Conexion con = new Conexion();
+             EstadioData estD = new EstadioData(con);
+              estD.bajaEstadio(3);
+              Estadio est  = estD.buscarEstadio(3); 
+              System.out.println(est.toString());
+              estD.altaEstadio(3);
+              Estadio est1  = estD.buscarEstadio(3); 
+              System.out.println(est1.toString());
               
           } catch (ClassNotFoundException ex) {
               Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
           }
+          
+  
+//Guardar agregarEncuentro        
+//         try {
+//              Conexion con = new Conexion();
+//              
+//              EncuentroData encuD = new EncuentroData(con);
+//              JugadorData juD = new JugadorData(con);
+//              Jugador j1 = juD.buscarJugador(4);
+//              Jugador j2 = juD.buscarJugador(5);
+//              EstadioData estD = new EstadioData(con);
+//              Estadio est1 = estD.buscarEstadio(3);
+//              Torneo t=new Torneo();
+//              TorneoData  td=new TorneoData(con);
+//              t=td.buscarTorneo(2);
+//              Encuentro e1 = new Encuentro(j1, j2,LocalDate.parse("1999-03-11"), "5-4",j1,"activo", est1, true,t);
+//              encuD.agregarEncuentro(e1);
+//              
+//              
+//          } catch (ClassNotFoundException ex) {
+//              Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
+//          }
 }
 
 }

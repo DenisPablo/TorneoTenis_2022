@@ -16,7 +16,8 @@ public class Estadio {
     private boolean activo;
     private String direccionComercial;
     private String dimension;
-
+    
+    
     public Estadio(int idEstadio, String nombre, String ciudad, String categoria, boolean activo, String direccionComercial, String dimension) {
         this.idEstadio = idEstadio;
         this.nombre = nombre;
@@ -94,7 +95,10 @@ public class Estadio {
     public void setDimension(String dimension) {
         this.dimension = dimension;
     }
-    
+    @Override
+    public String toString() {
+        return "Estadio{" + "nombre=" + nombre + ", ciudad=" + ciudad + ", categoria=" + categoria + ", direccionComercial=" + direccionComercial + ", dimension=" + dimension + ", activo=" + activo + '}';
+    }
     
     
     

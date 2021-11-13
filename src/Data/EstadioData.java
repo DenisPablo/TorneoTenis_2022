@@ -66,11 +66,12 @@ public class EstadioData {
          if(rs.next()) {
             estadio = new Estadio();
             estadio.setIdEstadio(rs.getInt(1));
-            estadio.setCiudad(rs.getString(2));
-            estadio.setCategoria(rs.getString(3));
-            estadio.setActivo(rs.getBoolean(4));
-            estadio.setDireccionComercial(rs.getString(5));
-            estadio.setDimension(rs.getString(6));
+            estadio.setNombre(rs.getString(2));
+            estadio.setCiudad(rs.getString(3));
+            estadio.setCategoria(rs.getString(4));
+            estadio.setActivo(rs.getBoolean(5));
+            estadio.setDireccionComercial(rs.getString(6));
+            estadio.setDimension(rs.getString(7));
             
         }   
         }
@@ -81,15 +82,16 @@ public class EstadioData {
 }     
 
       public void modificadarSponsor (Estadio e) {
-        String sql = "UPDATE estadio SET ciudad=?, direccionComercial=?, dimension=?, activo=?,  Where idEstadio=?";
+        String sql = "UPDATE estadio SET `nombre`=?,`ciudad`=?,`categoria`=?,`activo`=?,`direComercial`=?,`dimension`=?  Where idEstadio=?";
         try{
             PreparedStatement ps = con.prepareStatement(sql);
-            ps.setString(1,e.getCiudad());
-            ps.setString(2, e.getCategoria());
-            ps.setString(3, e.getDireccionComercial());
-            ps.setString(4, e.getDimension());
-            ps.setBoolean(5, e.isActivo());
-            ps.setInt(6, e.getIdEstadio());
+            ps.setString(1,e.getNombre());
+            ps.setString(2,e.getCiudad());
+            ps.setString(3, e.getCategoria());
+             ps.setBoolean(4, e.isActivo());
+            ps.setString(5, e.getDireccionComercial());
+            ps.setString(6, e.getDimension());
+            ps.setInt(7, e.getIdEstadio());
 
             ps.executeUpdate();
             ps.close();
@@ -102,7 +104,7 @@ public class EstadioData {
        
        public Estadio bajaEstadio (int id){
          Estadio estadio = new Estadio();
-         String sql = "UPDATE estadio SET activo=? WHERE idSponsor=?";
+         String sql = "UPDATE estadio SET activo=? WHERE idEstadio=?";
          try{
          PreparedStatement ps = con.prepareStatement(sql);
             ps.setBoolean(1, false);
