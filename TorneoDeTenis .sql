@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 12-11-2021 a las 17:24:48
+-- Tiempo de generación: 13-11-2021 a las 04:20:46
 -- Versión del servidor: 10.4.21-MariaDB
 -- Versión de PHP: 8.0.11
 
@@ -73,10 +73,17 @@ CREATE TABLE `jugador` (
   `manoHabil` varchar(30) NOT NULL,
   `torneosGanados` int(11) NOT NULL,
   `ranking` int(11) NOT NULL,
-  `idPatrocinadores` int(11) NOT NULL,
   `puntaje` int(11) NOT NULL,
   `activo` tinyint(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Volcado de datos para la tabla `jugador`
+--
+
+INSERT INTO `jugador` (`idJugador`, `nombre`, `dni`, `fechaNac`, `altura`, `peso`, `estilo`, `manoHabil`, `torneosGanados`, `ranking`, `puntaje`, `activo`) VALUES
+(4, 'Julio', 12235235, '1996-03-23', 1.78, 78.3, 'agresivo', 'derecho', 0, 0, 0, 1),
+(5, 'Mario', 23565565, '1996-03-23', 1.78, 78.3, 'agresivo', 'Zurdo', 0, 0, 0, 1);
 
 -- --------------------------------------------------------
 
@@ -94,6 +101,15 @@ CREATE TABLE `patrocinio` (
   `Indumentaria` varchar(30) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+--
+-- Volcado de datos para la tabla `patrocinio`
+--
+
+INSERT INTO `patrocinio` (`idPatrocinio`, `idSponsor`, `idJugador`, `fechIniContrato`, `fechFinContrato`, `activo`, `Indumentaria`) VALUES
+(1, 2, 4, '2021-03-05', '2025-03-05', 1, 'Calsado'),
+(2, 2, 4, '2021-03-05', '2025-03-05', 1, 'Calsado'),
+(3, 3, 5, '2021-03-05', '2025-03-05', 1, 'Indumentaria');
+
 -- --------------------------------------------------------
 
 --
@@ -105,6 +121,14 @@ CREATE TABLE `sponsor` (
   `marca` varchar(40) NOT NULL,
   `activo` tinyint(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Volcado de datos para la tabla `sponsor`
+--
+
+INSERT INTO `sponsor` (`idSponsor`, `marca`, `activo`) VALUES
+(2, 'Adidas2', 1),
+(3, 'Nike', 1);
 
 -- --------------------------------------------------------
 
@@ -144,8 +168,7 @@ ALTER TABLE `estadio`
 -- Indices de la tabla `jugador`
 --
 ALTER TABLE `jugador`
-  ADD PRIMARY KEY (`idJugador`),
-  ADD KEY `Sponsor` (`idPatrocinadores`);
+  ADD PRIMARY KEY (`idJugador`);
 
 --
 -- Indices de la tabla `patrocinio`
@@ -187,13 +210,19 @@ ALTER TABLE `estadio`
 -- AUTO_INCREMENT de la tabla `jugador`
 --
 ALTER TABLE `jugador`
-  MODIFY `idJugador` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `idJugador` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+
+--
+-- AUTO_INCREMENT de la tabla `patrocinio`
+--
+ALTER TABLE `patrocinio`
+  MODIFY `idPatrocinio` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT de la tabla `sponsor`
 --
 ALTER TABLE `sponsor`
-  MODIFY `idSponsor` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `idSponsor` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT de la tabla `torneo`

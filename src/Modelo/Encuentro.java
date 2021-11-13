@@ -11,19 +11,19 @@ import java.time.LocalDate;
  * @author martinbordon
  */
 public class Encuentro {
-    private int idPartido; 
+    private int idEncuentro; 
     private Jugador jugador1;
     private Jugador jugador2;
     private LocalDate fechaEncuentro;
-    private String resultado;
+    private String resultado= "0-0";
     private Jugador jugadorGanador;
-    private String estado;
+    private String estado = "Pendiente";
     private Estadio estadio;
     private boolean activo;
     private Torneo torneo;
 
-    public Encuentro(int idPartido, Jugador jugador1, Jugador jugador2, LocalDate fechaEncuentro, String resultado, Jugador jugadorGanador, String estado, Estadio idEstadio, boolean activo, Torneo idTorneo) {
-        this.idPartido = idPartido;
+    public Encuentro(int idEncuentro, Jugador jugador1, Jugador jugador2, LocalDate fechaEncuentro, String resultado, Jugador jugadorGanador, String estado, Estadio idEstadio, boolean activo, Torneo idTorneo) {
+        this.idEncuentro = idEncuentro;
         this.jugador1 = jugador1;
         this.jugador2 = jugador2;
         this.fechaEncuentro = fechaEncuentro;
@@ -50,12 +50,12 @@ public class Encuentro {
     public Encuentro() {
     }
 
-    public int getIdPartido() {
-        return idPartido;
+    public int getIdEncuentro() {
+        return idEncuentro;
     }
 
-    public void setIdPartido(int idPartido) {
-        this.idPartido = idPartido;
+    public void setIdEncuentro(int idPartido) {
+        this.idEncuentro = idEncuentro;
     }
 
     public Jugador getJugador1() {
@@ -129,7 +129,6 @@ public class Encuentro {
     public void setTorneo(Torneo torneo) {
         this.torneo = torneo;
     }
-    
     
 }
 

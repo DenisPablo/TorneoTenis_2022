@@ -20,7 +20,7 @@ import java.util.logging.Logger;
 public class Main {
       public static void main(String[] args) {
           
-////Guardar Sponsor          
+//Guardar Sponsor          
 //          try {
 //              Conexion con = new Conexion();
 //              
@@ -132,7 +132,7 @@ public class Main {
               Jugador jug2 = jugD.buscarJugador(5);
               Sponsor spon2 =sponD.buscarSponsor(3);
               Patrocinio pat1 = new Patrocinio(spon2,jug2,"Indumentaria",LocalDate.parse("2021-03-05"),LocalDate.parse("2025-03-05"),true);
-              //patD.guardarPatrocinio(pat);
+              patD.guardarPatrocinio(pat);
               patD.guardarPatrocinio(pat1);
           } catch (ClassNotFoundException ex) {
               Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
@@ -173,6 +173,7 @@ public class Main {
 //              Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
 //          }
 //  
+
 }
 
 }
