@@ -10,7 +10,7 @@ package Modelo;
  */
 public class Estadio {
     private int idEstadio;
-    private String nombre;
+    private String nombre;    
     private String ciudad;
     private String categoria;
     private boolean activo;

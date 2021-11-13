@@ -11,7 +11,7 @@ import java.time.LocalDate;
  * @author martinbordon
  */
 public class Torneo {
-   private int idTorneo;
+   private int idTorneo;     
    private String nombre;
    private LocalDate fechaNacInicio;
    private LocalDate fehcaNacFinal;

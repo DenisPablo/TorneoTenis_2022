@@ -3,11 +3,18 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/Romi/Documents/NetBeansProjects/TorneoTenis/src/Vistas/frmiAgregarPatrocinio.java</file>
-            <file>file:/C:/Users/Romi/Documents/NetBeansProjects/TorneoTenis/src/Vistas/frmiModificarPatrocinio.java</file>
-            <file>file:/C:/Users/Romi/Documents/NetBeansProjects/TorneoTenis/src/Modelo/Sponsor.java</file>
-            <file>file:/C:/Users/Romi/Documents/NetBeansProjects/TorneoTenis/src/Data/SponsorData.java</file>
-            <file>file:/C:/Users/Romi/Documents/NetBeansProjects/TorneoTenis/src/Data/Main.java</file>
+            <file>file:/Users/martinbordon/Desktop/tpFinalTorneo/TorneoTenis/src/Data/SponsorData.java</file>
+            <file>file:/Users/martinbordon/Desktop/tpFinalTorneo/TorneoTenis/src/Modelo/Estadio.java</file>
+            <file>file:/Users/martinbordon/Desktop/tpFinalTorneo/TorneoTenis/src/Data/TorneoData.java</file>
+            <file>file:/Users/martinbordon/Desktop/tpFinalTorneo/TorneoTenis/src/Data/JugadorData.java</file>
+            <file>file:/Users/martinbordon/Desktop/tpFinalTorneo/TorneoTenis/src/Data/PatrocinioData.java</file>
+            <file>file:/Users/martinbordon/Desktop/tpFinalTorneo/TorneoTenis/src/Data/Pruebas.java</file>
+            <file>file:/Users/martinbordon/Desktop/tpFinalTorneo/TorneoTenis/src/Data/EncuentroData.java</file>
+            <file>file:/Users/martinbordon/Desktop/tpFinalTorneo/TorneoTenis/src/Data/Main.java</file>
+            <file>file:/Users/martinbordon/Desktop/tpFinalTorneo/TorneoTenis/src/Modelo/Encuentro.java</file>
+            <file>file:/Users/martinbordon/Desktop/tpFinalTorneo/TorneoTenis/src/Modelo/Sponsor.java</file>
+            <file>file:/Users/martinbordon/Desktop/tpFinalTorneo/TorneoTenis/src/Modelo/Torneo.java</file>
+            <file>file:/Users/martinbordon/Desktop/tpFinalTorneo/TorneoTenis/src/Data/EstadioData.java</file>
         </group>
     </open-files>
 </project-private>
