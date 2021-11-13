@@ -54,7 +54,7 @@ public class Encuentro {
         return idEncuentro;
     }
 
-    public void setIdEncuentro(int idPartido) {
+    public void setIdEncuentro(int idEncuentro) {
         this.idEncuentro = idEncuentro;
     }
 

@@ -90,7 +90,7 @@ public class EncuentroData {
                 j1 = jugadorData.buscarPorID(rs.getInt(2));
                 en.setJugador1(j1);
                 j2 = jugadorData.buscarPorID(rs.getInt(3));
-                en.setJugador1(j2);
+                en.setJugador2(j2);
                 en.setFechaEncuentro(rs.getDate(4).toLocalDate());
                 en.setResultado(rs.getString(5));
                 j3 = jugadorData.buscarPorID(rs.getInt(6));
