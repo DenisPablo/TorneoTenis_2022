@@ -37,12 +37,12 @@ public class PatrocinioData {
     }
      public void guardarPatrocinio(Patrocinio patrocinio) {
      
-            String sql = "INSERT INTO `patrocinio`(`idPatrocinio`, `idPatrociador`, `idJugador`, `fechIniContrato`, `fechFinContrato`, `activo`) VALUES (?,?,?,?,?,?))";
+            String sql = "INSERT INTO `patrocinio`(`idPatrocinio`, `idSponsor`, `idJugador`, `fechIniContrato`, `fechFinContrato`, `activo`, `Indumentaria`) VALUES (?,?,?,?,?,?,?)";
             try {
                 PreparedStatement ps = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
                 
                 ps.setInt(1, patrocinio.getIdPatrocinio());
-                ps.setInt(2, patrocinio.getPatrocinador().getIdPatrocinadores());
+                ps.setInt(2, patrocinio.getSponsor().getIdSponsor());
                 ps.setInt(3, patrocinio.getJugador().getIdJugador());
                 ps.setDate(4,Date.valueOf( patrocinio.getFechaInicioContrato()));
                 ps.setDate(5,Date.valueOf(  patrocinio.getFechaFinContrato()));
@@ -55,11 +55,11 @@ public class PatrocinioData {
             System.out.println("Error al guardar Sponsor "+ex);
         }}
    public void modificadarPatrocicio (Patrocinio patrocinio) {
-        String sql = "UPDATE patrocinio SET `idPatrocinio`=?,`idPatrociador`=?,`idJugador`=?,`fechIniContrato`=?,`fechFinContrato`=?,`activo`=?,'indumentaria'=? Where `idPatrocinio`=?";
+        String sql = "UPDATE patrocinio SET `idPatrocinio`=?,`idSponsor`=?,`idJugador`=?,`fechIniContrato`=?,`fechFinContrato`=?,`activo`=?,'indumentaria'=? Where `idPatrocinio`=?";
         try{
             PreparedStatement ps = con.prepareStatement(sql);
             ps.setInt(1, patrocinio.getIdPatrocinio());
-            ps.setInt(2, patrocinio.getPatrocinador().getIdPatrocinadores());
+            ps.setInt(2, patrocinio.getSponsor().getIdSponsor());
             ps.setInt(3, patrocinio.getJugador().getIdJugador());
             ps.setDate(4,Date.valueOf( patrocinio.getFechaInicioContrato()));
             ps.setDate(5,Date.valueOf(  patrocinio.getFechaFinContrato()));
@@ -171,13 +171,13 @@ public class PatrocinioData {
                     patrocinio=new Patrocinio();
                     patrocinio.setIdPatrocinio(rs.getInt(1));
                     spon=s.buscarSponsor(rs.getInt(2));
-                    patrocinio.setPatrocinador(spon);
+                    patrocinio.setSponsor(spon);
                     jug=j.buscarJugador(rs.getInt(3));
                     patrocinio.setJugador(jug);
                     patrocinio.setFechaInicioContrato(rs.getDate(4).toLocalDate());
                     patrocinio.setFechaFinContrato(rs.getDate(5).toLocalDate());
                     patrocinio.setActivo(rs.getBoolean(6));
-                    sponsor.setIndumentaria(rs.getString(7));
+                    patrocinio.setIndumentaria(rs.getString(7));
                     resultados.add(patrocinio);
                 }
                 ps.close();

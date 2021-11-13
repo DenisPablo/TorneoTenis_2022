@@ -36,7 +36,7 @@ public class JugadorData {
     
     public void guardarJugador(Jugador jugador) {
      
-            String sql = "INSERT INTO jugador(nombre,dni,fechaNac,altura,peso,estilo,manoHabil,torneoGanados, ranking, puntaje, activo) VALUES (?,?,?,?,?,?,?,?,?,?,?)";
+            String sql = "INSERT INTO jugador(nombre,dni,fechaNac,altura,peso,estilo,manoHabil,torneosGanados, ranking, puntaje, activo) VALUES (?,?,?,?,?,?,?,?,?,?,?)";
             try {
                 PreparedStatement ps = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
                 
@@ -128,7 +128,7 @@ return resultados;
              jugador.setPeso(rs.getDouble("peso"));
              jugador.setEstilo(rs.getString("estilo"));
              jugador.setManoHabil(rs.getString("manoHabil"));
-             jugador.setTorneoGanados(rs.getInt("torneoGanados"));
+             jugador.setTorneoGanados(rs.getInt("torneosGanados"));
              jugador.setRanking(rs.getInt("ranking"));
              jugador.setPuntaje(rs.getInt("puntaje"));
              jugador.setActivo(rs.getBoolean("activo"));
@@ -209,8 +209,8 @@ return resultados;
   }
         
         
-     public void actualizarJugador(Jugador jugador, int ID){
-        String sql = "UPDATE jugador SET nombre=?, dni=?, fechaNac=?, altura=?, peso=?, estilo=?, manoHabil=? ,torneoGanados=?, ranking=?, puntaje=?, activo=? Where idJugador=?";
+     public void actualizarJugador(Jugador jugador){
+        String sql = "UPDATE jugador SET nombre=?, dni=?, fechaNac=?, altura=?, peso=?, estilo=?, manoHabil=? ,torneosGanados=?, ranking=?, puntaje=?, activo=? Where idJugador=?";
 
         try {
         PreparedStatement ps = con.prepareStatement(sql);
@@ -225,6 +225,7 @@ return resultados;
                 ps.setInt(9, jugador.getRanking());
                 ps.setInt(10, jugador.getPuntaje());
                 ps.setBoolean(11, jugador.isActivo());
+                ps.setInt(12, jugador.getIdJugador());
 
         ps.executeUpdate();
         ps.close();

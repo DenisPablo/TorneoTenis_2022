@@ -19,12 +19,11 @@ public class Patrocinio {
     private LocalDate fechaFinContrato;
     private boolean activo;
 
-  
-    
     @Override
     public String toString() {
-        return "Patrocinio{" + "idPatrocinio=" + idPatrocinio + ", Patrocinador=" + sponsor + ", Jugador=" + jugador + ", indumentaria=" + indumentaria + ", fechaInicioContrato=" + fechaInicioContrato + ", fechaFinContrato=" + fechaFinContrato + ", activo=" + activo + '}';
+        return "Patrocinio{" + "idPatrocinio=" + idPatrocinio + ", sponsor=" + sponsor + ", jugador=" + jugador + ", indumentaria=" + indumentaria + ", fechaInicioContrato=" + fechaInicioContrato + ", fechaFinContrato=" + fechaFinContrato + ", activo=" + activo + '}';
     }
+
     public Patrocinio(){}
     public Patrocinio(int idPatrocinio, Sponsor sponsor, Jugador jugador, String indumentaria, LocalDate fechaInicioContrato, LocalDate fechaFinContrato, boolean activo) {
         this.idPatrocinio = idPatrocinio;
