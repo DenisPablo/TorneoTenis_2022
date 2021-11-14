@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 13-11-2021 a las 04:20:46
+-- Tiempo de generación: 13-11-2021 a las 23:07:00
 -- Versión del servidor: 10.4.21-MariaDB
 -- Versión de PHP: 8.0.11
 
@@ -40,6 +40,13 @@ CREATE TABLE `encuentro` (
   `idTorneo` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+--
+-- Volcado de datos para la tabla `encuentro`
+--
+
+INSERT INTO `encuentro` (`idEncuentro`, `jugador1`, `jugador2`, `fechaEncuentro`, `resultado`, `jugadorGanador`, `estado`, `idEstadio`, `activo`, `idTorneo`) VALUES
+(2, 4, 5, '1999-03-11', '60-30', 4, 'activo', 3, 1, 2);
+
 -- --------------------------------------------------------
 
 --
@@ -55,6 +62,15 @@ CREATE TABLE `estadio` (
   `direComercial` varchar(80) NOT NULL,
   `dimension` varchar(30) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Volcado de datos para la tabla `estadio`
+--
+
+INSERT INTO `estadio` (`idEstadio`, `nombre`, `ciudad`, `categoria`, `activo`, `direComercial`, `dimension`) VALUES
+(3, 'Martin', 'San Luis', 'Cemento', 0, 'Av Fundador', '20*50'),
+(4, 'Juan Gilberto Funes', 'La Punta', 'Cemento', 1, 'Av Los Tilos', '20*30'),
+(5, 'La Lucha', 'San Luis', 'cesped', 1, 'Av Los puqios', '25*30');
 
 -- --------------------------------------------------------
 
@@ -106,7 +122,7 @@ CREATE TABLE `patrocinio` (
 --
 
 INSERT INTO `patrocinio` (`idPatrocinio`, `idSponsor`, `idJugador`, `fechIniContrato`, `fechFinContrato`, `activo`, `Indumentaria`) VALUES
-(1, 2, 4, '2021-03-05', '2025-03-05', 1, 'Calsado'),
+(1, 2, 4, '2021-03-05', '2025-03-05', 1, 'indumentaria'),
 (2, 2, 4, '2021-03-05', '2025-03-05', 1, 'Calsado'),
 (3, 3, 5, '2021-03-05', '2025-03-05', 1, 'Indumentaria');
 
@@ -143,6 +159,13 @@ CREATE TABLE `torneo` (
   `fechaNacFinal` date NOT NULL,
   `activo` tinyint(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Volcado de datos para la tabla `torneo`
+--
+
+INSERT INTO `torneo` (`idTorneo`, `nombre`, `fechaNacInicio`, `fechaNacFinal`, `activo`) VALUES
+(2, 'La Cruda', '2021-11-10', '2021-12-12', 1);
 
 --
 -- Índices para tablas volcadas
@@ -198,13 +221,13 @@ ALTER TABLE `torneo`
 -- AUTO_INCREMENT de la tabla `encuentro`
 --
 ALTER TABLE `encuentro`
-  MODIFY `idEncuentro` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `idEncuentro` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT de la tabla `estadio`
 --
 ALTER TABLE `estadio`
-  MODIFY `idEstadio` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `idEstadio` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT de la tabla `jugador`
@@ -228,7 +251,7 @@ ALTER TABLE `sponsor`
 -- AUTO_INCREMENT de la tabla `torneo`
 --
 ALTER TABLE `torneo`
-  MODIFY `idTorneo` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `idTorneo` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- Restricciones para tablas volcadas
