@@ -45,9 +45,9 @@ public class EncuentroData {
      String sql = "INSERT INTO encuentro (`jugador1`, `jugador2`, `fechaEncuentro`, `resultado`, `jugadorGanador`, `estado`, `idEstadio`, `activo`, `idTorneo`) VALUES (?,?,?,?,?,?,?,?,?)";
 
      try{
-        PreparedStatement ps = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
-        ps.setObject(1,en.getJugador1().getIdJugador());
-        ps.setObject(2, en.getJugador2().getIdJugador());
+         PreparedStatement ps = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+         ps.setObject(1,en.getJugador1().getIdJugador());
+         ps.setObject(2, en.getJugador2().getIdJugador());
          ps.setDate(3, Date.valueOf(en.getFechaEncuentro()));
          ps.setString(4,en.getResultado());
          ps.setObject(5, en.getJugadorGanador().getIdJugador());
@@ -331,7 +331,7 @@ public class EncuentroData {
       
     }
     
-    public List<Encuentro> listarProximosEncuentros(LocalDate fecha){
+    public List<Encuentro> listarProximosEncuentros(){
         
         ArrayList<Encuentro> resultados = new ArrayList();
         
@@ -353,14 +353,13 @@ public class EncuentroData {
         
 
         
-        String sql = "SELECT * FROM encuentro Where encuentro.fecha >= fechaEncuentro=?";
+        String sql = "SELECT * FROM encuentro Where encuentro.fechaEncuentro >= ?";
         
         try{
             PreparedStatement ps = con.prepareStatement(sql);
-            ResultSet rs = ps.executeQuery();
            
             ps.setDate(1,Date.valueOf(LocalDate.now()));
-             
+            ResultSet rs = ps.executeQuery();
             while(rs.next()){
                 
                
@@ -378,7 +377,7 @@ public class EncuentroData {
                 en.setEstadio(e1);
                 
                 
-                
+                en.setIdEncuentro(rs.getInt("idEncuentro"));
                 en.setFechaEncuentro(rs.getDate("fechaEncuentro").toLocalDate());
                 en.setResultado(rs.getString("resultado"));
                 en.setEstado("estado");
@@ -402,4 +401,80 @@ public class EncuentroData {
         return resultados; 
     }
         
- }
+    public Encuentro buscarPorFecha (LocalDate fecha){
+    
+    
+       Encuentro en = new Encuentro();
+        
+    try{
+        Jugador j1 = new Jugador();
+        Jugador j2 = new Jugador();
+        Jugador j3 = new Jugador();
+        Estadio e1 = new Estadio();
+        Torneo t =new Torneo();
+        Conexion con1 = new Conexion();
+        JugadorData jugadorData = new JugadorData(con1);
+        EstadioData estadioData = new EstadioData(con1);
+        TorneoData torneoData=new TorneoData(con1);
+        String sql = "SELECT * FROM `encuentro` WHERE fechaEncuentro=?";
+        try{
+
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setDate(1, Date.valueOf(fecha));
+            ResultSet rs = ps.executeQuery();
+            if(rs.next()) {
+                en.setIdEncuentro(rs.getInt(1));
+                j1 = jugadorData.buscarPorID(rs.getInt(2));
+                en.setJugador1(j1);
+                j2 = jugadorData.buscarPorID(rs.getInt(3));
+                en.setJugador2(j2);
+                en.setFechaEncuentro(rs.getDate(4).toLocalDate());
+                en.setResultado(rs.getString(5));
+                j3 = jugadorData.buscarPorID(rs.getInt(6));
+                en.setJugadorGanador(j3);
+                en.setEstado(rs.getString(7));
+                e1 = estadioData.buscarEstadio(rs.getInt(8));
+                en.setEstadio(e1);
+                en.setActivo(rs.getBoolean(9));
+                t=torneoData.buscarTorneo(rs.getInt(10));
+                en.setTorneo(t);
+                
+            }
+        }
+        catch(SQLException ex){
+            System.out.println("Error al conectar la base de datos" + ex);
+        }
+        
+    }
+    catch(ClassNotFoundException ex){
+            Logger.getLogger(EncuentroData.class.getName()).log(Level.SEVERE, null, ex);
+    }
+    return en;
+}
+    
+    public Estadio buscarPorCancha (int id){
+    
+         Estadio es = new Estadio();
+         Encuentro e = new Encuentro();
+           try {
+           
+            
+            Conexion con = new Conexion();
+            
+            EncuentroData ed = new EncuentroData(con);
+            e = ed.buscarEncuentro(id);
+            
+            es= e.getEstadio();
+            
+           // return es;
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(EncuentroData.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return es;
+    }
+    
+    }
+    
+
+
+

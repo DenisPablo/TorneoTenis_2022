@@ -6,24 +6,22 @@
 package Data;
 
 import Modelo.Conexion;
-import Modelo.Encuentro;
-import Modelo.Estadio;
-import Modelo.Jugador;
-import Modelo.Patrocinio;
-import Modelo.Sponsor;
-import Modelo.Torneo;
 import java.time.LocalDate;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
  *
- * @author Romi
+ * @author pablo
  */
-public class Main {
-      public static void main(String[] args) {
-          
-////Guardar Sponsor          
+public class Main2 {
+
+    /**
+     * @param args the command line arguments
+     */
+    public static void main(String[] args) {
+        //   try {
+            ////Guardar Sponsor
 //          try {
 //              Conexion con = new Conexion();
 //              
@@ -78,10 +76,10 @@ public class Main {
 //          try {
 //              Conexion con = new Conexion();
 //              JugadorData jugD = new JugadorData(con);
-//              Jugador jug = new Jugador("Julio",12235235,LocalDate.parse("1996-03-23"),1.78,78.3,"agresivo","derecho",0,0,0,true);
-//              Jugador jug1 = new Jugador("Mario",23565565,LocalDate.parse("1996-03-23"),1.78,78.3,"agresivo","Zurdo",0,0,0,true);
-//              jugD.guardarJugador(jug);
-//              jugD.guardarJugador(jug1);
+////              Jugador jug = new Jugador("Julio",12235235,LocalDate.parse("1996-03-23"),1.78,78.3,"agresivo","derecho",0,0,0,true);
+////              Jugador jug1 = new Jugador("Mario",23565565,LocalDate.parse("1996-03-23"),1.78,78.3,"agresivo","Zurdo",0,0,0,true);
+////              jugD.guardarJugador(jug);
+////              jugD.guardarJugador(jug1);
 //          } catch (ClassNotFoundException ex) {
 //              Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
 //          }
@@ -120,7 +118,7 @@ public class Main {
 //          } catch (ClassNotFoundException ex) {
 //              Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
 //          }
-//          
+//
 // 
 // ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ////Guardar Patrocinio          
@@ -240,7 +238,7 @@ public class Main {
 //              t=td.buscarTorneo(2);
 //              Encuentro e1 = new Encuentro(j1, j2,LocalDate.parse("1999-03-11"), "5-4",j1,"activo", est1, true,t);
 //              encuD.agregarEncuentro(e1);
-//              
+//
 //              
 //          } catch (ClassNotFoundException ex) {
 //              Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
@@ -282,7 +280,23 @@ public class Main {
 //          }
 //          
 //  //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-//
-}
-
-}
+       
+//ListarProximosEncuentros - BuscarPorCancha - BuscarPorFecha - ecuentroFinalizado - posponerEncuentro
+//try{
+//            
+//              Conexion con = new Conexion();
+//              EncuentroData encuD = new EncuentroData(con);
+//              JugadorData jugD = new JugadorData(con);
+//              //System.out.println(encuD.listarProximosEncuentros());
+//              //System.out.println(encuD.buscarPorCancha(6));
+//              //System.out.println(encuD.buscarPorFecha(LocalDate.parse("1999-03-11")));
+//              //encuD.encuentroFinalizado(jugD.buscarJugador(4), encuD.buscarEncuentro(6), "20-10");
+//              //encuD.posponerEncuentro(6, LocalDate.parse("2021-11-25"));
+//              
+//          } catch (ClassNotFoundException ex) {
+//              Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
+//          }
+//    
+    }
+    }
+    

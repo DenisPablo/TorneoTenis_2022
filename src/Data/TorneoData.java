@@ -139,7 +139,6 @@ public class TorneoData {
         
     }
      
-     
      public List<Torneo> devolverTodosTorneos(){
      
        
@@ -171,32 +170,46 @@ public class TorneoData {
     
     return resultados;
     }
-     
-     
-     
-     
-     public List<Jugador> listarPuntajeTodosLosJugadores(){
+   
+     public List<Jugador> listarJugadoresDeTorneo(int id){
+      
+            ArrayList<Jugador> resultados = new ArrayList();
+            
+            Jugador jugador=null;
+            String sql = "SELECT * FROM encuentro Where idTorneo=?";
          
-         ArrayList<Jugador> resultados = new ArrayList();
+        try {
+            
+            PreparedStatement ps = con.prepareStatement(sql);
+             ps.setInt(1, id);
+             ResultSet rs =ps.executeQuery();
+             if(rs.next()){
          
-         return resultados;
-     }
-     
-     public List<Jugador> listarJugadoresDeTorneo(){
-     
-         ArrayList<Jugador> resultado = new ArrayList();
-         
-         return resultado;
-     }
-     
-     public List<Sponsor> listarSponsors(){
-     
-         ArrayList<Sponsor> resultados = new ArrayList();
-         
-         
-         return resultados;
-     }
-     
-     
+             jugador=new Jugador();
+             jugador.setIdJugador(rs.getInt(1));
+             jugador.setNombre(rs.getString(2));
+             jugador.setDni(rs.getInt(3));
+             jugador.setFechaNac(rs.getDate(4).toLocalDate());
+             jugador.setAltura(rs.getDouble(5));
+             jugador.setPeso(rs.getDouble(6));
+             jugador.setEstilo(rs.getString(7));
+             jugador.setManoHabil(rs.getString(8));
+             jugador.setTorneoGanados(rs.getInt(9));
+             jugador.setRanking(rs.getInt(10));
+             jugador.setPuntaje(rs.getInt(11));
+             jugador.setActivo(rs.getBoolean(12));
+             
+             resultados.add(jugador);
+             }
+            
+        } catch (SQLException ex) {
+            System.out.println("Error al obtener la busqueda de jugador"+ex);
+        }
     
-}
+         return resultados;
+        
+     }
+     
+     }
+     
+

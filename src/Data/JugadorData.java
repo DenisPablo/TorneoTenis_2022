@@ -143,7 +143,7 @@ return resultados;
        
 
        
-        public void desactivarJugador(int id){
+    public void desactivarJugador(int id){
     String sql = "UPDATE jugador SET activo=? WHERE idJugador=?";
         try {
             PreparedStatement ps = con.prepareStatement(sql);
@@ -159,7 +159,7 @@ return resultados;
     }
     
         
-        public void activarJugador(int id){
+    public void activarJugador(int id){
         String sql = "UPDATE jugador SET activo=? WHERE idJugador=?";
         try {
             PreparedStatement ps = con.prepareStatement(sql);
@@ -174,7 +174,7 @@ return resultados;
     }
         
         
-        public Jugador buscarJugador(int id){
+     public Jugador buscarJugador(int id){
          Jugador jugador=null;
          String sql = "SELECT * FROM jugador Where idJugador= ?";
          
@@ -237,7 +237,7 @@ return resultados;
 
    }
      
-      public List<Jugador> buscarJugadorPorNombre (String nombre){
+     public List<Jugador> buscarJugadorPorNombre (String nombre){
         List<Jugador> resultados;
         resultados = new ArrayList<>();
         Jugador jugador = new Jugador() ;
@@ -270,7 +270,34 @@ return resultados;
         return resultados;
     }
 
+     
+     public List<Jugador> listarPuntajeDeJugadores(){
+     
+        List<Jugador> resultados;
+        resultados = new ArrayList<>();
+        Jugador jugador = new Jugador() ;
+        String sql = "SELECT idJugador,nombre,puntaje FROM jugador Where activo=true";
+        try{
+            PreparedStatement ps = con.prepareStatement(sql);
 
+            ResultSet rs = ps.executeQuery();
+          while(rs.next()){
+             jugador.setIdJugador(rs.getInt(1));
+             jugador.setNombre(rs.getString(2));
+             jugador.setPuntaje(rs.getInt(11));
+             
+
+             resultados.add(jugador);
+        }
+        ps.close();
+        }
+        catch(SQLException ex){
+        System.out.println("No se encontraron resultados: "+ ex);
+        }
+        return resultados;
+    }
+     
     
 }
+
 

@@ -57,17 +57,17 @@ public class Pruebas {
 //          }
 
 //////////  Guardar Estadio          
-          try {
-              Conexion con = new Conexion();
-              
-               EstadioData estadioD = new EstadioData(con);
-              Estadio es = new Estadio("Monumental", "Buens Aires", "alta",true,"alvear","300x100"); 
-              estadioD.guardarEstadio(es);
-          } catch (ClassNotFoundException ex) {
-              Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
-          }
-          
-          
+//          try {
+//              Conexion con = new Conexion();
+//              
+//               EstadioData estadioD = new EstadioData(con);
+//              Estadio es = new Estadio("Monumental", "Buens Aires", "alta",true,"alvear","300x100"); 
+//              estadioD.guardarEstadio(es);
+//          } catch (ClassNotFoundException ex) {
+//              Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
+//          }
+//          
+//          
 //           try {
 //              Conexion con = new Conexion();
 //              
