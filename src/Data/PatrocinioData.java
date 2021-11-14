@@ -36,43 +36,55 @@ public class PatrocinioData {
         }
     }
      public void guardarPatrocinio(Patrocinio patrocinio) {
-     
-            String sql = "INSERT INTO `patrocinio`(`idPatrocinio`, `idSponsor`, `idJugador`, `fechIniContrato`, `fechFinContrato`, `activo`, `Indumentaria`) VALUES (?,?,?,?,?,?,?)";
+         
             try {
-                PreparedStatement ps = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
                 
-               
-                
-                //patrocinio.getJugador().setPuntaje( patrocinio.getJugador().getPuntaje() + 1);
-                
-                ps.setInt(1, patrocinio.getIdPatrocinio());
-                ps.setInt(2, patrocinio.getSponsor().getIdSponsor());
-                ps.setInt(3, patrocinio.getJugador().getIdJugador());
-                ps.setDate(4,Date.valueOf( patrocinio.getFechaInicioContrato()));
-                ps.setDate(5,Date.valueOf(  patrocinio.getFechaFinContrato()));
-                ps.setBoolean(6,patrocinio.isActivo());
-                ps.setString(7, patrocinio.getIndumentaria());
-                ps.executeUpdate();
-                
-                
-               Jugador j1 = new Jugador();
-               j1 = patrocinio.getJugador();
-               j1.setPuntaje( j1.getPuntaje() +1);
-               Conexion con;
+                Conexion p=new Conexion();
+                Jugador j=new Jugador();
+                JugadorData jD=new JugadorData(p);
+                PatrocinioData pd=new PatrocinioData(p);
+                if(pd.buscarSponsordeJugador(j.getIdJugador()).size()<=3){
+                String sql = "INSERT INTO `patrocinio`(`idPatrocinio`, `idSponsor`, `idJugador`, `fechIniContrato`, `fechFinContrato`, `activo`, `Indumentaria`) VALUES (?,?,?,?,?,?,?)";
                 try {
-                    con = new Conexion();
-                    JugadorData jd = new JugadorData(con);
-                    jd.actualizarJugador(j1);
                     
+                    PreparedStatement ps = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+                    
+                    
+                    
+                    //patrocinio.getJugador().setPuntaje( patrocinio.getJugador().getPuntaje() + 1);
+                    
+                    ps.setInt(1, patrocinio.getIdPatrocinio());
+                    ps.setInt(2, patrocinio.getSponsor().getIdSponsor());
+                    ps.setInt(3, patrocinio.getJugador().getIdJugador());
+                    ps.setDate(4,Date.valueOf( patrocinio.getFechaInicioContrato()));
+                    ps.setDate(5,Date.valueOf(  patrocinio.getFechaFinContrato()));
+                    ps.setBoolean(6,patrocinio.isActivo());
+                    ps.setString(7, patrocinio.getIndumentaria());
+                    ps.executeUpdate();
+                    
+                    
+                    Jugador j1 = new Jugador();
+                    j1 = patrocinio.getJugador();
+                    j1.setPuntaje( j1.getPuntaje() +1);
+                    Conexion con;
+                    try {
+                        con = new Conexion();
+                        JugadorData jd = new JugadorData(con);
+                        jd.actualizarJugador(j1);
+                        
+                    } catch (ClassNotFoundException ex) {
+                        Logger.getLogger(PatrocinioData.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                    
+                    
+                    
+                    System.out.println("Patrocinio guardado con exito.");
+                } catch (SQLException ex) {
+                    System.out.println("Error al guardar Patrocinio "+ex);}}
+                else
+                    System.out.println("Solo se permiten 3 sponsor por jugador");
                 } catch (ClassNotFoundException ex) {
-                    Logger.getLogger(PatrocinioData.class.getName()).log(Level.SEVERE, null, ex);
-                }
-                
-                
-                
-                System.out.println("Patrocinio guardado con exito.");
-        } catch (SQLException ex) {
-            System.out.println("Error al guardar Patrocinio "+ex);
+                Logger.getLogger(PatrocinioData.class.getName()).log(Level.SEVERE, null, ex);
         }}
  
      public void modificadarPatrocicio (Patrocinio patrocinio) {

@@ -24,15 +24,19 @@ import java.util.logging.Logger;
 public class Main {
       public static void main(String[] args) {
           
-////Guardar Sponsor          
+//Guardar Sponsor          
 //          try {
 //              Conexion con = new Conexion();
 //              
 //              SponsorData sponD = new SponsorData(con);
 //              Sponsor spon = new Sponsor("Adidas",true); 
 //              Sponsor spon1 = new Sponsor("Nike",true);
+//              Sponsor spon2 = new Sponsor("wilson",true); 
+//              Sponsor spon3 = new Sponsor("Fila",true);
 //              sponD.guardarSponsor(spon);
 //              sponD.guardarSponsor(spon1);
+//              sponD.guardarSponsor(spon2);
+//              sponD.guardarSponsor(spon3);
 //          } catch (ClassNotFoundException ex) {
 //              Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
 //          }
@@ -195,21 +199,21 @@ public class Main {
 //              Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
 //          }
 //////Listar Sponsor por jugador
- try {
-              Conexion con = new Conexion();
-              PatrocinioData patD=new PatrocinioData(con);
-              JugadorData jugD = new JugadorData(con);
-              Jugador j =jugD.buscarJugador(4);
-              List<Sponsor> res=patD.buscarSponsordeJugador(j.getIdJugador());
-              System.out.println(res.size());
-              for (int i = 0; i < res.size(); i++) {
-                  System.out.println(res.get(i).toString());
-                 }
-              
-              
-          } catch (ClassNotFoundException ex) {
-              Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
-          }
+// try {
+//              Conexion con = new Conexion();
+//              PatrocinioData patD=new PatrocinioData(con);
+//              JugadorData jugD = new JugadorData(con);
+//              Jugador j =jugD.buscarJugador(4);
+//              List<Sponsor> res=patD.buscarSponsordeJugador(j.getIdJugador());
+//              System.out.println(res.size());
+//              for (int i = 0; i < res.size(); i++) {
+//                  System.out.println(res.get(i).toString());
+//                 }
+//              
+//              
+//          } catch (ClassNotFoundException ex) {
+//              Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
+//          }
 // //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ////Guardar Estadio          
 //          try {
@@ -278,11 +282,10 @@ public class Main {
 //          } catch (ClassNotFoundException ex) {
 //              Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
 //          }
-<<<<<<< HEAD
+
 //Buscar Encuentro
-=======
-////Buscar Encuentro
->>>>>>> 6a150cbd065d098bc09a3427b87d889f495fdd33
+
+
 // try {
 //              Conexion con = new Conexion();
 //               EncuentroData encuD = new EncuentroData(con);
@@ -317,12 +320,7 @@ public class Main {
 //          } catch (ClassNotFoundException ex) {
 //              Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
 //          }
-//          
-<<<<<<< HEAD
-//  //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-//
-=======
-  //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//    
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //Guardar Torneo        
 //         try {
@@ -368,8 +366,23 @@ public class Main {
 //          } catch (ClassNotFoundException ex) {
 //              Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
 //          }
-          
->>>>>>> 6a150cbd065d098bc09a3427b87d889f495fdd33
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////   
+//ListarProximosEncuentros - BuscarPorCancha - BuscarPorFecha - ecuentroFinalizado - posponerEncuentro
+//try{
+//            
+//              Conexion con = new Conexion();
+//              EncuentroData encuD = new EncuentroData(con);
+//              JugadorData jugD = new JugadorData(con);
+//              //System.out.println(encuD.listarProximosEncuentros());
+//              //System.out.println(encuD.buscarPorCancha(6));
+//              //System.out.println(encuD.buscarPorFecha(LocalDate.parse("1999-03-11")));
+//              //encuD.encuentroFinalizado(jugD.buscarJugador(4), encuD.buscarEncuentro(6), "20-10");
+//              //encuD.posponerEncuentro(6, LocalDate.parse("2021-11-25"));
+//              
+//          } catch (ClassNotFoundException ex) {
+//              Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
+//          }
+//             
 }
 
 }
