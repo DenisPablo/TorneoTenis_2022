@@ -217,5 +217,60 @@ public class PatrocinioData {
             }
         return resultados;
   }
-    
+    public List<Jugador> buscarJugadoresdeSponsor(int sp){
+          List<Jugador> resultados;
+          resultados = new ArrayList<>();
+        try{
+            Conexion p = new Conexion();
+            JugadorData j=new JugadorData(p);
+            Jugador jug=new Jugador();
+            String sql = "SELECT idJugador FROM `patrocinio` WHERE idSponsor=?";
+            try{
+                PreparedStatement ps = con.prepareStatement(sql);
+                ps.setInt(1, sp);
+                ResultSet rs = ps.executeQuery();
+                while(rs.next()){
+                    jug=j.buscarJugador(rs.getInt(1));
+                    resultados.add(jug);
+                }
+                ps.close();
+            }
+            catch(SQLException ex){
+                System.out.println("No se encontraron resultados: "+ ex);
+            }
+            
+        }
+        catch(ClassNotFoundException ex){
+                Logger.getLogger(PatrocinioData.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        return resultados;
+  }
+    public List<Sponsor> buscarSponsordeJugador(int sp){
+          List<Sponsor> resultados;
+          resultados = new ArrayList<>();
+        try{
+            Conexion p = new Conexion();
+            SponsorData s=new SponsorData(p);
+            Sponsor spon=new Sponsor();
+            String sql = "SELECT idSponsor FROM `patrocinio` WHERE  idJugador=?";
+            try{
+                PreparedStatement ps = con.prepareStatement(sql);
+                ps.setInt(1, sp);
+                ResultSet rs = ps.executeQuery();
+                while(rs.next()){
+                    spon=s.buscarSponsor(rs.getInt(1));
+                    resultados.add(spon);
+                }
+                ps.close();
+            }
+            catch(SQLException ex){
+                System.out.println("No se encontraron resultados: "+ ex);
+            }
+            
+        }
+        catch(ClassNotFoundException ex){
+                Logger.getLogger(PatrocinioData.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        return resultados;
+}
 }
