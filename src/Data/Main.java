@@ -13,6 +13,7 @@ import Modelo.Patrocinio;
 import Modelo.Sponsor;
 import Modelo.Torneo;
 import java.time.LocalDate;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -176,7 +177,39 @@ public class Main {
 //              
 //          } catch (ClassNotFoundException ex) {
 //              Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
+//         }
+//////Listar Jugadores por Sponsor
+// try {
+//              Conexion con = new Conexion();
+//              PatrocinioData patD=new PatrocinioData(con);
+//              SponsorData sponD = new SponsorData(con);
+//              Sponsor spon =sponD.buscarSponsor(2);
+//              List<Jugador> res=patD.buscarJugadoresdeSponsor(spon.getIdSponsor());
+//              System.out.println(res.size());
+//              for (int i = 0; i < res.size(); i++) {
+//                  System.out.println(res.get(i).toString());
+//                 }
+//              
+//              
+//          } catch (ClassNotFoundException ex) {
+//              Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
 //          }
+//////Listar Sponsor por jugador
+ try {
+              Conexion con = new Conexion();
+              PatrocinioData patD=new PatrocinioData(con);
+              JugadorData jugD = new JugadorData(con);
+              Jugador j =jugD.buscarJugador(4);
+              List<Sponsor> res=patD.buscarSponsordeJugador(j.getIdJugador());
+              System.out.println(res.size());
+              for (int i = 0; i < res.size(); i++) {
+                  System.out.println(res.get(i).toString());
+                 }
+              
+              
+          } catch (ClassNotFoundException ex) {
+              Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
+          }
 // //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ////Guardar Estadio          
 //          try {
@@ -314,19 +347,19 @@ public class Main {
 //              Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
 //          }
 //// //Desactivar y activar Torneo
- try {
-              Conexion con = new Conexion();
-               TorneoData torD = new TorneoData(con);
-              torD.darBajaTorneo(2);
-              Torneo t  = torD.buscarTorneo(2);
-              System.out.println(t.toString());
-              torD.darAltaTorneo(2);
-               Torneo t1  = torD.buscarTorneo(2);
-              System.out.println(t1.toString());
-              
-          } catch (ClassNotFoundException ex) {
-              Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
-          }
+// try {
+//              Conexion con = new Conexion();
+//               TorneoData torD = new TorneoData(con);
+//              torD.darBajaTorneo(2);
+//              Torneo t  = torD.buscarTorneo(2);
+//              System.out.println(t.toString());
+//              torD.darAltaTorneo(2);
+//               Torneo t1  = torD.buscarTorneo(2);
+//              System.out.println(t1.toString());
+//              
+//          } catch (ClassNotFoundException ex) {
+//              Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
+//          }
           
 }
 
