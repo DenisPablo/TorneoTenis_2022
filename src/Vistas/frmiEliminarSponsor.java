@@ -155,10 +155,13 @@ public class frmiEliminarSponsor extends javax.swing.JInternalFrame {
             Sponsor s=new Sponsor();
             SponsorData sponsor=new SponsorData(con);
             s=(Sponsor)CboEliminarSponsor.getSelectedItem();
-            sponsor.bajaSponsor(s.getIdPatrocinadores());
+            sponsor.bajaSponsor(s.getIdSponsor());
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(frmiEliminarSponsor.class.getName()).log(Level.SEVERE, null, ex);
         }
+         CboActivarSponsor.removeAllItems();
+         CboEliminarSponsor.removeAllItems(); 
+        cargarCbo();
     }//GEN-LAST:event_jButton1MouseClicked
 
     private void btnActivar1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnActivar1MouseClicked
@@ -166,11 +169,14 @@ public class frmiEliminarSponsor extends javax.swing.JInternalFrame {
             Conexion con = new Conexion();
             Sponsor s=new Sponsor();
             SponsorData sponsor=new SponsorData(con);
-            s=(Sponsor)CboEliminarSponsor.getSelectedItem();
-            sponsor.altaSponsor(s.getIdPatrocinadores());
+            s=(Sponsor)CboActivarSponsor.getSelectedItem();
+            sponsor.altaSponsor(s.getIdSponsor());
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(frmiEliminarSponsor.class.getName()).log(Level.SEVERE, null, ex);
         }
+         CboActivarSponsor.removeAllItems();
+         CboEliminarSponsor.removeAllItems();   
+         cargarCbo();
     }//GEN-LAST:event_btnActivar1MouseClicked
 
 

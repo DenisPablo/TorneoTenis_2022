@@ -77,6 +77,11 @@ public class frmiModificarSponsor extends javax.swing.JInternalFrame {
         jLabel3.setText("Sponsor");
 
         btnBuscar.setText("Buscar");
+        btnBuscar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnBuscarMouseClicked(evt);
+            }
+        });
 
         btnLimpiar.setText("Limpiar");
         btnLimpiar.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -161,6 +166,13 @@ public class frmiModificarSponsor extends javax.swing.JInternalFrame {
             Logger.getLogger(frmiAgregarSponsor.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_btnModificarMouseClicked
+
+    private void btnBuscarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnBuscarMouseClicked
+       Sponsor s= (Sponsor) cboSponsor.getSelectedItem();
+       tfMarca.setText(s.getMarca());
+       cbActivo.setSelected(s.isActivo());
+       
+    }//GEN-LAST:event_btnBuscarMouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

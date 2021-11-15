@@ -231,10 +231,6 @@ public class TorneoData {
      }
      
 
-<<<<<<< HEAD
-=======
-     
      
     
-}
->>>>>>> 6a150cbd065d098bc09a3427b87d889f495fdd33
+

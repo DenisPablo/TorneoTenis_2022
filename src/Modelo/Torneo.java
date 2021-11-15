@@ -80,10 +80,7 @@ public class Torneo {
         return "Torneo{" + "idTorneo=" + idTorneo + ", nombre=" + nombre + ", fechaNacInicio=" + fechaNacInicio + ", fehcaNacFinal=" + fehcaNacFinal + ", activo=" + activo + '}';
     }
    
-   @Override
-    public String toString() {
-        return "Torneo{" + "idTorneo=" + idTorneo + ", nombre=" + nombre + ", fechaNacInicio=" + fechaNacInicio + ", fehcaNacFinal=" + fehcaNacFinal + ", activo=" + activo + '}';
-    }
+  
    
    
    

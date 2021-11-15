@@ -5,6 +5,7 @@
  */
 package Vistas;
 
+import Data.JugadorData;
 import Data.PatrocinioData;
 import Data.SponsorData;
 import Modelo.Conexion;
@@ -48,9 +49,10 @@ public void cargarCbo(){
               
             }
             JugadorData jugador=new JugadorData(con);
-             List<Jugador> spona= jugador.buscarTodosJugadores();
-            for (int i = 0; i < jugador.size(); i++) {
-                cboJugador.addItem(jugador.get(i)); }
+             List<Jugador> juga= jugador.buscarTodosJugadores();
+            for (int i = 0; i < juga.size(); i++) {
+                cboJugador.addItem(juga.get(i)); 
+            }
         } catch (ClassNotFoundException ex) {
             System.out.println("Error al cargar cbo" +ex);
         }}
@@ -246,7 +248,7 @@ public void cargarCbo(){
             j=(Jugador) cboJugador.getSelectedItem();
             p.setJugador(j);
             s=(Sponsor) cboSponsor.getSelectedItem();
-            p.setPatrocinador(s);
+            p.setSponsor(s);
             String a=df.format(jcInicio.getDate().toString());
             p.setFechaInicioContrato(LocalDate.parse(a));
             p.setActivo(cbActivo.isSelected());
@@ -264,7 +266,7 @@ public void cargarCbo(){
     private javax.swing.JButton btnLimpiar;
     private javax.swing.JCheckBox cbActivo;
     private javax.swing.JComboBox<String> cboIndumentaria;
-    private javax.swing.JComboBox<String> cboJugador;
+    private javax.swing.JComboBox<Jugador> cboJugador;
     private javax.swing.JComboBox<Sponsor> cboSponsor;
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
