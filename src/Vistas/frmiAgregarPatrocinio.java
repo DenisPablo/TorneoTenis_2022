@@ -14,6 +14,8 @@ import Modelo.Patrocinio;
 import Modelo.Sponsor;
 import java.text.DateFormat;
 import java.time.LocalDate;
+import java.time.ZoneId;
+import java.util.Date;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -60,6 +62,7 @@ public void cargarCbo(){
     private void initComponents() {
 
         jCalendar1 = new com.toedter.calendar.JCalendar();
+        jDateChooser1 = new com.toedter.calendar.JDateChooser();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
@@ -111,6 +114,10 @@ public void cargarCbo(){
                 btnLimpiarMouseClicked(evt);
             }
         });
+
+        jcFin.setDateFormatString("yyyy-MM-dd");
+
+        jcInicio.setDateFormatString("yyyy-MM-dd");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -211,17 +218,20 @@ public void cargarCbo(){
          try {
             Conexion con = new Conexion();
             Patrocinio p=new Patrocinio();
-             Sponsor s=new Sponsor();
+            Sponsor s=new Sponsor();
             Jugador j=new Jugador();
             PatrocinioData pat=new PatrocinioData(con);
             j=(Jugador) cboJugador.getSelectedItem();
             p.setJugador(j);
             s=(Sponsor) cboSponsor.getSelectedItem();
             p.setSponsor(s);
-           // String a=df.format(jcInicio.getDate());
-            p.setFechaInicioContrato(LocalDate.parse(df.format(jcInicio.getDate())));
-            String a1=df.format(jcFin.getDate());
-            p.setFechaFinContrato(LocalDate.parse(a1));
+            Date fecini=(Date) jcInicio.getDate();
+           LocalDate ld=fecini.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+            p.setFechaInicioContrato(ld);
+            Date fecFin=(Date) jcFin.getDate();
+           LocalDate ldf=fecFin.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+            p.setFechaFinContrato(ldf);
+            p.setIndumentaria(cboIndumentaria.getSelectedItem().toString());
             p.setActivo(cbActivo.isSelected());
         
             pat.guardarPatrocinio(p);
@@ -239,6 +249,7 @@ public void cargarCbo(){
     private javax.swing.JComboBox<Jugador> cboJugador;
     private javax.swing.JComboBox<Sponsor> cboSponsor;
     private com.toedter.calendar.JCalendar jCalendar1;
+    private com.toedter.calendar.JDateChooser jDateChooser1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel2;

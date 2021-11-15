@@ -158,6 +158,7 @@ public class frmiModificarSponsor extends javax.swing.JInternalFrame {
      try {
             Conexion con = new Conexion();
             Sponsor s=new Sponsor();
+            s=(Sponsor)cboSponsor.getSelectedItem();
             s.setMarca(tfMarca.getText());
             s.setActivo(cbActivo.isSelected());
             SponsorData sponsor=new SponsorData(con);

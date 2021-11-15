@@ -160,7 +160,7 @@ public class PatrocinioData {
             }
 }   
       
-      public void altaSponsor (int id){
+      public void altaPatrocinio (int id){
           String sql = "UPDATE patrocinio SET activo=? WHERE idPatrocinio=?";
          try{
          PreparedStatement ps = con.prepareStatement(sql);

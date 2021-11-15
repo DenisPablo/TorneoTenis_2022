@@ -154,15 +154,15 @@ public class Main {
 //          } catch (ClassNotFoundException ex) {
 //              Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
 //          }
-////////modificar Patrocinio
+//////modificar Patrocinio
 //        try {
 //              Conexion con = new Conexion();
 //              PatrocinioData patD=new PatrocinioData(con);
-//              Patrocinio pat = patD.buscarPatrocinio(1);
+//              Patrocinio pat = patD.buscarPatrocinio(7);
 //               System.out.println("Patrocinio sin modificar:"+pat.toString());
 //              pat.setIndumentaria("indumentaria");
 //              patD.modificadarPatrocicio(pat);
-//              Patrocinio pat1 =patD.buscarPatrocinio(1);
+//              Patrocinio pat1 =patD.buscarPatrocinio(7);
 //              System.out.println("Patrocinio Modificado: "+pat1.toString());
 //          } catch (ClassNotFoundException ex) {
 //              Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
@@ -175,7 +175,7 @@ public class Main {
 //              patD.bajaPatrocinio(1);
 //              Patrocinio pat =patD.buscarPatrocinio(1);
 //              System.out.println("Desactivar: "+pat.toString());
-//              patD.altaSponsor(1);
+//              patD.altaPatrocinio(1);
 //              Patrocinio pat1 =patD.buscarPatrocinio(1);
 //              System.out.println("Activar: "+pat1.toString());
 //              
