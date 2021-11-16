@@ -116,35 +116,96 @@ public class EncuentroData {
 }
     
     public void darBajaEncuentro(int id){
-     String sql = "UPDATE encuentro SET activo=? WHERE idEncuentro=?";
-        
-     try {
-            PreparedStatement ps = con.prepareStatement(sql);
-            ps.setBoolean(1, false);
-            ps.setInt(2, id);
-            ps.executeUpdate();
-            ps.close();
-            
-            System.out.println("Encuentro suspendido con exito.");
-        } catch (SQLException ex) {
-            System.out.println("Error al conectar con la base de datos. "+ex);
+    
+         String sql = "UPDATE encuentro SET activo=? WHERE idEncuentro=?";
+         
+         try {
+             PreparedStatement ps = con.prepareStatement(sql);
+             ps.setBoolean(1, false);
+             ps.setInt(2, id);
+             ps.executeUpdate();
+             ps.close();
+             System.out.println("Encuentro suspendido con exito.");
+         } catch (SQLException ex) {
+             System.out.println("Error al conectar con la base de datos. "+ex);
+         }
+          try {
+         Conexion con1=new Conexion();
+         Jugador j= new Jugador();
+         JugadorData   j1 = new JugadorData(con1);
+         j.setPuntaje(j.getPuntaje() + 3);
+         
+         j1.actualizarJugador(j);
+         
+         String sql1 = "SELECT * FROM jugador ORDER BY jugador.puntaje DESC";
+         PreparedStatement ps;
+         try {
+             ps = con.prepareStatement(sql1);
+             ResultSet rs = ps.executeQuery();
+             int x=0;
+             while(rs.next() && rs.getInt(1) != j.getIdJugador()){
+                 ++x;
+                 j= j1.buscarJugador(rs.getInt(1));
+                 j.setRanking(x);
+                 j1.actualizarJugador(j);
+                 
+             }
+             
+             
+         } catch (SQLException ex) {
+             Logger.getLogger(EncuentroData.class.getName()).log(Level.SEVERE, null, ex);
+         }
+     } catch (ClassNotFoundException ex) {
+            Logger.getLogger(EncuentroData.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
     
     public void darAltaEncuentro(int id){
         
-    String sql = "UPDATE encuentro SET activo=? WHERE idEncuentro=?";
-        
-     try {
-            PreparedStatement ps = con.prepareStatement(sql);
-            ps.setBoolean(1, true);
-            ps.setInt(2, id);
-            ps.executeUpdate();
-            ps.close();
-            
-            System.out.println("Encuentro activado con exito.");
-        } catch (SQLException ex) {
-            System.out.println("Error al conectar con la base de datos. "+ex);
+    
+         String sql = "UPDATE encuentro SET activo=? WHERE idEncuentro=?";
+         
+         try {
+             PreparedStatement ps = con.prepareStatement(sql);
+             ps.setBoolean(1, true);
+             ps.setInt(2, id);
+             ps.executeUpdate();
+             ps.close();
+             
+             System.out.println("Encuentro activado con exito.");
+         } catch (SQLException ex) {
+             System.out.println("Error al conectar con la base de datos. "+ex);
+         }
+          try {
+         
+         Conexion con1=new Conexion();
+         Jugador j= new Jugador();
+         JugadorData   j1 = new JugadorData(con1);
+         j.setPuntaje(j.getPuntaje() - 3);
+         
+         j1.actualizarJugador(j);
+         
+         String sql1 = "SELECT * FROM jugador ORDER BY jugador.puntaje DESC";
+         PreparedStatement ps;
+         try {
+             ps = con.prepareStatement(sql1);
+             ResultSet rs = ps.executeQuery();
+             int x=0;
+             while(rs.next() && rs.getInt(1) != j.getIdJugador()){
+                 ++x;
+                 j= j1.buscarJugador(rs.getInt(1));
+                 j.setRanking(x);
+                 j1.actualizarJugador(j);
+                 
+             }
+             
+             
+         } catch (SQLException ex) {
+             Logger.getLogger(EncuentroData.class.getName()).log(Level.SEVERE, null, ex);
+         }
+         
+     } catch (ClassNotFoundException ex) {
+            Logger.getLogger(EncuentroData.class.getName()).log(Level.SEVERE, null, ex);
         }
         
     }

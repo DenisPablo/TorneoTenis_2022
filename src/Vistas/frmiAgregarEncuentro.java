@@ -5,6 +5,22 @@
  */
 package Vistas;
 
+import Data.EncuentroData;
+import Data.EstadioData;
+import Data.JugadorData;
+import Data.TorneoData;
+import Modelo.Conexion;
+import Modelo.Encuentro;
+import Modelo.Estadio;
+import Modelo.Jugador;
+import Modelo.Torneo;
+import java.time.LocalDate;
+import java.time.ZoneId;
+import java.util.Date;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 /**
  *
  * @author Romi
@@ -16,6 +32,11 @@ public class frmiAgregarEncuentro extends javax.swing.JInternalFrame {
      */
     public frmiAgregarEncuentro() {
         initComponents();
+        cargarCbo();
+        tfResultado.setVisible(false);
+        cboJugadorGanador.setVisible(false);
+         jLabel4.setVisible(false);
+        jLabel5.setVisible(false); 
     }
 
     /**
@@ -37,12 +58,6 @@ public class frmiAgregarEncuentro extends javax.swing.JInternalFrame {
         btnCargar = new javax.swing.JButton();
         cboJugador1 = new javax.swing.JComboBox<>();
         cboJugador2 = new javax.swing.JComboBox<>();
-        tfDia = new javax.swing.JTextField();
-        tfMes = new javax.swing.JTextField();
-        tfAño = new javax.swing.JTextField();
-        jLabel8 = new javax.swing.JLabel();
-        jLabel9 = new javax.swing.JLabel();
-        jLabel10 = new javax.swing.JLabel();
         tfResultado = new javax.swing.JTextField();
         cboJugadorGanador = new javax.swing.JComboBox<>();
         cboEstado = new javax.swing.JComboBox<>();
@@ -50,6 +65,9 @@ public class frmiAgregarEncuentro extends javax.swing.JInternalFrame {
         cboEstadio = new javax.swing.JComboBox<>();
         cbActivo = new javax.swing.JCheckBox();
         btnLimpiar = new javax.swing.JButton();
+        jdFec = new com.toedter.calendar.JDateChooser();
+        cboTorneo = new javax.swing.JComboBox<>();
+        jLabel8 = new javax.swing.JLabel();
 
         setClosable(true);
         setTitle("Agregar Encuentro");
@@ -69,12 +87,35 @@ public class frmiAgregarEncuentro extends javax.swing.JInternalFrame {
         jLabel7.setText("Activo");
 
         btnCargar.setText("Cargar");
+        btnCargar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnCargarMouseClicked(evt);
+            }
+        });
 
-        jLabel8.setText("DD");
+        cboJugador1.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                cboJugador1ItemStateChanged(evt);
+            }
+        });
+        cboJugador1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cboJugador1ActionPerformed(evt);
+            }
+        });
 
-        jLabel9.setText("MM");
+        tfResultado.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                tfResultadoKeyTyped(evt);
+            }
+        });
 
-        jLabel10.setText("AAAA");
+        cboEstado.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Programado", "En Juego", "Finalizado" }));
+        cboEstado.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                cboEstadoItemStateChanged(evt);
+            }
+        });
 
         jLabel11.setText("Estadio");
 
@@ -91,6 +132,10 @@ public class frmiAgregarEncuentro extends javax.swing.JInternalFrame {
             }
         });
 
+        jdFec.setDateFormatString("yyyy/MM/dd");
+
+        jLabel8.setText("Torneo");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -98,61 +143,57 @@ public class frmiAgregarEncuentro extends javax.swing.JInternalFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGap(22, 22, 22)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel1)
-                            .addComponent(jLabel2))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(cboJugador2, 0, 151, Short.MAX_VALUE)
-                            .addComponent(cboJugador1, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addGap(42, 42, 42))
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(jLabel11)
+                        .addGap(92, 92, 92)
+                        .addComponent(cboEstadio, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel3)
+                        .addGap(31, 31, 31)
+                        .addComponent(jdFec, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGap(42, 42, 42))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(0, 0, Short.MAX_VALUE)
+                                .addComponent(btnCargar))
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jLabel7)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(cbActivo)
-                                .addGap(57, 57, 57))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel3)
-                                .addGap(0, 0, Short.MAX_VALUE))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel4)
-                                    .addComponent(jLabel5)
-                                    .addComponent(jLabel6)
-                                    .addComponent(jLabel11))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 44, Short.MAX_VALUE)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(tfResultado)
-                                    .addComponent(cboJugadorGanador, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(cboEstado, 0, 153, Short.MAX_VALUE)
-                                    .addComponent(cboEstadio, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
-                        .addGap(40, 40, 40))))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(tfDia, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(jLabel8))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                    .addComponent(tfMes, javax.swing.GroupLayout.DEFAULT_SIZE, 72, Short.MAX_VALUE)
-                                    .addComponent(tfAño))
-                                .addGap(18, 18, 18)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel9)
-                                    .addComponent(jLabel10))))
-                        .addGap(28, 28, 28))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(btnCargar)
+                                .addComponent(cbActivo)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(btnLimpiar)
-                        .addGap(32, 32, 32))))
+                        .addGap(2, 2, 2))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel1)
+                                    .addComponent(jLabel2))
+                                .addGap(79, 79, 79)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(cboJugador2, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(cboJugador1, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(jLabel4)
+                                        .addComponent(jLabel5, javax.swing.GroupLayout.Alignment.TRAILING)
+                                        .addComponent(jLabel6))
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(jLabel8)
+                                        .addGap(50, 50, 50)))
+                                .addGap(44, 44, 44)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(cboTorneo, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                        .addComponent(tfResultado)
+                                        .addComponent(cboJugadorGanador, 0, 163, Short.MAX_VALUE)
+                                        .addGroup(layout.createSequentialGroup()
+                                            .addComponent(cboEstado, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED))))))
+                        .addContainerGap(51, Short.MAX_VALUE))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -166,23 +207,22 @@ public class frmiAgregarEncuentro extends javax.swing.JInternalFrame {
                     .addComponent(jLabel2)
                     .addComponent(cboJugador2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel3)
-                    .addComponent(tfDia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel8))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(tfMes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel9))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(tfAño, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel10))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 56, Short.MAX_VALUE)
+                    .addComponent(jdFec, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel11)
                     .addComponent(cboEstadio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(25, 25, 25)
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(cboTorneo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel8))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel6)
+                    .addComponent(cboEstado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
                     .addComponent(tfResultado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -191,20 +231,16 @@ public class frmiAgregarEncuentro extends javax.swing.JInternalFrame {
                     .addComponent(cboJugadorGanador, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(3, 3, 3)
-                        .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                        .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel6)
-                    .addComponent(cboEstado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(25, 25, 25)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel7)
                     .addComponent(cbActivo))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(42, 42, 42)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnCargar)
                     .addComponent(btnLimpiar))
-                .addGap(14, 14, 14))
+                .addContainerGap(56, Short.MAX_VALUE))
         );
 
         pack();
@@ -213,11 +249,32 @@ public class frmiAgregarEncuentro extends javax.swing.JInternalFrame {
     private void cbActivoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbActivoActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_cbActivoActionPerformed
-
+    public void cargarCbo(){
+        try {
+            Conexion con = new Conexion();
+            JugadorData jugador=new JugadorData(con);
+             List<Jugador> juga= jugador.buscarTodosJugadores();
+            for (int i = 0; i < juga.size(); i++) {
+                cboJugador1.addItem(juga.get(i)); 
+            }
+            for (int i = 0; i < juga.size(); i++) {
+                cboJugador2.addItem(juga.get(i)); 
+            }
+            EstadioData jd=new EstadioData(con);
+            List<Estadio> tor= jd.buscarTodosEstadio();
+            for (int i = 0; i < tor.size(); i++) {
+                cboEstadio.addItem(tor.get(i)); 
+            }
+            TorneoData orneo=new TorneoData(con);
+            List<Torneo> tor1= orneo.devolverTodosTorneos();
+            for (int i = 0; i < tor1.size(); i++) {
+                cboTorneo.addItem(tor1.get(i)); 
+            }
+        } catch (ClassNotFoundException ex) {
+            System.out.println("Error al cargar cbo" +ex);
+        }}
     private void btnLimpiarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnLimpiarMouseClicked
-      tfAño.setText("");
-      tfDia.setText("");
-      tfMes.setText("");
+    
       tfResultado.setText("");
         cbActivo.setSelected(false);
       cboEstadio.setSelectedIndex(0);
@@ -227,17 +284,77 @@ public class frmiAgregarEncuentro extends javax.swing.JInternalFrame {
       cboJugadorGanador.setSelectedIndex(0);        
     }//GEN-LAST:event_btnLimpiarMouseClicked
 
+    private void tfResultadoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tfResultadoKeyTyped
+       char c=evt.getKeyChar();
+     if(c<'0'||c>'9'||c=='-')evt.consume();
+    }//GEN-LAST:event_tfResultadoKeyTyped
+
+    private void btnCargarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCargarMouseClicked
+       try {
+            Conexion con = new Conexion();
+            Encuentro j=new Encuentro();
+            EncuentroData jd=new EncuentroData(con);
+            j.setJugador1((Jugador)cboJugador1.getSelectedItem());
+            j.setJugador2((Jugador)cboJugador2.getSelectedItem());
+            Date fecini=(Date) jdFec.getDate();
+            LocalDate ld=fecini.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+            j.setFechaEncuentro(ld);
+            j.setEstadio((Estadio)cboEstadio.getSelectedItem());
+            j.setResultado(tfResultado.getText());
+            Jugador j1=new Jugador();
+            if (cboEstado.getSelectedItem().toString()=="Programado"||cboEstado.getSelectedItem().toString()=="En Juego")
+            j.setJugadorGanador(j1);
+            if (cboEstado.getSelectedItem().toString()=="Finalizado")
+            j.setJugadorGanador((Jugador)cboJugadorGanador.getSelectedItem());
+            j.setActivo(cbActivo.isSelected());
+            j.setEstado(cboEstado.getSelectedItem().toString());
+            j.setTorneo((Torneo)cboTorneo.getSelectedItem());
+            jd.agregarEncuentro(j);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(frmiAgregarSponsor.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_btnCargarMouseClicked
+
+    private void cboJugador1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cboJugador1ActionPerformed
+       
+    }//GEN-LAST:event_cboJugador1ActionPerformed
+
+    private void cboJugador1ItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cboJugador1ItemStateChanged
+       if(evt.getSource()==cboJugador1){
+            cboJugador2.removeItem(cboJugador1.getSelectedItem());}
+    }//GEN-LAST:event_cboJugador1ItemStateChanged
+
+    private void cboEstadoItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cboEstadoItemStateChanged
+        if(evt.getSource()==cboEstado){
+            if(cboEstado.getSelectedItem().toString()=="Finalizado")
+            {
+                tfResultado.setVisible(true);
+                cboJugadorGanador.setVisible(true);
+                jLabel4.setVisible(true);
+                jLabel5.setVisible(true); 
+                cboJugadorGanador.addItem((Jugador)cboJugador1.getSelectedItem());
+                cboJugadorGanador.addItem((Jugador)cboJugador2.getSelectedItem());
+            }
+            else{
+                tfResultado.setVisible(false);
+                cboJugadorGanador.setVisible(false);
+                jLabel4.setVisible(false);
+                jLabel5.setVisible(false); 
+            }
+                }
+    }//GEN-LAST:event_cboEstadoItemStateChanged
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCargar;
     private javax.swing.JButton btnLimpiar;
     private javax.swing.JCheckBox cbActivo;
-    private javax.swing.JComboBox<String> cboEstadio;
+    private javax.swing.JComboBox<Estadio> cboEstadio;
     private javax.swing.JComboBox<String> cboEstado;
-    private javax.swing.JComboBox<String> cboJugador1;
-    private javax.swing.JComboBox<String> cboJugador2;
-    private javax.swing.JComboBox<String> cboJugadorGanador;
+    private javax.swing.JComboBox<Jugador> cboJugador1;
+    private javax.swing.JComboBox<Jugador> cboJugador2;
+    private javax.swing.JComboBox<Jugador> cboJugadorGanador;
+    private javax.swing.JComboBox<Torneo> cboTorneo;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -246,10 +363,7 @@ public class frmiAgregarEncuentro extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
-    private javax.swing.JLabel jLabel9;
-    private javax.swing.JTextField tfAño;
-    private javax.swing.JTextField tfDia;
-    private javax.swing.JTextField tfMes;
+    private com.toedter.calendar.JDateChooser jdFec;
     private javax.swing.JTextField tfResultado;
     // End of variables declaration//GEN-END:variables
 }

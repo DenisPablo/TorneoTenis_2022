@@ -223,10 +223,20 @@
     <Component class="javax.swing.JTextField" name="tfNombre">
     </Component>
     <Component class="javax.swing.JTextField" name="tfDni">
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="tfDniActionPerformed"/>
+        <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="tfDniKeyTyped"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JTextField" name="tfAltura">
+      <Events>
+        <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="tfAlturaKeyTyped"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JTextField" name="tfPeso">
+      <Events>
+        <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="tfPesoKeyTyped"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JComboBox" name="cboJugador">
       <Properties>

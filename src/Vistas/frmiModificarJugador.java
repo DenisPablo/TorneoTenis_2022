@@ -96,6 +96,29 @@ public class frmiModificarJugador extends javax.swing.JInternalFrame {
 
         jLabel14.setText("Activo");
 
+        tfDni.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                tfDniActionPerformed(evt);
+            }
+        });
+        tfDni.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                tfDniKeyTyped(evt);
+            }
+        });
+
+        tfAltura.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                tfAlturaKeyTyped(evt);
+            }
+        });
+
+        tfPeso.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                tfPesoKeyTyped(evt);
+            }
+        });
+
         btnBuscar.setText("Buscar");
         btnBuscar.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -276,6 +299,25 @@ public void cargarCbo(){
         cboJugador.removeAllItems(); 
         cargarCbo();
     }//GEN-LAST:event_btnModificarMouseClicked
+
+    private void tfDniActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfDniActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_tfDniActionPerformed
+
+    private void tfDniKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tfDniKeyTyped
+       char c=evt.getKeyChar();
+     if(c<'0'||c>'9')evt.consume();
+    }//GEN-LAST:event_tfDniKeyTyped
+
+    private void tfAlturaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tfAlturaKeyTyped
+       char c=evt.getKeyChar();
+     if(c<'0'||c>'9'||c=='.')evt.consume();
+    }//GEN-LAST:event_tfAlturaKeyTyped
+
+    private void tfPesoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tfPesoKeyTyped
+         char c=evt.getKeyChar();
+     if(c<'0'||c>'9'||c=='.')evt.consume();
+    }//GEN-LAST:event_tfPesoKeyTyped
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
