@@ -5,6 +5,13 @@
  */
 package Vistas;
 
+import Data.TorneoData;
+import Modelo.Conexion;
+import Modelo.Torneo;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 /**
  *
  * @author Romi
@@ -16,6 +23,7 @@ public class frmiEliminarTorneo extends javax.swing.JInternalFrame {
      */
     public frmiEliminarTorneo() {
         initComponents();
+        cargarCbo();
     }
 
     /**
@@ -46,10 +54,20 @@ public class frmiEliminarTorneo extends javax.swing.JInternalFrame {
         jLabel37.setText("Activar");
 
         jButton1.setText("Eliminar");
+        jButton1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jButton1MouseClicked(evt);
+            }
+        });
 
         jLabel34.setText("Torneo");
 
         btnActivar1.setText("Activar");
+        btnActivar1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnActivar1MouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -111,11 +129,59 @@ public class frmiEliminarTorneo extends javax.swing.JInternalFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+public void cargarCbo(){
+        try {
+            Conexion con = new Conexion();
+            TorneoData orneo=new TorneoData(con);
+            
+            List<Torneo> tor= orneo.devolverTodosTorneos();
+            for (int i = 0; i < tor.size(); i++) {
+                if(tor.get(i).isActivo()==false)
+                 CboActivarTorneo.addItem(tor.get(i)); 
+            }
+               for (int i = 0; i < tor.size(); i++) {
+                if(tor.get(i).isActivo()==true)
+                 CboEliminarTorneo.addItem(tor.get(i)); 
+            }
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(frmiModificarSponsor.class.getName()).log(Level.SEVERE, null, ex);
+        }
+ }
+    private void jButton1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton1MouseClicked
+      try {
+            Conexion con = new Conexion();
+            Torneo p=new Torneo();
+            TorneoData patrocinio=new TorneoData(con);
+            p=(Torneo)CboEliminarTorneo.getSelectedItem();
+            patrocinio.darBajaTorneo(p.getIdTorneo());
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(frmiEliminarSponsor.class.getName()).log(Level.SEVERE, null, ex);
+        }
+         CboActivarTorneo.removeAllItems();
+         CboEliminarTorneo.removeAllItems(); 
+        cargarCbo();
+                   
+    }//GEN-LAST:event_jButton1MouseClicked
+
+    private void btnActivar1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnActivar1MouseClicked
+        try {
+            Conexion con = new Conexion();
+            Torneo p=new Torneo();
+            TorneoData patrocinio=new TorneoData(con);
+            p=(Torneo)CboActivarTorneo.getSelectedItem();
+            patrocinio.darAltaTorneo(p.getIdTorneo());
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(frmiEliminarSponsor.class.getName()).log(Level.SEVERE, null, ex);
+        }
+         CboActivarTorneo.removeAllItems();
+         CboEliminarTorneo.removeAllItems(); 
+        cargarCbo();
+    }//GEN-LAST:event_btnActivar1MouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JComboBox<String> CboActivarTorneo;
-    private javax.swing.JComboBox<String> CboEliminarTorneo;
+    private javax.swing.JComboBox<Torneo> CboActivarTorneo;
+    private javax.swing.JComboBox<Torneo> CboEliminarTorneo;
     private javax.swing.JButton btnActivar1;
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel34;

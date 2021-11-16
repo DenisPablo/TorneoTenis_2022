@@ -173,6 +173,8 @@ public class frmiModificarTorneo extends javax.swing.JInternalFrame {
         tfNombre.setText("");
         cbActivo.setSelected(false);
         cboorneo.setSelectedIndex(0);
+        jdInicio.setDate(null);
+        jdFin.setDate(null);
 
     }//GEN-LAST:event_btnLimpiarMouseClicked
 public void cargarCbo(){
