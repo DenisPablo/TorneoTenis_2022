@@ -82,7 +82,8 @@ public class TorneoData {
     }
     
     return t;
-}  public void modificadarTorneo (Torneo t) {
+}  
+     public void modificadarTorneo (Torneo t) {
         String sql = "UPDATE `torneo` SET `nombre`=?,`fechaNacInicio`=?,`fechaNacFinal`=?,`activo`=? WHERE idTorneo=?";
         try{
             PreparedStatement ps = con.prepareStatement(sql);
@@ -102,7 +103,6 @@ public class TorneoData {
 
  }
      
- 
      public void darBajaTorneo(int id){
      
         String sql = "UPDATE torneo SET activo=? WHERE idTorneo=?";
@@ -119,7 +119,6 @@ public class TorneoData {
             System.out.println("Error al conectar con la base de datos. "+ex);
         }
     }
-     
      
      public void darAltaTorneo(int id){
      
@@ -159,26 +158,20 @@ public class TorneoData {
      
      public List<Torneo> devolverTodosTorneos(){
      
-       
-    ArrayList<Torneo> resultados = new ArrayList();
-       
-    resultados = new ArrayList<>();
+    List<Torneo> resultados = new ArrayList();
     Torneo t = new Torneo();
-    String sql = "SELECT * FROM torneo Where activo=true ";
-    
+    String sql = "SELECT * FROM torneo ";
     try{
         PreparedStatement ps = con.prepareStatement(sql);
         ResultSet rs = ps.executeQuery();
       while(rs.next()){
-        
         t.setIdTorneo(rs.getInt("idTorneo"));
         t.setNombre(rs.getNString("nombre"));
         t.setFechaNacInicio(rs.getDate("fechaNacInicio").toLocalDate());
         t.setFehcaNacFinal(rs.getDate("fechaNacFinal").toLocalDate());
         t.setActivo(rs.getBoolean("activo"));
-
-        
-    resultados.add(t);
+        resultados.add(t);
+          System.out.println(t.toString());
     }
     ps.close();
     }
