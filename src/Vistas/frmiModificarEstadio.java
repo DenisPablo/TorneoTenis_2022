@@ -5,6 +5,13 @@
  */
 package Vistas;
 
+import Data.EstadioData;
+import Modelo.Conexion;
+import Modelo.Estadio;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 /**
  *
  * @author Romi
@@ -16,6 +23,7 @@ public class frmiModificarEstadio extends javax.swing.JInternalFrame {
      */
     public frmiModificarEstadio() {
         initComponents();
+           cargarCbo();
     }
 
     /**
@@ -47,11 +55,18 @@ public class frmiModificarEstadio extends javax.swing.JInternalFrame {
         setClosable(true);
         setTitle("Modificar Estadio");
 
+        cboCategoria.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Cesped", "Cemento", "Ladrillo" }));
+
         Nomnre.setText("Nombre");
 
         jLabel2.setText("Ciudad");
 
         btnModificar.setText("Modificar");
+        btnModificar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnModificarMouseClicked(evt);
+            }
+        });
 
         jLabel3.setText("Categoria");
 
@@ -62,6 +77,11 @@ public class frmiModificarEstadio extends javax.swing.JInternalFrame {
         jLabel6.setText("Activo");
 
         BtnBuscar.setText("Buscar");
+        BtnBuscar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                BtnBuscarMouseClicked(evt);
+            }
+        });
 
         btnLimpiar.setText("Limpiar");
         btnLimpiar.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -93,8 +113,7 @@ public class frmiModificarEstadio extends javax.swing.JInternalFrame {
                                     .addComponent(tfCiudad)
                                     .addComponent(cboCategoria, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                     .addComponent(tfDirCom)
-                                    .addComponent(tfDimension, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                    .addComponent(tfDimension, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)))
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(69, 69, 69)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -161,6 +180,49 @@ public class frmiModificarEstadio extends javax.swing.JInternalFrame {
         
     }//GEN-LAST:event_btnLimpiarMouseClicked
 
+    private void BtnBuscarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BtnBuscarMouseClicked
+        Estadio j= new Estadio();
+        j= (Estadio) jComboBox1.getSelectedItem();
+        tfNombre.setText(j.getNombre());
+        tfCiudad.setText(j.getCiudad());
+        tfDimension.setText(j.getDimension());
+        tfDirCom.setText(j.getDireccionComercial());
+       cbActivo.setSelected(j.isActivo());
+       cboCategoria.setSelectedItem(j.getCategoria().toString());
+    }//GEN-LAST:event_BtnBuscarMouseClicked
+    public void cargarCbo(){
+        try {
+            Conexion con = new Conexion();
+            EstadioData jd=new EstadioData(con);
+            
+            List<Estadio> tor= jd.buscarTodosEstadio();
+            for (int i = 0; i < tor.size(); i++) {
+                jComboBox1.addItem(tor.get(i)); 
+            }
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(frmiModificarSponsor.class.getName()).log(Level.SEVERE, null, ex);
+        }
+ }
+    private void btnModificarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnModificarMouseClicked
+         try {
+           Conexion con = new Conexion();
+            Estadio j=new Estadio();
+            EstadioData jd=new EstadioData(con);
+            j=(Estadio)jComboBox1.getSelectedItem();
+            j.setNombre(tfNombre.getText());
+           j.setCiudad(tfCiudad.getText());
+           j.setDimension(tfDimension.getText());
+           j.setCategoria(cboCategoria.getSelectedItem().toString());
+            j.setActivo(cbActivo.isSelected());
+            j.setDireccionComercial(tfDirCom.getText());
+            jd.modificadarEstadio(j);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(frmiAgregarSponsor.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        jComboBox1.removeAllItems();
+        cargarCbo();
+    }//GEN-LAST:event_btnModificarMouseClicked
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton BtnBuscar;
@@ -169,7 +231,7 @@ public class frmiModificarEstadio extends javax.swing.JInternalFrame {
     private javax.swing.JButton btnModificar;
     private javax.swing.JCheckBox cbActivo;
     private javax.swing.JComboBox<String> cboCategoria;
-    private javax.swing.JComboBox<String> jComboBox1;
+    private javax.swing.JComboBox<Estadio> jComboBox1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;

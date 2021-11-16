@@ -183,7 +183,6 @@ public void cargarCbo(){
             TorneoData orneo=new TorneoData(con);
             
             List<Torneo> tor= orneo.devolverTodosTorneos();
-            System.out.println(tor.toString());
             for (int i = 0; i < tor.size(); i++) {
                 cboorneo.addItem(tor.get(i)); 
             }

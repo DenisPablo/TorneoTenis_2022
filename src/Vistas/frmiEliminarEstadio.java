@@ -5,6 +5,14 @@
  */
 package Vistas;
 
+import Data.EstadioData;
+import Modelo.Conexion;
+import Modelo.Estadio;
+import Modelo.Torneo;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 /**
  *
  * @author Romi
@@ -16,8 +24,26 @@ public class frmiEliminarEstadio extends javax.swing.JInternalFrame {
      */
     public frmiEliminarEstadio() {
         initComponents();
+        cargarCbo(); 
     }
-
+  public void cargarCbo(){
+        try {
+            Conexion con = new Conexion();
+            EstadioData jd=new EstadioData(con);
+            
+            List<Estadio> tor= jd.buscarTodosEstadio();
+            for (int i = 0; i < tor.size(); i++) {
+                if(tor.get(i).isActivo()==true)
+                CboEliminarEstadio.addItem(tor.get(i)); 
+            }
+            for (int i = 0; i < tor.size(); i++) {
+                if(tor.get(i).isActivo()==false)
+                CboActivarEstadio.addItem(tor.get(i)); 
+            }
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(frmiModificarSponsor.class.getName()).log(Level.SEVERE, null, ex);
+        }
+ }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -46,8 +72,21 @@ public class frmiEliminarEstadio extends javax.swing.JInternalFrame {
         jLabel37.setText("Activar");
 
         jButton1.setText("Eliminar");
+        jButton1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jButton1MouseClicked(evt);
+            }
+        });
 
         btnActivar.setText("Activar");
+        btnActivar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnActivarMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btnActivarMouseEntered(evt);
+            }
+        });
 
         jLabel34.setText("Estadio");
 
@@ -112,10 +151,45 @@ public class frmiEliminarEstadio extends javax.swing.JInternalFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void jButton1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton1MouseClicked
+         try {
+            Conexion con = new Conexion();
+            Estadio p=new Estadio();
+            EstadioData patrocinio=new EstadioData(con);
+            p=(Estadio)CboEliminarEstadio.getSelectedItem();
+            patrocinio.bajaEstadio(p.getIdEstadio());
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(frmiEliminarSponsor.class.getName()).log(Level.SEVERE, null, ex);
+        }
+         CboActivarEstadio.removeAllItems();
+         CboEliminarEstadio.removeAllItems(); 
+        cargarCbo();
+                   
+    }//GEN-LAST:event_jButton1MouseClicked
+
+    private void btnActivarMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnActivarMouseEntered
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnActivarMouseEntered
+
+    private void btnActivarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnActivarMouseClicked
+   try {
+            Conexion con = new Conexion();
+            Estadio p=new Estadio();
+            EstadioData patrocinio=new EstadioData(con);
+            p=(Estadio)CboActivarEstadio.getSelectedItem();
+            patrocinio.altaEstadio(p.getIdEstadio());
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(frmiEliminarSponsor.class.getName()).log(Level.SEVERE, null, ex);
+        }
+         CboActivarEstadio.removeAllItems();
+         CboEliminarEstadio.removeAllItems(); 
+        cargarCbo();        // TODO add your handling code here:
+    }//GEN-LAST:event_btnActivarMouseClicked
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JComboBox<String> CboActivarEstadio;
-    private javax.swing.JComboBox<String> CboEliminarEstadio;
+    private javax.swing.JComboBox<Estadio> CboActivarEstadio;
+    private javax.swing.JComboBox<Estadio> CboEliminarEstadio;
     private javax.swing.JButton btnActivar;
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel34;

@@ -162,11 +162,12 @@ public class EstadioData {
         while(rs.next()){
                  estadio=new Estadio();
                  estadio.setIdEstadio(rs.getInt(1));
-                 estadio.setCiudad(rs.getString(2));
-                 estadio.setCategoria(rs.getString(3));
-                 estadio.setActivo(rs.getBoolean(4));
-                 estadio.setDireccionComercial(rs.getString(5));
-                 estadio.setDimension(rs.getString(6));
+                 estadio.setNombre(rs.getString(2));
+                 estadio.setCiudad(rs.getString(3));
+                 estadio.setCategoria(rs.getString(4));
+                 estadio.setActivo(rs.getBoolean(5));
+                 estadio.setDireccionComercial(rs.getString(6));
+                 estadio.setDimension(rs.getString(7));
                  resultados.add(estadio);
             }
             ps.close();

@@ -5,6 +5,17 @@
  */
 package Vistas;
 
+import Data.EstadioData;
+import Data.TorneoData;
+import Modelo.Conexion;
+import Modelo.Estadio;
+import Modelo.Torneo;
+import java.time.LocalDate;
+import java.time.ZoneId;
+import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 /**
  *
  * @author Romi
@@ -57,7 +68,14 @@ public class frmiAgregarEstadio extends javax.swing.JInternalFrame {
 
         jLabel6.setText("Activo");
 
+        cboCategoria.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Cesped", "Cemento", "Ladrillo" }));
+
         btnCargar.setText("Cargar");
+        btnCargar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnCargarMouseClicked(evt);
+            }
+        });
 
         btnLimpiar.setText("Limpiar");
         btnLimpiar.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -146,6 +164,23 @@ public class frmiAgregarEstadio extends javax.swing.JInternalFrame {
         cboCategoria.setSelectedIndex(0);
         
     }//GEN-LAST:event_btnLimpiarMouseClicked
+
+    private void btnCargarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCargarMouseClicked
+        try {
+           Conexion con = new Conexion();
+            Estadio j=new Estadio();
+            EstadioData jd=new EstadioData(con);
+            j.setNombre(tfNombre.getText());
+            j.setCiudad(tfCiudad.getText());
+            j.setCategoria(cboCategoria.getSelectedItem().toString());
+            j.setActivo(cbActivo.isSelected());
+            j.setDireccionComercial(tfDirCom.getText());
+            j.setDimension(tfDimension.getText());
+            jd.guardarEstadio(j);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(frmiAgregarSponsor.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_btnCargarMouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
