@@ -5,6 +5,13 @@
  */
 package Vistas;
 
+import Data.JugadorData;
+import Modelo.Conexion;
+import Modelo.Jugador;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 /**
  *
  * @author Romi
@@ -16,6 +23,7 @@ public class frmiEliminarJugador extends javax.swing.JInternalFrame {
      */
     public frmiEliminarJugador() {
         initComponents();
+        cargarCbo();
     }
 
     /**
@@ -49,10 +57,20 @@ public class frmiEliminarJugador extends javax.swing.JInternalFrame {
         jLabel37.setText("Activar");
 
         jButton1.setText("Eliminar");
+        jButton1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jButton1MouseClicked(evt);
+            }
+        });
 
         jLabel34.setText("Jugador");
 
         btnActivar1.setText("Activar");
+        btnActivar1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnActivar1MouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -112,11 +130,56 @@ public class frmiEliminarJugador extends javax.swing.JInternalFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+public void cargarCbo(){
+        try {
+            Conexion con = new Conexion();
+            JugadorData jugador=new JugadorData(con);
+             List<Jugador> juga= jugador.buscarTodosJugadores();
+            for (int i = 0; i < juga.size(); i++) {
+                  if(juga.get(i).isActivo()==false)
+                    CboActivarJugador.addItem(juga.get(i)); 
+            }
+            for (int i = 0; i < juga.size(); i++) {
+                  if(juga.get(i).isActivo()==true)
+                    CboEliminarJugador.addItem(juga.get(i)); 
+            }
+        } catch (ClassNotFoundException ex) {
+            System.out.println("Error al cargar cbo" +ex);
+        }}
+    private void jButton1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton1MouseClicked
+     try {
+            Conexion con = new Conexion();
+            Jugador p=new Jugador();
+            JugadorData patrocinio=new JugadorData(con);
+            p=(Jugador)CboEliminarJugador.getSelectedItem();
+            patrocinio.desactivarJugador(p.getIdJugador());
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(frmiEliminarSponsor.class.getName()).log(Level.SEVERE, null, ex);
+        }
+         CboActivarJugador.removeAllItems();
+         CboEliminarJugador.removeAllItems(); 
+        cargarCbo();
+    }//GEN-LAST:event_jButton1MouseClicked
+
+    private void btnActivar1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnActivar1MouseClicked
+        try {
+            Conexion con = new Conexion();
+            Jugador p=new Jugador();
+            JugadorData patrocinio=new JugadorData(con);
+            p=(Jugador)CboActivarJugador.getSelectedItem();
+            patrocinio.activarJugador(p.getIdJugador());
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(frmiEliminarSponsor.class.getName()).log(Level.SEVERE, null, ex);
+        }
+         CboActivarJugador.removeAllItems();
+         CboEliminarJugador.removeAllItems(); 
+        cargarCbo();
+    }//GEN-LAST:event_btnActivar1MouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JComboBox<String> CboActivarJugador;
-    private javax.swing.JComboBox<String> CboEliminarJugador;
+    private javax.swing.JComboBox<Jugador> CboActivarJugador;
+    private javax.swing.JComboBox<Jugador> CboEliminarJugador;
     private javax.swing.JButton btnActivar;
     private javax.swing.JButton btnActivar1;
     private javax.swing.JButton jButton1;

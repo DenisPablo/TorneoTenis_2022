@@ -19,9 +19,9 @@ public class Jugador {
     private double peso;
     private String estilo;
     private String manoHabil;
-    private int torneoGanados;
-    private int ranking;
-    private int puntaje;
+    private int torneoGanados=0;
+    private int ranking=0;
+    private int puntaje=0;
     private boolean activo;
 
     public Jugador(int idJugador, String nombre, int dni, LocalDate fechaNac, double altura, double peso, String estilo, String manoHabil, int torneoGanados, int ranking, int puntaje, boolean activo) {
