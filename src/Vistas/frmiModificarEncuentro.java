@@ -28,13 +28,52 @@ import java.util.logging.Logger;
 public class frmiModificarEncuentro extends javax.swing.JInternalFrame {
 
     /**
-     * Creates new form frmiModificarEncuentro
+     * Creates new form frmiModificarEncuentro1
      */
     public frmiModificarEncuentro() {
         initComponents();
-        cargarCbo();
+          limpiar();
+        tfResultado.setVisible(false);
+        cboJugadorGanador.setVisible(false);
+         jLabel4.setVisible(false);
+        jLabel5.setVisible(false); 
     }
-
+public void cargarCbo(){
+        cboEstadio.removeAllItems();
+        cboJugador1.removeAllItems();
+        cboJugador2.removeAllItems();
+        cboJugadorGanador.removeAllItems();
+        cboEncuentro.removeAllItems();
+        cboTorneo.removeAllItems();
+        try {
+            Conexion con = new Conexion();
+            JugadorData jugador=new JugadorData(con);
+             List<Jugador> juga= jugador.buscarTodosJugadores();
+            for (int i = 0; i < juga.size(); i++) {
+                cboJugador1.addItem(juga.get(i).toString()); 
+            }
+            List<Jugador> juga2= jugador.buscarTodosJugadores();
+            for (int i = 0; i < juga2.size(); i++) {
+                cboJugador2.addItem(juga2.get(i).toString()); 
+            }
+            EstadioData jd=new EstadioData(con);
+            List<Estadio> tor= jd.buscarTodosEstadio();
+            for (int i = 0; i < tor.size(); i++) {
+                cboEstadio.addItem(tor.get(i).toString()); 
+            }
+            TorneoData orneo=new TorneoData(con);
+            List<Torneo> tor1= orneo.devolverTodosTorneos();
+            for (int i = 0; i < tor1.size(); i++) {
+                cboTorneo.addItem(tor1.get(i).toString()); 
+            }
+             EncuentroData e= new EncuentroData(con);
+              List<Encuentro> tor2= e.devolverTodosEncuentros();
+            for (int i = 0; i < tor2.size(); i++) {
+                cboEncuentro.addItem(tor2.get(i)); 
+            }
+        } catch (ClassNotFoundException ex) {
+            System.out.println("Error al cargar cbo" +ex);
+        }}
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -44,52 +83,78 @@ public class frmiModificarEncuentro extends javax.swing.JInternalFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jLabel5 = new javax.swing.JLabel();
-        jdFec = new com.toedter.calendar.JDateChooser();
-        cboTorneo = new javax.swing.JComboBox<>();
-        jLabel8 = new javax.swing.JLabel();
-        jLabel6 = new javax.swing.JLabel();
-        tfResultado = new javax.swing.JTextField();
-        jLabel7 = new javax.swing.JLabel();
-        cboJugadorGanador = new javax.swing.JComboBox<>();
-        cboEstado = new javax.swing.JComboBox<>();
-        cboJugador1 = new javax.swing.JComboBox<>();
-        jLabel11 = new javax.swing.JLabel();
-        cboJugador2 = new javax.swing.JComboBox<>();
-        cboEstadio = new javax.swing.JComboBox<>();
-        cbActivo = new javax.swing.JCheckBox();
-        jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
-        btnModificar = new javax.swing.JButton();
         cboEncuentro = new javax.swing.JComboBox<>();
         btnBuscar = new javax.swing.JButton();
+        btnModificar = new javax.swing.JButton();
         btnLimpiar = new javax.swing.JButton();
+        jLabel4 = new javax.swing.JLabel();
+        cboEstadio = new javax.swing.JComboBox<>();
+        jLabel5 = new javax.swing.JLabel();
+        cbActivo = new javax.swing.JCheckBox();
+        jLabel6 = new javax.swing.JLabel();
+        jLabel7 = new javax.swing.JLabel();
+        jdFec = new com.toedter.calendar.JDateChooser();
+        cboTorneo = new javax.swing.JComboBox<>();
+        cboJugador1 = new javax.swing.JComboBox<>();
+        jLabel8 = new javax.swing.JLabel();
+        cboJugador2 = new javax.swing.JComboBox<>();
+        tfResultado = new javax.swing.JTextField();
+        jLabel1 = new javax.swing.JLabel();
+        cboJugadorGanador = new javax.swing.JComboBox<>();
+        jLabel2 = new javax.swing.JLabel();
+        cboEstado = new javax.swing.JComboBox<>();
+        jLabel3 = new javax.swing.JLabel();
+        jLabel11 = new javax.swing.JLabel();
+
+        cboEncuentro.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                cboEncuentroItemStateChanged(evt);
+            }
+        });
+
+        btnBuscar.setText("Buscar");
+        btnBuscar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnBuscarMouseClicked(evt);
+            }
+        });
+        btnBuscar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBuscarActionPerformed(evt);
+            }
+        });
+
+        btnModificar.setText("Modificar");
+        btnModificar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnModificarMouseClicked(evt);
+            }
+        });
+
+        btnLimpiar.setText("Limpiar");
+        btnLimpiar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnLimpiarMouseClicked(evt);
+            }
+        });
+
+        jLabel4.setText("Resultado");
 
         jLabel5.setText("Jugador Ganador");
 
-        jdFec.setDateFormatString("yyyy/MM/dd");
-
-        jLabel8.setText("Torneo");
+        cbActivo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cbActivoActionPerformed(evt);
+            }
+        });
 
         jLabel6.setText("Estado");
 
-        tfResultado.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                tfResultadoKeyTyped(evt);
-            }
-        });
-
         jLabel7.setText("Activo");
 
-        cboEstado.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Programado", "En Juego", "Finalizado" }));
-        cboEstado.addItemListener(new java.awt.event.ItemListener() {
-            public void itemStateChanged(java.awt.event.ItemEvent evt) {
-                cboEstadoItemStateChanged(evt);
-            }
-        });
+        jdFec.setDateFormatString("yyyy/MM/dd");
 
+        cboJugador1.setToolTipText("");
         cboJugador1.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
                 cboJugador1ItemStateChanged(evt);
@@ -101,11 +166,11 @@ public class frmiModificarEncuentro extends javax.swing.JInternalFrame {
             }
         });
 
-        jLabel11.setText("Estadio");
+        jLabel8.setText("Torneo");
 
-        cbActivo.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cbActivoActionPerformed(evt);
+        tfResultado.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                tfResultadoKeyTyped(evt);
             }
         });
 
@@ -113,124 +178,241 @@ public class frmiModificarEncuentro extends javax.swing.JInternalFrame {
 
         jLabel2.setText("Jugador 2");
 
+        cboEstado.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Programado", "En Juego", "Finalizado" }));
+        cboEstado.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                cboEstadoItemStateChanged(evt);
+            }
+        });
+
         jLabel3.setText("Fecha de Encuentro");
 
-        jLabel4.setText("Resultado");
-
-        setClosable(true);
-        setTitle("Modificar Encuentro");
-
-        btnModificar.setText("Modificar");
-        btnModificar.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                btnModificarMouseClicked(evt);
-            }
-        });
-
-        cboEncuentro.addItemListener(new java.awt.event.ItemListener() {
-            public void itemStateChanged(java.awt.event.ItemEvent evt) {
-                cboEncuentroItemStateChanged(evt);
-            }
-        });
-
-        btnBuscar.setText("Buscar");
-        btnBuscar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnBuscarActionPerformed(evt);
-            }
-        });
-
-        btnLimpiar.setText("Limpiar");
-        btnLimpiar.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                btnLimpiarMouseClicked(evt);
-            }
-        });
+        jLabel11.setText("Estadio");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(btnModificar)
-                .addGap(92, 92, 92)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btnBuscar)
-                    .addComponent(btnLimpiar))
-                .addGap(43, 43, 43))
             .addGroup(layout.createSequentialGroup()
-                .addGap(67, 67, 67)
-                .addComponent(cboEncuentro, javax.swing.GroupLayout.PREFERRED_SIZE, 378, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(85, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap(279, Short.MAX_VALUE)
+                        .addComponent(btnModificar)
+                        .addGap(59, 59, 59)
+                        .addComponent(btnLimpiar))
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                        .addGap(67, 67, 67)
+                        .addComponent(cboEncuentro, javax.swing.GroupLayout.PREFERRED_SIZE, 378, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(43, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGap(85, 85, 85)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(jLabel7)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(cbActivo)
+                        .addGap(87, 87, 87))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(jLabel4)
+                                        .addComponent(jLabel5, javax.swing.GroupLayout.Alignment.TRAILING)
+                                        .addComponent(jLabel6))
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(jLabel8)
+                                        .addGap(50, 50, 50)))
+                                .addGap(44, 44, 44)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                        .addComponent(tfResultado)
+                                        .addComponent(cboJugadorGanador, 0, 206, Short.MAX_VALUE)
+                                        .addComponent(cboEstado, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                    .addComponent(cboTorneo, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel11)
+                                .addGap(92, 92, 92)
+                                .addComponent(cboEstadio, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                                .addComponent(jLabel3)
+                                .addGap(31, 31, 31)
+                                .addComponent(jdFec, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel1)
+                                    .addComponent(jLabel2))
+                                .addGap(79, 79, 79)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(cboJugador1, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(cboJugador2, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                        .addGap(18, 18, 18)))
+                .addComponent(btnBuscar)
+                .addGap(19, 19, 19))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(20, 20, 20)
                 .addComponent(cboEncuentro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(138, 138, 138)
-                .addComponent(btnBuscar)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 200, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(btnModificar)
-                        .addGap(56, 56, 56))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(btnLimpiar)
-                        .addGap(68, 68, 68))))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(18, 18, 18)
+                        .addComponent(btnBuscar))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(31, 31, 31)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel1)
+                            .addComponent(cboJugador1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel2)
+                            .addComponent(cboJugador2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel3)
+                            .addComponent(jdFec, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel11)
+                            .addComponent(cboEstadio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(cboTorneo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel8))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel6)
+                            .addComponent(cboEstado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel4)
+                            .addComponent(tfResultado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(cboJugadorGanador, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(3, 3, 3)
+                                .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(cbActivo)
+                            .addComponent(jLabel7))))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 33, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnModificar)
+                    .addComponent(btnLimpiar))
+                .addContainerGap())
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-  public void cargarCbo(){
-        try {
-            Conexion con = new Conexion();
-            JugadorData jugador=new JugadorData(con);
-             List<Jugador> juga= jugador.buscarTodosJugadores();
-            for (int i = 0; i < juga.size(); i++) {
-                cboJugador3.addItem(juga.get(i).toString()); 
-            }
-            for (int i = 0; i < juga.size(); i++) {
-                cboJugador4.addItem(juga.get(i).toString()); 
-            }
-            EstadioData jd=new EstadioData(con);
-            List<Estadio> tor= jd.buscarTodosEstadio();
-            for (int i = 0; i < tor.size(); i++) {
-                cboEstadio1.addItem(tor.get(i).toString()); 
-            }
-            TorneoData orneo=new TorneoData(con);
-            List<Torneo> tor1= orneo.devolverTodosTorneos();
-            for (int i = 0; i < tor1.size(); i++) {
-                cboTorneo1.addItem(tor1.get(i).toString()); 
-            }
-             EncuentroData e= new EncuentroData(con);
-              List<Encuentro> tor2= e.devolverTodosEncuentros();
-            for (int i = 0; i < tor2.size(); i++) {
-                cboEncuentro.addItem(tor2.get(i)); 
-            }
-        } catch (ClassNotFoundException ex) {
-            System.out.println("Error al cargar cbo" +ex);
-        }}
+
+    private void cboEncuentroItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cboEncuentroItemStateChanged
+        
+    }//GEN-LAST:event_cboEncuentroItemStateChanged
+
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_btnBuscarActionPerformed
 
-    private void btnLimpiarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnLimpiarMouseClicked
+    private void btnModificarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnModificarMouseClicked
+        try {
+            Conexion con = new Conexion();
+            Encuentro j=new Encuentro();
+            EncuentroData jd=new EncuentroData(con);
+            JugadorData jugador=new JugadorData(con);
+            EstadioData ed= new EstadioData(con);
+            TorneoData td= new TorneoData(con);
+            Torneo t= new Torneo();
+            Estadio e= new Estadio();
+            Jugador j1= new Jugador();
+            List<Jugador> juga= jugador.buscarTodosJugadores();
+                for (int i = 0; i < juga.size(); i++) {
+                    if(juga.get(i).toString().equals(cboJugador1.getSelectedItem().toString())){
+                        j1=(Jugador)juga.get(i);
+                   }}
+            j.setJugador1(j1);
+            List<Jugador> juga1= jugador.buscarTodosJugadores();
+                for (int i = 0; i < juga1.size(); i++) {
+                    if(juga.get(i).toString().equals(cboJugador2.getSelectedItem().toString())){
+                        j1=(Jugador)juga1.get(i);
+                   }}
+            j.setJugador2(j1);
+            Date fecini=(Date) jdFec.getDate();
+            LocalDate ld=fecini.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+            j.setFechaEncuentro(ld);
+             List<Estadio> est= ed.buscarTodosEstadio();
+                for (int i = 0; i < est.size(); i++) {
+                    if(est.get(i).toString().equals(cboJugador1.getSelectedItem().toString())){
+                        e=(Estadio)est.get(i);
+                   }}
+            j.setEstadio(e);
+            j.setResultado(tfResultado.getText());
+            Jugador j11=new Jugador();
+            if (cboEstado.getSelectedItem().equals("Programado")||cboEstado.getSelectedItem().equals("En Juego"))
+                    {j.setJugadorGanador(j11);
+                   }
+            else{
+                System.out.println("o acaestre ");
+                List<Jugador> jugaG= jugador.buscarTodosJugadores();
+                for (int i = 0; i < jugaG.size(); i++) {
+                    if(jugaG.get(i).toString().equals(cboJugadorGanador.getSelectedItem().toString())){
+                        j1=(Jugador)jugaG.get(i);
+                   }}
+            j.setJugadorGanador(j1);}
+            j.setActivo(cbActivo.isSelected());
+            j.setEstado(cboEstado.getSelectedItem().toString());
+            List<Torneo> torneo= td.devolverTodosTorneos();
+                for (int i = 0; i < torneo.size(); i++) {
+                    if(torneo.get(i).toString().equals(cboTorneo.getSelectedItem().toString())){
+                        t=(Torneo)torneo.get(i);
+                }}
+            j.setTorneo(t);
+            jd.modificarEncuentro(j);
+            jd.calcularRankingPuntaje();
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(frmiAgregarSponsor.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        cargarCbo();
        
-        tfResultado.setText("");
+    }//GEN-LAST:event_btnModificarMouseClicked
+    public void limpiar(){
+        cargarCbo();
+         tfResultado.setText("");
         cbActivo.setSelected(false);
         cboEstadio.setSelectedItem(null);
-        cboEstado.setSelectedItem(null);
+        cboEstado.setSelectedIndex(0);
         cboJugador1.setSelectedItem(null);
         cboJugador2.setSelectedItem(null);
         cboJugadorGanador.setSelectedItem(null);
         cboEncuentro.setSelectedItem(null);
+        cboTorneo.setSelectedItem(null);
+    
+    
+    }
+    private void btnLimpiarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnLimpiarMouseClicked
+        limpiar();
+       
     }//GEN-LAST:event_btnLimpiarMouseClicked
 
+    private void cbActivoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbActivoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cbActivoActionPerformed
+
+    private void cboJugador1ItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cboJugador1ItemStateChanged
+        if(evt.getSource()==cboJugador1){
+            cargarCbo();
+            cboJugador2.removeItem(cboJugador1.getSelectedItem());}
+    }//GEN-LAST:event_cboJugador1ItemStateChanged
+
+    private void cboJugador1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cboJugador1ActionPerformed
+
+    }//GEN-LAST:event_cboJugador1ActionPerformed
+
     private void tfResultadoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tfResultadoKeyTyped
-        char c=evt.getKeyChar();
-        if(c<'0'||c>'9'||c=='-')evt.consume();
+//        char c=evt.getKeyChar();
+//        if(c<'0'||c>'9')evt.consume();
     }//GEN-LAST:event_tfResultadoKeyTyped
 
     private void cboEstadoItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cboEstadoItemStateChanged
@@ -241,8 +423,9 @@ public class frmiModificarEncuentro extends javax.swing.JInternalFrame {
                 cboJugadorGanador.setVisible(true);
                 jLabel4.setVisible(true);
                 jLabel5.setVisible(true);
-                cboJugadorGanador.addItem((Jugador)cboJugador1.getSelectedItem());
-                cboJugadorGanador.addItem((Jugador)cboJugador2.getSelectedItem());
+                cboJugadorGanador.removeAllItems();
+                cboJugadorGanador.addItem(cboJugador1.getSelectedItem().toString());
+                cboJugadorGanador.addItem(cboJugador2.getSelectedItem().toString());
             }
             else{
                 tfResultado.setVisible(false);
@@ -253,81 +436,31 @@ public class frmiModificarEncuentro extends javax.swing.JInternalFrame {
         }
     }//GEN-LAST:event_cboEstadoItemStateChanged
 
-    private void cboJugador1ItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cboJugador1ItemStateChanged
-        if(evt.getSource()==cboJugador1){
-            cboJugador2.removeItem(cboJugador1.getSelectedItem());}
-    }//GEN-LAST:event_cboJugador1ItemStateChanged
+    private void btnBuscarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnBuscarMouseClicked
+      
+            try {
+                Conexion con = new Conexion();
+                Encuentro j=new Encuentro();
+                j=(Encuentro)cboEncuentro.getSelectedItem();
+                System.out.println(j.toString());
+                cboJugador1.setSelectedItem(j.getJugador1().toString());
+                cboJugador2.setSelectedItem(j.getJugador2().toString());
+                jdFec.setDate(java.sql.Date.valueOf(j.getFechaEncuentro()));
+                if(j.getEstado().equals("Finalizado")){
+                tfResultado.setText(j.getResultado());
+                cboJugadorGanador.setSelectedItem(j.getJugadorGanador().toString()); 
+                }
+                 
+                cboEstadio.setSelectedItem(j.getEstadio().toString());
+                cboEstado.setSelectedItem(j.getEstado());
+                cbActivo.setSelected(j.isActivo());     
+                cboTorneo.setSelectedItem(j.getTorneo().toString().toString());
+                } catch (ClassNotFoundException ex) {
+                    Logger.getLogger(frmiAgregarSponsor.class.getName()).log(Level.SEVERE, null, ex);
+                }
 
-    private void cboJugador1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cboJugador1ActionPerformed
-
-    }//GEN-LAST:event_cboJugador1ActionPerformed
-
-    private void cbActivoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbActivoActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_cbActivoActionPerformed
-
-    private void cboEncuentroItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cboEncuentroItemStateChanged
-             if(evt.getSource()==cboEncuentro){
-                  try {
-                       Conexion con = new Conexion();
-                       Encuentro j=new Encuentro();
-                       EncuentroData jd=new EncuentroData(con);
-                        JugadorData jugador=new JugadorData(con);
-                         List<Jugador> juga= jugador.buscarTodosJugadores();
-                        for (int i = 0; i < juga.size(); i++) {
-                              if(juga.get(i).toString().equals(cboJugador1.getSelectedItem().toString())){
-                               j=juga.get(i);
-                         }}
-                       cboJugador1.setSelectedItem((Jugador)j.getJugador1);
-                       j.getJugador2((Jugador)cboJugador2.getSelectedItem());
-                       Date fecini=(Date) jdFec.getDate();
-                       LocalDate ld=fecini.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
-                       j.setFechaEncuentro(ld);
-                       j.setEstadio((Estadio)cboEstadio.getSelectedItem());
-                       j.setResultado(tfResultado.getText());
-                       Jugador j1=new Jugador();
-                       if (cboEstado.getSelectedItem().toString()=="Programado"||cboEstado.getSelectedItem().toString()=="En Juego")
-                       j.setJugadorGanador(j1);
-                       if (cboEstado.getSelectedItem().toString()=="Finalizado")
-                       j.setJugadorGanador((Jugador)cboJugadorGanador.getSelectedItem());
-                       j.setActivo(cbActivo.isSelected());
-                       j.setEstado(cboEstado.getSelectedItem().toString());
-                       j.setTorneo((Torneo)cboTorneo.getSelectedItem());
-                       jd.agregarEncuentro(j);
-        } catch (ClassNotFoundException ex) {
-            Logger.getLogger(frmiAgregarSponsor.class.getName()).log(Level.SEVERE, null, ex);
-        }
-                    
-    
-    
-    }
-    }//GEN-LAST:event_cboEncuentroItemStateChanged
-
-    private void btnModificarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnModificarMouseClicked
-       try {
-            Conexion con = new Conexion();
-            Encuentro j=new Encuentro();
-            EncuentroData jd=new EncuentroData(con);
-            j.setJugador1((Jugador)cboJugador3.getSelectedItem());
-            j.setJugador2((Jugador)cboJugador4.getSelectedItem());
-            Date fecini=(Date) jdFec.getDate();
-            LocalDate ld=fecini.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
-            j.setFechaEncuentro(ld);
-            j.setEstadio((Estadio)cboEstadio.getSelectedItem());
-            j.setResultado(tfResultado.getText());
-            Jugador j1=new Jugador();
-            if (cboEstado.getSelectedItem().toString()=="Programado"||cboEstado.getSelectedItem().toString()=="En Juego")
-            j.setJugadorGanador(j1);
-            if (cboEstado.getSelectedItem().toString()=="Finalizado")
-            j.setJugadorGanador((Jugador)cboJugadorGanador.getSelectedItem());
-            j.setActivo(cbActivo.isSelected());
-            j.setEstado(cboEstado.getSelectedItem().toString());
-            j.setTorneo((Torneo)cboTorneo.getSelectedItem());
-            jd.modificarEncuentro(j);
-        } catch (ClassNotFoundException ex) {
-            Logger.getLogger(frmiAgregarSponsor.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }//GEN-LAST:event_btnModificarMouseClicked
+            
+    }//GEN-LAST:event_btnBuscarMouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -336,12 +469,12 @@ public class frmiModificarEncuentro extends javax.swing.JInternalFrame {
     private javax.swing.JButton btnModificar;
     private javax.swing.JCheckBox cbActivo;
     private javax.swing.JComboBox<Encuentro> cboEncuentro;
-    private javax.swing.JComboBox<Estadio> cboEstadio;
+    private javax.swing.JComboBox<String> cboEstadio;
     private javax.swing.JComboBox<String> cboEstado;
-    private javax.swing.JComboBox<Jugador> cboJugador1;
-    private javax.swing.JComboBox<Jugador> cboJugador2;
-    private javax.swing.JComboBox<Jugador> cboJugadorGanador;
-    private javax.swing.JComboBox<Torneo> cboTorneo;
+    private javax.swing.JComboBox<String> cboJugador1;
+    private javax.swing.JComboBox<String> cboJugador2;
+    private javax.swing.JComboBox<String> cboJugadorGanador;
+    private javax.swing.JComboBox<String> cboTorneo;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel2;

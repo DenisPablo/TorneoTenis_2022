@@ -5,6 +5,7 @@
  */
 package Vistas;
 
+import Data.EncuentroData;
 import Data.PatrocinioData;
 import Data.SponsorData;
 import Modelo.Conexion;
@@ -164,6 +165,8 @@ public void cargarCbo(){
             PatrocinioData patrocinio=new PatrocinioData(con);
             p=(Patrocinio)CboEliminarPatrocinio.getSelectedItem();
             patrocinio.bajaPatrocinio(p.getIdPatrocinio());
+            EncuentroData jd=new EncuentroData(con);
+            jd.calcularRankingPuntaje();
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(frmiEliminarSponsor.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -179,6 +182,8 @@ public void cargarCbo(){
             PatrocinioData patrocinio=new PatrocinioData(con);
             p=(Patrocinio)CboActivarPatrocinio.getSelectedItem();
             patrocinio.altaPatrocinio(p.getIdPatrocinio());
+            EncuentroData jd=new EncuentroData(con);
+            jd.calcularRankingPuntaje();
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(frmiEliminarSponsor.class.getName()).log(Level.SEVERE, null, ex);
         }

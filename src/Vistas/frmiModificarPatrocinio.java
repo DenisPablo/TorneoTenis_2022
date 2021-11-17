@@ -5,6 +5,7 @@
  */
 package Vistas;
 
+import Data.EncuentroData;
 import Data.JugadorData;
 import Data.PatrocinioData;
 import Data.SponsorData;
@@ -270,6 +271,8 @@ public void cargarCbo(){
             p.setIndumentaria(cboIndumentaria.getSelectedItem().toString());
             p.setActivo(cbActivo.isSelected());
             pat.modificadarPatrocicio(p);
+            EncuentroData jd=new EncuentroData(con);
+            jd.calcularRankingPuntaje();
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(frmiAgregarSponsor.class.getName()).log(Level.SEVERE, null, ex);
         }

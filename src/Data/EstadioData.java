@@ -6,8 +6,6 @@ package Data;
 
 import Modelo.Conexion;
 import Modelo.Estadio;
-import Modelo.Jugador;
-import Modelo.Sponsor;
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
@@ -38,7 +36,7 @@ public class EstadioData {
      
        public void guardarEstadio(Estadio estadio) {
      
-            String sql = "INSERT INTO estadio(nombre,ciudad,categoria, activo, direComercial, dimension) VALUES (?,?,?,?,?,?)";
+            String sql = "INSERT INTO estadio(nombre,ciudad,categoria, activo, direComercial, dimension, estado) VALUES (?,?,?,?,?,?,?)";
             try {
                 PreparedStatement ps = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
                 
@@ -48,6 +46,7 @@ public class EstadioData {
                 ps.setBoolean(4, estadio.isActivo());
                 ps.setString(5, estadio.getDireccionComercial());
                 ps.setString(6, estadio.getDimension());
+                ps.setBoolean(7, estadio.isEstado());
                 ps.executeUpdate();
                 
                 System.out.println("Estadio guardado con exito.");
@@ -72,6 +71,7 @@ public class EstadioData {
             estadio.setActivo(rs.getBoolean(5));
             estadio.setDireccionComercial(rs.getString(6));
             estadio.setDimension(rs.getString(7));
+            estadio.setEstado(rs.getBoolean(8));
             
         }   
         }
@@ -82,7 +82,7 @@ public class EstadioData {
 }     
 
       public void modificadarEstadio (Estadio e) {
-        String sql = "UPDATE estadio SET `nombre`=?,`ciudad`=?,`categoria`=?,`activo`=?,`direComercial`=?,`dimension`=?  Where idEstadio=?";
+        String sql = "UPDATE estadio SET `nombre`=?,`ciudad`=?,`categoria`=?,`activo`=?,`direComercial`=?,`dimension`=?,`estado`=?  Where idEstadio=?";
         try{
             PreparedStatement ps = con.prepareStatement(sql);
             ps.setString(1,e.getNombre());
@@ -92,6 +92,7 @@ public class EstadioData {
             ps.setString(5, e.getDireccionComercial());
             ps.setString(6, e.getDimension());
             ps.setInt(7, e.getIdEstadio());
+            ps.setBoolean(8,e.isEstado());
 
             ps.executeUpdate();
             ps.close();
@@ -168,6 +169,7 @@ public class EstadioData {
                  estadio.setActivo(rs.getBoolean(5));
                  estadio.setDireccionComercial(rs.getString(6));
                  estadio.setDimension(rs.getString(7));
+                 estadio.setEstado(rs.getBoolean(8));
                  resultados.add(estadio);
             }
             ps.close();

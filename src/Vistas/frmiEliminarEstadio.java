@@ -155,15 +155,16 @@ public class frmiEliminarEstadio extends javax.swing.JInternalFrame {
          try {
             Conexion con = new Conexion();
             Estadio p=new Estadio();
-            EstadioData patrocinio=new EstadioData(con);
+            EstadioData ed=new EstadioData(con);
             p=(Estadio)CboEliminarEstadio.getSelectedItem();
-            patrocinio.bajaEstadio(p.getIdEstadio());
+            ed.bajaEstadio(p.getIdEstadio());
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(frmiEliminarSponsor.class.getName()).log(Level.SEVERE, null, ex);
         }
          CboActivarEstadio.removeAllItems();
          CboEliminarEstadio.removeAllItems(); 
         cargarCbo();
+        
                    
     }//GEN-LAST:event_jButton1MouseClicked
 
@@ -175,9 +176,9 @@ public class frmiEliminarEstadio extends javax.swing.JInternalFrame {
    try {
             Conexion con = new Conexion();
             Estadio p=new Estadio();
-            EstadioData patrocinio=new EstadioData(con);
+            EstadioData ed=new EstadioData(con);
             p=(Estadio)CboActivarEstadio.getSelectedItem();
-            patrocinio.altaEstadio(p.getIdEstadio());
+            ed.altaEstadio(p.getIdEstadio());
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(frmiEliminarSponsor.class.getName()).log(Level.SEVERE, null, ex);
         }

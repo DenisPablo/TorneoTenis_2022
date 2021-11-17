@@ -32,7 +32,8 @@ public class frmiAgregarEncuentro extends javax.swing.JInternalFrame {
      */
     public frmiAgregarEncuentro() {
         initComponents();
-        cargarCbo();
+        
+        limpiar();
         tfResultado.setVisible(false);
         cboJugadorGanador.setVisible(false);
          jLabel4.setVisible(false);
@@ -190,9 +191,7 @@ public class frmiAgregarEncuentro extends javax.swing.JInternalFrame {
                                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                         .addComponent(tfResultado)
                                         .addComponent(cboJugadorGanador, 0, 163, Short.MAX_VALUE)
-                                        .addGroup(layout.createSequentialGroup()
-                                            .addComponent(cboEstado, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED))))))
+                                        .addComponent(cboEstado, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))))
                         .addContainerGap(51, Short.MAX_VALUE))))
         );
         layout.setVerticalGroup(
@@ -233,9 +232,9 @@ public class frmiAgregarEncuentro extends javax.swing.JInternalFrame {
                         .addGap(3, 3, 3)
                         .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel7)
-                    .addComponent(cbActivo))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(cbActivo)
+                    .addComponent(jLabel7))
                 .addGap(42, 42, 42)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnCargar)
@@ -250,6 +249,11 @@ public class frmiAgregarEncuentro extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_cbActivoActionPerformed
     public void cargarCbo(){
+         cboEstadio.removeAllItems();
+        cboJugador1.removeAllItems();
+        cboJugador2.removeAllItems();
+        cboJugadorGanador.removeAllItems();
+        cboTorneo.removeAllItems();
         try {
             Conexion con = new Conexion();
             JugadorData jugador=new JugadorData(con);
@@ -274,21 +278,28 @@ public class frmiAgregarEncuentro extends javax.swing.JInternalFrame {
             System.out.println("Error al cargar cbo" +ex);
         }}
     private void btnLimpiarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnLimpiarMouseClicked
-    
-      tfResultado.setText("");
-        cbActivo.setSelected(false);
-      cboEstadio.setSelectedIndex(0);
-      cboEstado.setSelectedIndex(0);
-       cboJugador1.setSelectedIndex(0);       
-      cboJugador2.setSelectedIndex(0);        
-      cboJugadorGanador.setSelectedIndex(0);        
+    limpiar();
+          
     }//GEN-LAST:event_btnLimpiarMouseClicked
 
     private void tfResultadoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tfResultadoKeyTyped
        char c=evt.getKeyChar();
      if(c<'0'||c>'9'||c=='-')evt.consume();
     }//GEN-LAST:event_tfResultadoKeyTyped
-
+    public void limpiar(){
+       
+        cargarCbo();
+        tfResultado.setText("");
+        cbActivo.setSelected(false);
+        cboEstadio.setSelectedItem(null);
+        cboEstado.setSelectedIndex(0);
+        cboJugador1.setSelectedItem(null);
+        cboJugador2.setSelectedItem(null);
+        cboJugadorGanador.setSelectedItem(null);
+        cboTorneo.setSelectedItem(null);
+    
+    
+    }
     private void btnCargarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCargarMouseClicked
        try {
             Conexion con = new Conexion();
@@ -302,14 +313,18 @@ public class frmiAgregarEncuentro extends javax.swing.JInternalFrame {
             j.setEstadio((Estadio)cboEstadio.getSelectedItem());
             j.setResultado(tfResultado.getText());
             Jugador j1=new Jugador();
-            if (cboEstado.getSelectedItem().toString()=="Programado"||cboEstado.getSelectedItem().toString()=="En Juego")
+            if (cboEstado.getSelectedItem().toString().equals("Programado")||cboEstado.getSelectedItem().toString().equals("En Juego"))
+            {
             j.setJugadorGanador(j1);
-            if (cboEstado.getSelectedItem().toString()=="Finalizado")
-            j.setJugadorGanador((Jugador)cboJugadorGanador.getSelectedItem());
+             System.out.println("parte1");}
+            if (cboEstado.getSelectedItem().toString().equals("Finalizado")){
+                 System.out.println("parte1");
+                 j.setJugadorGanador((Jugador)cboJugadorGanador.getSelectedItem());}
             j.setActivo(cbActivo.isSelected());
             j.setEstado(cboEstado.getSelectedItem().toString());
             j.setTorneo((Torneo)cboTorneo.getSelectedItem());
             jd.agregarEncuentro(j);
+            jd.calcularRankingPuntaje();
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(frmiAgregarSponsor.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -321,7 +336,9 @@ public class frmiAgregarEncuentro extends javax.swing.JInternalFrame {
 
     private void cboJugador1ItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cboJugador1ItemStateChanged
        if(evt.getSource()==cboJugador1){
-            cboJugador2.removeItem(cboJugador1.getSelectedItem());}
+            cboJugador2.removeItem(cboJugador1.getSelectedItem());
+           
+}
     }//GEN-LAST:event_cboJugador1ItemStateChanged
 
     private void cboEstadoItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cboEstadoItemStateChanged
@@ -332,6 +349,7 @@ public class frmiAgregarEncuentro extends javax.swing.JInternalFrame {
                 cboJugadorGanador.setVisible(true);
                 jLabel4.setVisible(true);
                 jLabel5.setVisible(true); 
+                cboJugadorGanador.removeAllItems();
                 cboJugadorGanador.addItem((Jugador)cboJugador1.getSelectedItem());
                 cboJugadorGanador.addItem((Jugador)cboJugador2.getSelectedItem());
             }

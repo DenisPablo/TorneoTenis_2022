@@ -5,6 +5,19 @@
  */
 package Vistas;
 
+import Data.EncuentroData;
+import Data.EstadioData;
+import Data.JugadorData;
+import Data.TorneoData;
+import Modelo.Conexion;
+import Modelo.Encuentro;
+import Modelo.Estadio;
+import Modelo.Jugador;
+import Modelo.Torneo;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 /**
  *
  * @author Romi
@@ -17,6 +30,26 @@ public class frmiEliminarEncuentro extends javax.swing.JInternalFrame {
     public frmiEliminarEncuentro() {
         initComponents();
     }
+    public void cargarCbo(){
+      
+        CboEliminarEncuentro.removeAllItems();
+        CboActivarEncuentro.removeAllItems();
+        try {
+            Conexion con = new Conexion();
+            
+             EncuentroData e= new EncuentroData(con);
+              List<Encuentro> tor2= e.devolverTodosEncuentros();
+            for (int i = 0; i < tor2.size(); i++) {
+                if(tor2.get(i).isActivo()==true)
+                    CboEliminarEncuentro.addItem(tor2.get(i)); 
+            }
+             for (int i = 0; i < tor2.size(); i++) {
+                if(tor2.get(i).isActivo()==false)
+                    CboActivarEncuentro.addItem(tor2.get(i)); 
+            }
+        } catch (ClassNotFoundException ex) {
+            System.out.println("Error al cargar cbo" +ex);
+        }}
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -426,8 +459,18 @@ public class frmiEliminarEncuentro extends javax.swing.JInternalFrame {
         jLabel37.setText("Activar");
 
         jButton1.setText("Eliminar");
+        jButton1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jButton1MouseClicked(evt);
+            }
+        });
 
         btnActivar.setText("Activar");
+        btnActivar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnActivarMouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -519,10 +562,39 @@ public class frmiEliminarEncuentro extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_btnBuscar1ActionPerformed
 
+    private void jButton1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton1MouseClicked
+        try {
+            Conexion con = new Conexion();
+            Encuentro p=new Encuentro();
+            EncuentroData ed=new EncuentroData(con);
+            p=(Encuentro)CboEliminarEncuentro.getSelectedItem();
+            ed.darBajaEncuentro(p.getIdEncuentro());
+            ed.calcularRankingPuntaje();
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(frmiEliminarSponsor.class.getName()).log(Level.SEVERE, null, ex);
+        }
+         
+        cargarCbo();
+    }//GEN-LAST:event_jButton1MouseClicked
+
+    private void btnActivarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnActivarMouseClicked
+        try {
+            Conexion con = new Conexion();
+            Encuentro p=new Encuentro();
+            EncuentroData ed=new EncuentroData(con);
+            p=(Encuentro)CboActivarEncuentro.getSelectedItem();
+            ed.darBajaEncuentro(p.getIdEncuentro());
+            ed.calcularRankingPuntaje();
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(frmiEliminarSponsor.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        cargarCbo();
+    }//GEN-LAST:event_btnActivarMouseClicked
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JComboBox<String> CboActivarEncuentro;
-    private javax.swing.JComboBox<String> CboEliminarEncuentro;
+    private javax.swing.JComboBox<Encuentro> CboActivarEncuentro;
+    private javax.swing.JComboBox<Encuentro> CboEliminarEncuentro;
     private javax.swing.JButton btnActivar;
     private javax.swing.JButton btnBuscar;
     private javax.swing.JButton btnBuscar1;

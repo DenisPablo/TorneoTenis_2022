@@ -16,27 +16,8 @@ public class Estadio {
     private boolean activo;
     private String direccionComercial;
     private String dimension;
+    private boolean estado;
     
-    
-    public Estadio(int idEstadio, String nombre, String ciudad, String categoria, boolean activo, String direccionComercial, String dimension) {
-        this.idEstadio = idEstadio;
-        this.nombre = nombre;
-        this.ciudad = ciudad;
-        this.categoria = categoria;
-        this.activo = activo;
-        this.direccionComercial = direccionComercial;
-        this.dimension = dimension;
-    }
-
-    public Estadio(String nombre, String ciudad, String categoria, boolean activo, String direccionComercial, String dimension) {
-        this.nombre = nombre;
-        this.ciudad = ciudad;
-        this.categoria = categoria;
-        this.activo = activo;
-        this.direccionComercial = direccionComercial;
-        this.dimension = dimension;
-    }
-
     public Estadio() {
     }
 
@@ -95,10 +76,43 @@ public class Estadio {
     public void setDimension(String dimension) {
         this.dimension = dimension;
     }
+
+    public boolean isEstado() {
+        return estado;
+    }
+
+    public void setEstado(boolean estado) {
+        this.estado = estado;
+    }
+    
+
     @Override
     public String toString() {
-        return "Estadio{" + "idEstadio=" + idEstadio + "nombre=" + nombre + ", ciudad=" + ciudad + ", categoria=" + categoria + ", direccionComercial=" + direccionComercial + ", dimension=" + dimension + ", activo=" + activo + '}';
+        return "Estadio{" + "idEstadio=" + idEstadio + ", nombre=" + nombre + ", ciudad=" + ciudad + ", categoria=" + categoria + ", activo=" + activo + ", direccionComercial=" + direccionComercial + ", dimension=" + dimension + ", estado=" + estado + '}';
     }
+
+    public Estadio(int idEstadio, String nombre, String ciudad, String categoria, boolean activo, String direccionComercial, String dimension, boolean estado) {
+        this.idEstadio = idEstadio;
+        this.nombre = nombre;
+        this.ciudad = ciudad;
+        this.categoria = categoria;
+        this.activo = activo;
+        this.direccionComercial = direccionComercial;
+        this.dimension = dimension;
+        this.estado = estado;
+    }
+
+    public Estadio(String nombre, String ciudad, String categoria, boolean activo, String direccionComercial, String dimension, boolean estado) {
+        this.nombre = nombre;
+        this.ciudad = ciudad;
+        this.categoria = categoria;
+        this.activo = activo;
+        this.direccionComercial = direccionComercial;
+        this.dimension = dimension;
+        this.estado = estado;
+    }
+    
+    
     
     
     
