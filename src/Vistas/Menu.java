@@ -53,6 +53,13 @@ public class Menu extends javax.swing.JFrame {
         jMenu27 = new javax.swing.JMenu();
         jMenu28 = new javax.swing.JMenu();
         jMenu29 = new javax.swing.JMenu();
+        jMenu2 = new javax.swing.JMenu();
+        jMenu3 = new javax.swing.JMenu();
+        jMenu4 = new javax.swing.JMenu();
+        jMenu5 = new javax.swing.JMenu();
+        jMenu6 = new javax.swing.JMenu();
+        jMenu30 = new javax.swing.JMenu();
+        jMenu31 = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -241,6 +248,68 @@ public class Menu extends javax.swing.JFrame {
 
         jMenuBar1.add(jMenu26);
 
+        jMenu2.setText("Listar");
+        jMenu2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jMenu2MouseClicked(evt);
+            }
+        });
+        jMenu2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenu2ActionPerformed(evt);
+            }
+        });
+
+        jMenu3.setText("Jugador");
+        jMenu3.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jMenu3MouseClicked(evt);
+            }
+        });
+        jMenu2.add(jMenu3);
+
+        jMenu4.setText("Sponsor");
+        jMenu4.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jMenu4MouseClicked(evt);
+            }
+        });
+        jMenu2.add(jMenu4);
+
+        jMenu5.setText("Encuentro");
+        jMenu5.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jMenu5MouseClicked(evt);
+            }
+        });
+        jMenu2.add(jMenu5);
+
+        jMenu6.setText("Estadio");
+        jMenu6.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jMenu6MouseClicked(evt);
+            }
+        });
+        jMenu2.add(jMenu6);
+
+        jMenu30.setText("Patrocinio");
+        jMenu30.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jMenu30MouseClicked(evt);
+            }
+        });
+        jMenu2.add(jMenu30);
+
+        jMenu31.setText("Torneo");
+        jMenu31.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jMenu31MouseClicked(evt);
+            }
+        });
+        jMenu2.add(jMenu31);
+
+        jMenuBar1.add(jMenu2);
+
         setJMenuBar(jMenuBar1);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -423,6 +492,68 @@ public class Menu extends javax.swing.JFrame {
         Menu.moveToFront(aC);
     }//GEN-LAST:event_jMenu29MouseClicked
 
+    private void jMenu2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenu2ActionPerformed
+        
+    }//GEN-LAST:event_jMenu2ActionPerformed
+
+    private void jMenu2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenu2MouseClicked
+        
+    }//GEN-LAST:event_jMenu2MouseClicked
+
+    private void jMenu31MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenu31MouseClicked
+       Menu.removeAll();
+        Menu.repaint();
+        frmiVerTorneos aC=new frmiVerTorneos();
+        aC.setVisible(true);
+        Menu.add(aC);
+        Menu.moveToFront(aC);
+    }//GEN-LAST:event_jMenu31MouseClicked
+
+    private void jMenu4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenu4MouseClicked
+     Menu.removeAll();
+        Menu.repaint();
+        frmiVerSponsors aC=new frmiVerSponsors();
+        aC.setVisible(true);
+        Menu.add(aC);
+        Menu.moveToFront(aC);
+    }//GEN-LAST:event_jMenu4MouseClicked
+
+    private void jMenu5MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenu5MouseClicked
+         Menu.removeAll();
+        Menu.repaint();
+        frmiVerEncuentros aC=new frmiVerEncuentros();
+        aC.setVisible(true);
+        Menu.add(aC);
+        Menu.moveToFront(aC);
+    }//GEN-LAST:event_jMenu5MouseClicked
+
+    private void jMenu6MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenu6MouseClicked
+          Menu.removeAll();
+        Menu.repaint();
+        frmiVerEstadios aC=new frmiVerEstadios();
+        aC.setVisible(true);
+        Menu.add(aC);
+        Menu.moveToFront(aC);
+    }//GEN-LAST:event_jMenu6MouseClicked
+
+    private void jMenu3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenu3MouseClicked
+         Menu.removeAll();
+        Menu.repaint();
+        frmiVerJugadores aC=new frmiVerJugadores();
+        aC.setVisible(true);
+        Menu.add(aC);
+        Menu.moveToFront(aC);
+    }//GEN-LAST:event_jMenu3MouseClicked
+
+    private void jMenu30MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenu30MouseClicked
+       Menu.removeAll();
+        Menu.repaint();
+        frmiVerPatrocinios aC=new frmiVerPatrocinios();
+        aC.setVisible(true);
+        Menu.add(aC);
+        Menu.moveToFront(aC);
+    }//GEN-LAST:event_jMenu30MouseClicked
+
     /**
      * @param args the command line arguments
      */
@@ -471,6 +602,7 @@ public class Menu extends javax.swing.JFrame {
     private javax.swing.JMenu jMenu17;
     private javax.swing.JMenu jMenu18;
     private javax.swing.JMenu jMenu19;
+    private javax.swing.JMenu jMenu2;
     private javax.swing.JMenu jMenu20;
     private javax.swing.JMenu jMenu21;
     private javax.swing.JMenu jMenu22;
@@ -481,6 +613,12 @@ public class Menu extends javax.swing.JFrame {
     private javax.swing.JMenu jMenu27;
     private javax.swing.JMenu jMenu28;
     private javax.swing.JMenu jMenu29;
+    private javax.swing.JMenu jMenu3;
+    private javax.swing.JMenu jMenu30;
+    private javax.swing.JMenu jMenu31;
+    private javax.swing.JMenu jMenu4;
+    private javax.swing.JMenu jMenu5;
+    private javax.swing.JMenu jMenu6;
     private javax.swing.JMenu jMenu7;
     private javax.swing.JMenu jMenu8;
     private javax.swing.JMenu jMenu9;
