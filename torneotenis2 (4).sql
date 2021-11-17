@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 13-11-2021 a las 23:07:00
+-- Tiempo de generación: 17-11-2021 a las 20:36:20
 -- Versión del servidor: 10.4.21-MariaDB
 -- Versión de PHP: 8.0.11
 
@@ -40,13 +40,6 @@ CREATE TABLE `encuentro` (
   `idTorneo` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
---
--- Volcado de datos para la tabla `encuentro`
---
-
-INSERT INTO `encuentro` (`idEncuentro`, `jugador1`, `jugador2`, `fechaEncuentro`, `resultado`, `jugadorGanador`, `estado`, `idEstadio`, `activo`, `idTorneo`) VALUES
-(2, 4, 5, '1999-03-11', '60-30', 4, 'activo', 3, 1, 2);
-
 -- --------------------------------------------------------
 
 --
@@ -60,17 +53,21 @@ CREATE TABLE `estadio` (
   `categoria` varchar(30) NOT NULL,
   `activo` tinyint(1) NOT NULL,
   `direComercial` varchar(80) NOT NULL,
-  `dimension` varchar(30) NOT NULL
+  `dimension` varchar(30) NOT NULL,
+  `estado` tinyint(1) NOT NULL COMMENT 'enUso (1) o desUso (0)'
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Volcado de datos para la tabla `estadio`
 --
 
-INSERT INTO `estadio` (`idEstadio`, `nombre`, `ciudad`, `categoria`, `activo`, `direComercial`, `dimension`) VALUES
-(3, 'Martin', 'San Luis', 'Cemento', 0, 'Av Fundador', '20*50'),
-(4, 'Juan Gilberto Funes', 'La Punta', 'Cemento', 1, 'Av Los Tilos', '20*30'),
-(5, 'La Lucha', 'San Luis', 'cesped', 1, 'Av Los puqios', '25*30');
+INSERT INTO `estadio` (`idEstadio`, `nombre`, `ciudad`, `categoria`, `activo`, `direComercial`, `dimension`, `estado`) VALUES
+(3, 'Martin', 'San Luis', 'Cemento', 1, 'Av Fundador', '20*50', 0),
+(4, 'Juan Gilberto Funes', 'La Punta', 'Cemento', 1, 'Av Los Tilos', '20*30', 0),
+(5, 'La Lucha', 'San Luis', 'cesped', 1, 'Av Los puqios', '25*30', 0),
+(6, 'Juan Gilberto Funes', 'La Punta', 'Cemento', 1, 'Av Los Tilos', '20*30', 0),
+(7, 'La Lucha', 'San Luis', 'cesped', 1, 'Av Los puqios', '25*30', 0),
+(8, 'Pepe', 'San Luis', 'Cemento', 1, 'Av Fundador ', '20*30', 0);
 
 -- --------------------------------------------------------
 
@@ -98,8 +95,11 @@ CREATE TABLE `jugador` (
 --
 
 INSERT INTO `jugador` (`idJugador`, `nombre`, `dni`, `fechaNac`, `altura`, `peso`, `estilo`, `manoHabil`, `torneosGanados`, `ranking`, `puntaje`, `activo`) VALUES
-(4, 'Julio', 12235235, '1996-03-23', 1.78, 78.3, 'agresivo', 'derecho', 0, 0, 0, 1),
-(5, 'Mario', 23565565, '1996-03-23', 1.78, 78.3, 'agresivo', 'Zurdo', 0, 0, 0, 1);
+(4, 'Julio', 12235235, '1996-03-23', 1.78, 78.3, 'agresivo', 'derecho', 0, 2, 2, 1),
+(5, 'Mario', 23565565, '1996-03-23', 1.78, 78.3, 'agresivo', 'Zurdo', 0, 3, 2, 1),
+(8, 'asdljah', 12345678, '2021-11-03', 1.78, 78.3, 'Agresivo', 'Derecha', 0, 1, 3, 1),
+(9, 'Pepe', 12345678, '2021-11-01', 178.3, 87.3, 'Agresivo', 'Derecha', 0, 4, 0, 1),
+(10, 'Chavo', 1323564, '2021-11-04', 1.69, 67.3, 'Voleadores', 'Derecha', 0, 5, 0, 1);
 
 -- --------------------------------------------------------
 
@@ -122,9 +122,7 @@ CREATE TABLE `patrocinio` (
 --
 
 INSERT INTO `patrocinio` (`idPatrocinio`, `idSponsor`, `idJugador`, `fechIniContrato`, `fechFinContrato`, `activo`, `Indumentaria`) VALUES
-(1, 2, 4, '2021-03-05', '2025-03-05', 1, 'indumentaria'),
-(2, 2, 4, '2021-03-05', '2025-03-05', 1, 'Calsado'),
-(3, 3, 5, '2021-03-05', '2025-03-05', 1, 'Indumentaria');
+(7, 10, 5, '2021-11-01', '2021-11-28', 1, 'Relojes');
 
 -- --------------------------------------------------------
 
@@ -143,8 +141,13 @@ CREATE TABLE `sponsor` (
 --
 
 INSERT INTO `sponsor` (`idSponsor`, `marca`, `activo`) VALUES
-(2, 'Adidas2', 1),
-(3, 'Nike', 1);
+(2, 'Adidas2', 0),
+(3, 'Nike', 1),
+(6, 'Adidas', 1),
+(7, 'Nike', 1),
+(8, 'wilson', 1),
+(9, 'Fila', 1),
+(10, 'asda', 1);
 
 -- --------------------------------------------------------
 
@@ -165,7 +168,9 @@ CREATE TABLE `torneo` (
 --
 
 INSERT INTO `torneo` (`idTorneo`, `nombre`, `fechaNacInicio`, `fechaNacFinal`, `activo`) VALUES
-(2, 'La Cruda', '2021-11-10', '2021-12-12', 1);
+(2, 'La Cruda', '2021-01-11', '2021-12-12', 1),
+(3, 'The Champion', '2021-03-11', '2022-03-11', 1),
+(4, 'ggggggggggg', '2021-11-01', '2021-11-28', 1);
 
 --
 -- Índices para tablas volcadas
@@ -179,7 +184,8 @@ ALTER TABLE `encuentro`
   ADD KEY `j1` (`jugador1`),
   ADD KEY `j2` (`jugador2`),
   ADD KEY `ganador2` (`jugadorGanador`),
-  ADD KEY `estadio` (`idEstadio`);
+  ADD KEY `estadio` (`idEstadio`),
+  ADD KEY `encuentro_ibfk_1` (`idTorneo`);
 
 --
 -- Indices de la tabla `estadio`
@@ -221,37 +227,37 @@ ALTER TABLE `torneo`
 -- AUTO_INCREMENT de la tabla `encuentro`
 --
 ALTER TABLE `encuentro`
-  MODIFY `idEncuentro` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `idEncuentro` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
 
 --
 -- AUTO_INCREMENT de la tabla `estadio`
 --
 ALTER TABLE `estadio`
-  MODIFY `idEstadio` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `idEstadio` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT de la tabla `jugador`
 --
 ALTER TABLE `jugador`
-  MODIFY `idJugador` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `idJugador` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT de la tabla `patrocinio`
 --
 ALTER TABLE `patrocinio`
-  MODIFY `idPatrocinio` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `idPatrocinio` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT de la tabla `sponsor`
 --
 ALTER TABLE `sponsor`
-  MODIFY `idSponsor` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `idSponsor` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT de la tabla `torneo`
 --
 ALTER TABLE `torneo`
-  MODIFY `idTorneo` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `idTorneo` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- Restricciones para tablas volcadas
@@ -261,11 +267,11 @@ ALTER TABLE `torneo`
 -- Filtros para la tabla `encuentro`
 --
 ALTER TABLE `encuentro`
-  ADD CONSTRAINT `encuentro_ibfk_1` FOREIGN KEY (`idEncuentro`) REFERENCES `torneo` (`idTorneo`),
+  ADD CONSTRAINT `encuentro_ibfk_1` FOREIGN KEY (`idTorneo`) REFERENCES `torneo` (`idTorneo`),
   ADD CONSTRAINT `estadio` FOREIGN KEY (`idEstadio`) REFERENCES `estadio` (`idEstadio`),
   ADD CONSTRAINT `j1` FOREIGN KEY (`jugador1`) REFERENCES `jugador` (`idJugador`),
   ADD CONSTRAINT `j2` FOREIGN KEY (`jugador2`) REFERENCES `jugador` (`idJugador`),
-  ADD CONSTRAINT `jGanador` FOREIGN KEY (`jugadorGanador`) REFERENCES `jugador` (`idJugador`);
+  ADD CONSTRAINT `jugagana` FOREIGN KEY (`jugadorGanador`) REFERENCES `jugador` (`idJugador`);
 
 --
 -- Filtros para la tabla `patrocinio`
