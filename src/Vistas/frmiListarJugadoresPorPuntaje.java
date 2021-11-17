@@ -98,12 +98,7 @@ public void armarCabeceraTablaJugador(){
         ArrayList<Object> column= new ArrayList<Object>();
         column.add("Id");
         column.add("Nombre");
-        column.add("Ciudad");
-        column.add("Categoria");
-        column.add("Activo");
-        column.add("DiceComercial");
-        column.add("Dimension");
-        column.add("Estado");
+        column.add("Puntaje");
         for(Object it:column){
             model.addColumn(it);
         }
@@ -130,15 +125,15 @@ public void borrarFilas(){
 //        }}
 public void cargarDatos(){
         try {
-            List<Estadio> lista=null;
+            List<Jugador> lista=null;
             borrarFilas();
             Conexion con =new Conexion();
-            EstadioData jd= new EstadioData(con);
+            JugadorData jd= new JugadorData(con);
 //            Jugador a= (Jugador)cboListar.getSelectedItem();
-            lista= (List) jd.buscarTodosEstadio();
-            for(Estadio i:lista ){
+            lista= (List) jd.listarPuntajeDeJugadores();
+            for(Jugador i:lista ){
                 //if(a.getIdAlumno()==i.getAlumno().getIdAlumno())
-                model.addRow(new Object[]{i.getIdEstadio(),i.getNombre(),i.getCiudad(),i.getCategoria(),i.isActivo(),i.getDireccionComercial(),i.getDimension(),i.isEstado()});
+                 model.addRow(new Object[]{i.getIdJugador(),i.getNombre(),i.getPuntaje()});
             }   } catch (ClassNotFoundException ex) {
             Logger.getLogger(frmiListarJugadoresPorPuntaje.class.getName()).log(Level.SEVERE, null, ex);
         }

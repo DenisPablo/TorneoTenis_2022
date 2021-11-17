@@ -276,12 +276,13 @@ return resultados;
         List<Jugador> resultados;
         resultados = new ArrayList<>();
         Jugador jugador = new Jugador() ;
-        String sql = "SELECT idJugador,nombre,puntaje FROM jugador Where activo=true";
+        String sql = "SELECT * FROM jugador Where activo=true";
         try{
             PreparedStatement ps = con.prepareStatement(sql);
 
             ResultSet rs = ps.executeQuery();
           while(rs.next()){
+              jugador = new Jugador() ;
              jugador.setIdJugador(rs.getInt(1));
              jugador.setNombre(rs.getString(2));
              jugador.setPuntaje(rs.getInt(11));
