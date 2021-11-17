@@ -6,8 +6,10 @@
 package Vistas;
 
 import Data.JugadorData;
+import Data.PatrocinioData;
 import Modelo.Conexion;
 import Modelo.Jugador;
+import Modelo.Patrocinio;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
@@ -94,16 +96,14 @@ public class frmiVerPatrocinios extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_btnListarMouseClicked
 public void armarCabeceraTablaJugador(){
         ArrayList<Object> column= new ArrayList<Object>();
-        column.add("Id");
-        column.add("Nombre");
-        column.add("Dni");
-        column.add("Fecha Nac");
-        column.add("Altura");
-        column.add("Peso");
-        column.add("ManoHabil");
-        column.add("Torneos Ganados");
-        column.add("Ranking");
-        column.add("Puntaje");
+        column.add("Id Patrocinio");
+        column.add("Id Sponsor");
+        column.add("Sponsor");
+        column.add("Id Jugador");
+        column.add("Jugador");
+        column.add("Fecha Ini");
+        column.add("Fecha Fin");
+        column.add("Indumentaria");
         column.add("Activo");
         for(Object it:column){
             model.addColumn(it);
@@ -131,15 +131,15 @@ public void borrarFilas(){
 //        }}
 public void cargarDatos(){
         try {
-            List<Jugador> lista=null;
+            List<Patrocinio> lista=null;
             borrarFilas();
             Conexion con =new Conexion();
-            JugadorData jd= new JugadorData(con);
+            PatrocinioData jd= new PatrocinioData(con);
 //            Jugador a= (Jugador)cboListar.getSelectedItem();
-            lista= (List) jd.buscarTodosJugadores();
-            for(Jugador i:lista ){
+            lista= (List) jd.buscarTodosPatrocinio();
+            for(Patrocinio i:lista ){
                 //if(a.getIdAlumno()==i.getAlumno().getIdAlumno())
-                model.addRow(new Object[]{i.getIdJugador(),i.getNombre(),i.getDni(),i.getFechaNac(),i.getAltura(),i.getPeso(),i.getEstilo(),i.getManoHabil(),i.getRanking(),i.getPuntaje(),i.isActivo()});
+                model.addRow(new Object[]{i.getIdPatrocinio(),i.getSponsor().getIdSponsor(),i.getSponsor().getMarca(),i.getJugador().getIdJugador(),i.getJugador().getNombre(),i.getFechaInicioContrato(),i.getFechaFinContrato(),i.isActivo()});
             }   } catch (ClassNotFoundException ex) {
             Logger.getLogger(frmiVerPatrocinios.class.getName()).log(Level.SEVERE, null, ex);
         }

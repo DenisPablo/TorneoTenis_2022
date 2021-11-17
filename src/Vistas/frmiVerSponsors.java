@@ -6,8 +6,10 @@
 package Vistas;
 
 import Data.JugadorData;
+import Data.SponsorData;
 import Modelo.Conexion;
 import Modelo.Jugador;
+import Modelo.Sponsor;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
@@ -96,14 +98,6 @@ public void armarCabeceraTablaJugador(){
         ArrayList<Object> column= new ArrayList<Object>();
         column.add("Id");
         column.add("Nombre");
-        column.add("Dni");
-        column.add("Fecha Nac");
-        column.add("Altura");
-        column.add("Peso");
-        column.add("ManoHabil");
-        column.add("Torneos Ganados");
-        column.add("Ranking");
-        column.add("Puntaje");
         column.add("Activo");
         for(Object it:column){
             model.addColumn(it);
@@ -131,15 +125,15 @@ public void borrarFilas(){
 //        }}
 public void cargarDatos(){
         try {
-            List<Jugador> lista=null;
+            List<Sponsor> lista=null;
             borrarFilas();
             Conexion con =new Conexion();
-            JugadorData jd= new JugadorData(con);
+           SponsorData jd= new SponsorData(con);
 //            Jugador a= (Jugador)cboListar.getSelectedItem();
-            lista= (List) jd.buscarTodosJugadores();
-            for(Jugador i:lista ){
+            lista= (List) jd.buscarTodosSposor();
+            for(Sponsor i:lista ){
                 //if(a.getIdAlumno()==i.getAlumno().getIdAlumno())
-                model.addRow(new Object[]{i.getIdJugador(),i.getNombre(),i.getDni(),i.getFechaNac(),i.getAltura(),i.getPeso(),i.getEstilo(),i.getManoHabil(),i.getRanking(),i.getPuntaje(),i.isActivo()});
+                model.addRow(new Object[]{i.getIdSponsor(),i.getMarca(),i.isActivo()});
             }   } catch (ClassNotFoundException ex) {
             Logger.getLogger(frmiVerSponsors.class.getName()).log(Level.SEVERE, null, ex);
         }

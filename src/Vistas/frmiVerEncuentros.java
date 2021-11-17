@@ -5,9 +5,12 @@
  */
 package Vistas;
 
+import Data.EncuentroData;
 import Data.JugadorData;
 import Modelo.Conexion;
+import Modelo.Encuentro;
 import Modelo.Jugador;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
@@ -95,16 +98,19 @@ public class frmiVerEncuentros extends javax.swing.JInternalFrame {
 public void armarCabeceraTablaJugador(){
         ArrayList<Object> column= new ArrayList<Object>();
         column.add("Id");
-        column.add("Nombre");
-        column.add("Dni");
-        column.add("Fecha Nac");
-        column.add("Altura");
-        column.add("Peso");
-        column.add("ManoHabil");
-        column.add("Torneos Ganados");
-        column.add("Ranking");
-        column.add("Puntaje");
-        column.add("Activo");
+        column.add("id J1");
+        column.add("Nombre J1");
+        column.add("Id J2");
+        column.add("Nombre J2");
+        column.add("Fecha Enc");
+        column.add("Resultado");
+        column.add("Ganador");
+        column.add("Estado");
+        column.add("idEstadio");
+        column.add("Estadio");
+        column.add("activo");
+        column.add("idTorneo");
+        column.add("Torneo");
         for(Object it:column){
             model.addColumn(it);
         }
@@ -131,15 +137,15 @@ public void borrarFilas(){
 //        }}
 public void cargarDatos(){
         try {
-            List<Jugador> lista=null;
+            List<Encuentro> lista=null;
             borrarFilas();
             Conexion con =new Conexion();
-            JugadorData jd= new JugadorData(con);
+            EncuentroData jd= new EncuentroData(con);
 //            Jugador a= (Jugador)cboListar.getSelectedItem();
-            lista= (List) jd.buscarTodosJugadores();
-            for(Jugador i:lista ){
+            lista= (List) jd.devolverTodosEncuentros();
+            for(Encuentro i:lista ){
                 //if(a.getIdAlumno()==i.getAlumno().getIdAlumno())
-                model.addRow(new Object[]{i.getIdJugador(),i.getNombre(),i.getDni(),i.getFechaNac(),i.getAltura(),i.getPeso(),i.getEstilo(),i.getManoHabil(),i.getRanking(),i.getPuntaje(),i.isActivo()});
+                model.addRow(new Object[]{i.getIdEncuentro(),i.getJugador1().getIdJugador(),i.getJugador1().getNombre(),i.getJugador2().getIdJugador(),i.getJugador2().getNombre(),i.getFechaEncuentro(),i.getResultado(),i.getJugadorGanador().getIdJugador(),i.getJugadorGanador().getNombre(),i.getEstado(),i.getEstadio().getIdEstadio(),i.getEstadio().getNombre(),i.isActivo(),i.getTorneo().getIdTorneo(),i.getTorneo().getNombre()});
             }   } catch (ClassNotFoundException ex) {
             Logger.getLogger(frmiVerEncuentros.class.getName()).log(Level.SEVERE, null, ex);
         }

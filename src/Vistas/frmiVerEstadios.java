@@ -5,8 +5,10 @@
  */
 package Vistas;
 
+import Data.EstadioData;
 import Data.JugadorData;
 import Modelo.Conexion;
+import Modelo.Estadio;
 import Modelo.Jugador;
 import java.util.ArrayList;
 import java.util.List;
@@ -96,15 +98,12 @@ public void armarCabeceraTablaJugador(){
         ArrayList<Object> column= new ArrayList<Object>();
         column.add("Id");
         column.add("Nombre");
-        column.add("Dni");
-        column.add("Fecha Nac");
-        column.add("Altura");
-        column.add("Peso");
-        column.add("ManoHabil");
-        column.add("Torneos Ganados");
-        column.add("Ranking");
-        column.add("Puntaje");
+        column.add("Ciudad");
+        column.add("Categoria");
         column.add("Activo");
+        column.add("DiceComercial");
+        column.add("Dimension");
+        column.add("Estado");
         for(Object it:column){
             model.addColumn(it);
         }
@@ -131,15 +130,15 @@ public void borrarFilas(){
 //        }}
 public void cargarDatos(){
         try {
-            List<Jugador> lista=null;
+            List<Estadio> lista=null;
             borrarFilas();
             Conexion con =new Conexion();
-            JugadorData jd= new JugadorData(con);
+            EstadioData jd= new EstadioData(con);
 //            Jugador a= (Jugador)cboListar.getSelectedItem();
-            lista= (List) jd.buscarTodosJugadores();
-            for(Jugador i:lista ){
+            lista= (List) jd.buscarTodosEstadio();
+            for(Estadio i:lista ){
                 //if(a.getIdAlumno()==i.getAlumno().getIdAlumno())
-                model.addRow(new Object[]{i.getIdJugador(),i.getNombre(),i.getDni(),i.getFechaNac(),i.getAltura(),i.getPeso(),i.getEstilo(),i.getManoHabil(),i.getRanking(),i.getPuntaje(),i.isActivo()});
+                model.addRow(new Object[]{i.getIdEstadio(),i.getNombre(),i.getCiudad(),i.getCategoria(),i.isActivo(),i.getDireccionComercial(),i.getDimension(),i.isEstado()});
             }   } catch (ClassNotFoundException ex) {
             Logger.getLogger(frmiVerEstadios.class.getName()).log(Level.SEVERE, null, ex);
         }
