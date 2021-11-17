@@ -60,6 +60,13 @@ public class Menu extends javax.swing.JFrame {
         jMenu6 = new javax.swing.JMenu();
         jMenu30 = new javax.swing.JMenu();
         jMenu31 = new javax.swing.JMenu();
+        jMenu32 = new javax.swing.JMenu();
+        jMenu33 = new javax.swing.JMenu();
+        jMenu34 = new javax.swing.JMenu();
+        jMenu36 = new javax.swing.JMenu();
+        jMenu37 = new javax.swing.JMenu();
+        jMenu38 = new javax.swing.JMenu();
+        jMenu39 = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -310,6 +317,63 @@ public class Menu extends javax.swing.JFrame {
 
         jMenuBar1.add(jMenu2);
 
+        jMenu32.setText("Busquedas");
+        jMenu32.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jMenu32MouseClicked(evt);
+            }
+        });
+
+        jMenu33.setText("Buscar Sponsor por Jugador");
+        jMenu33.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jMenu33MouseClicked(evt);
+            }
+        });
+        jMenu32.add(jMenu33);
+
+        jMenu34.setText("Buscar Jugadores de un sponsor");
+        jMenu34.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jMenu34MouseClicked(evt);
+            }
+        });
+        jMenu32.add(jMenu34);
+
+        jMenu36.setText("Buscar Encuentros Por Fecha");
+        jMenu36.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jMenu36MouseClicked(evt);
+            }
+        });
+        jMenu32.add(jMenu36);
+
+        jMenu37.setText("Listar Jugadores Por Puntaje");
+        jMenu37.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jMenu37MouseClicked(evt);
+            }
+        });
+        jMenu32.add(jMenu37);
+
+        jMenu38.setText("Listar Torneos Por Jugador");
+        jMenu38.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jMenu38MouseClicked(evt);
+            }
+        });
+        jMenu32.add(jMenu38);
+
+        jMenu39.setText("Listar Encuentros Proximos");
+        jMenu39.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jMenu39MouseClicked(evt);
+            }
+        });
+        jMenu32.add(jMenu39);
+
+        jMenuBar1.add(jMenu32);
+
         setJMenuBar(jMenuBar1);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -554,6 +618,65 @@ public class Menu extends javax.swing.JFrame {
         Menu.moveToFront(aC);
     }//GEN-LAST:event_jMenu30MouseClicked
 
+    private void jMenu33MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenu33MouseClicked
+        Menu.removeAll();
+        Menu.repaint();
+        frmiBuscarSponsorxJugador aC=new frmiBuscarSponsorxJugador();
+        aC.setVisible(true);
+        Menu.add(aC);
+        Menu.moveToFront(aC);
+    }//GEN-LAST:event_jMenu33MouseClicked
+
+    private void jMenu34MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenu34MouseClicked
+       
+        Menu.removeAll();
+        Menu.repaint();
+        frmiBuscaJugadoresdeunSponsor aC=new frmiBuscaJugadoresdeunSponsor();
+        aC.setVisible(true);
+        Menu.add(aC);
+        Menu.moveToFront(aC);
+    }//GEN-LAST:event_jMenu34MouseClicked
+
+    private void jMenu36MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenu36MouseClicked
+     Menu.removeAll();
+        Menu.repaint();
+        frmiBuscarEncuentrosPorFecha aC=new frmiBuscarEncuentrosPorFecha();
+        aC.setVisible(true);
+        Menu.add(aC);
+        Menu.moveToFront(aC);
+    }//GEN-LAST:event_jMenu36MouseClicked
+
+    private void jMenu37MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenu37MouseClicked
+        Menu.removeAll();
+        Menu.repaint();
+        frmiListarJugadoresPorPuntaje aC=new frmiListarJugadoresPorPuntaje();
+        aC.setVisible(true);
+        Menu.add(aC);
+        Menu.moveToFront(aC);
+    }//GEN-LAST:event_jMenu37MouseClicked
+
+    private void jMenu38MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenu38MouseClicked
+     Menu.removeAll();
+        Menu.repaint();
+        frmiListarTorneosPorJugador aC=new frmiListarTorneosPorJugador();
+        aC.setVisible(true);
+        Menu.add(aC);
+        Menu.moveToFront(aC);
+    }//GEN-LAST:event_jMenu38MouseClicked
+
+    private void jMenu39MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenu39MouseClicked
+             Menu.removeAll();
+        Menu.repaint();
+        frmiListarEncuentrosProximos aC=new frmiListarEncuentrosProximos();
+        aC.setVisible(true);
+        Menu.add(aC);
+        Menu.moveToFront(aC);
+    }//GEN-LAST:event_jMenu39MouseClicked
+
+    private void jMenu32MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenu32MouseClicked
+     
+    }//GEN-LAST:event_jMenu32MouseClicked
+
     /**
      * @param args the command line arguments
      */
@@ -616,6 +739,13 @@ public class Menu extends javax.swing.JFrame {
     private javax.swing.JMenu jMenu3;
     private javax.swing.JMenu jMenu30;
     private javax.swing.JMenu jMenu31;
+    private javax.swing.JMenu jMenu32;
+    private javax.swing.JMenu jMenu33;
+    private javax.swing.JMenu jMenu34;
+    private javax.swing.JMenu jMenu36;
+    private javax.swing.JMenu jMenu37;
+    private javax.swing.JMenu jMenu38;
+    private javax.swing.JMenu jMenu39;
     private javax.swing.JMenu jMenu4;
     private javax.swing.JMenu jMenu5;
     private javax.swing.JMenu jMenu6;

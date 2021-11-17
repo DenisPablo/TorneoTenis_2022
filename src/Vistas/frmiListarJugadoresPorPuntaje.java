@@ -20,12 +20,12 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author Romi
  */
-public class frmiVerEstadios extends javax.swing.JInternalFrame {
+public class frmiListarJugadoresPorPuntaje extends javax.swing.JInternalFrame {
     private DefaultTableModel model;
     /**
      * Creates new form frmiListar
      */
-    public frmiVerEstadios() {
+    public frmiListarJugadoresPorPuntaje() {
         initComponents();
         model =new DefaultTableModel();
 //        cargarCbo();
@@ -140,7 +140,7 @@ public void cargarDatos(){
                 //if(a.getIdAlumno()==i.getAlumno().getIdAlumno())
                 model.addRow(new Object[]{i.getIdEstadio(),i.getNombre(),i.getCiudad(),i.getCategoria(),i.isActivo(),i.getDireccionComercial(),i.getDimension(),i.isEstado()});
             }   } catch (ClassNotFoundException ex) {
-            Logger.getLogger(frmiVerEstadios.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(frmiListarJugadoresPorPuntaje.class.getName()).log(Level.SEVERE, null, ex);
         }
 }
     // Variables declaration - do not modify//GEN-BEGIN:variables

@@ -5,12 +5,17 @@
  */
 package Vistas;
 
+import Data.EncuentroData;
 import Data.EstadioData;
 import Data.JugadorData;
 import Modelo.Conexion;
+import Modelo.Encuentro;
 import Modelo.Estadio;
 import Modelo.Jugador;
+import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -20,12 +25,12 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author Romi
  */
-public class frmiVerEstadios extends javax.swing.JInternalFrame {
+public class frmiBuscarEncuentrosPorFecha extends javax.swing.JInternalFrame {
     private DefaultTableModel model;
     /**
      * Creates new form frmiListar
      */
-    public frmiVerEstadios() {
+    public frmiBuscarEncuentrosPorFecha() {
         initComponents();
         model =new DefaultTableModel();
 //        cargarCbo();
@@ -44,6 +49,7 @@ public class frmiVerEstadios extends javax.swing.JInternalFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         jtListas = new javax.swing.JTable();
         btnListar = new javax.swing.JButton();
+        jdFecha = new com.toedter.calendar.JDateChooser();
 
         setClosable(true);
         setTitle("Listas");
@@ -68,22 +74,28 @@ public class frmiVerEstadios extends javax.swing.JInternalFrame {
             }
         });
 
+        jdFecha.setDateFormatString("yyyy-MM-dd");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 715, Short.MAX_VALUE)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(48, 48, 48)
+                .addComponent(jdFecha, javax.swing.GroupLayout.PREFERRED_SIZE, 256, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(btnListar, javax.swing.GroupLayout.PREFERRED_SIZE, 186, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(261, 261, 261))
+                .addGap(67, 67, 67))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(btnListar)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 32, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(btnListar)
+                    .addComponent(jdFecha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 36, Short.MAX_VALUE)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 319, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -130,22 +142,28 @@ public void borrarFilas(){
 //        }}
 public void cargarDatos(){
         try {
-            List<Estadio> lista=null;
+            List<Encuentro> lista=null;
             borrarFilas();
             Conexion con =new Conexion();
-            EstadioData jd= new EstadioData(con);
-//            Jugador a= (Jugador)cboListar.getSelectedItem();
-            lista= (List) jd.buscarTodosEstadio();
-            for(Estadio i:lista ){
-                //if(a.getIdAlumno()==i.getAlumno().getIdAlumno())
-                model.addRow(new Object[]{i.getIdEstadio(),i.getNombre(),i.getCiudad(),i.getCategoria(),i.isActivo(),i.getDireccionComercial(),i.getDimension(),i.isEstado()});
+            EncuentroData jd= new EncuentroData(con);
+            Date fecini=(Date) jdFecha.getDate();
+            LocalDate ld=fecini.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+            lista= (List) jd.buscarPorFecha(ld);
+            for(Encuentro i:lista ){
+                 model.addRow(new Object[]{i.getIdEncuentro(),i.getJugador1().getIdJugador()
+                         ,i.getJugador1().getNombre(),i.getJugador2().getIdJugador(),
+                         i.getJugador2().getNombre(),i.getFechaEncuentro(),i.getResultado(),
+                         i.getJugadorGanador().getIdJugador(),i.getJugadorGanador().getNombre(),
+                         i.getEstado(),i.getEstadio().getIdEstadio(),i.getEstadio().getNombre(),
+                         i.isActivo(),i.getTorneo().getIdTorneo(),i.getTorneo().getNombre()});
             }   } catch (ClassNotFoundException ex) {
-            Logger.getLogger(frmiVerEstadios.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(frmiBuscarEncuentrosPorFecha.class.getName()).log(Level.SEVERE, null, ex);
         }
 }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnListar;
     private javax.swing.JScrollPane jScrollPane1;
+    private com.toedter.calendar.JDateChooser jdFecha;
     private javax.swing.JTable jtListas;
     // End of variables declaration//GEN-END:variables
 }

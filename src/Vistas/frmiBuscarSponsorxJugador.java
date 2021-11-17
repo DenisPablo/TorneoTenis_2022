@@ -7,9 +7,11 @@ package Vistas;
 
 import Data.EstadioData;
 import Data.JugadorData;
+import Data.PatrocinioData;
 import Modelo.Conexion;
 import Modelo.Estadio;
 import Modelo.Jugador;
+import Modelo.Sponsor;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
@@ -20,16 +22,17 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author Romi
  */
-public class frmiVerEstadios extends javax.swing.JInternalFrame {
+public class frmiBuscarSponsorxJugador extends javax.swing.JInternalFrame {
     private DefaultTableModel model;
     /**
      * Creates new form frmiListar
      */
-    public frmiVerEstadios() {
+    public frmiBuscarSponsorxJugador() {
         initComponents();
         model =new DefaultTableModel();
 //        cargarCbo();
         armarCabeceraTablaJugador();
+        cargarCbo();
     }
 
     /**
@@ -44,6 +47,7 @@ public class frmiVerEstadios extends javax.swing.JInternalFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         jtListas = new javax.swing.JTable();
         btnListar = new javax.swing.JButton();
+        cboListar = new javax.swing.JComboBox<>();
 
         setClosable(true);
         setTitle("Listas");
@@ -74,16 +78,20 @@ public class frmiVerEstadios extends javax.swing.JInternalFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 715, Short.MAX_VALUE)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(30, 30, 30)
+                .addComponent(cboListar, javax.swing.GroupLayout.PREFERRED_SIZE, 299, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(btnListar, javax.swing.GroupLayout.PREFERRED_SIZE, 186, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(261, 261, 261))
+                .addGap(54, 54, 54))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(btnListar)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 32, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(btnListar)
+                    .addComponent(cboListar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 36, Short.MAX_VALUE)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 319, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -98,12 +106,7 @@ public void armarCabeceraTablaJugador(){
         ArrayList<Object> column= new ArrayList<Object>();
         column.add("Id");
         column.add("Nombre");
-        column.add("Ciudad");
-        column.add("Categoria");
         column.add("Activo");
-        column.add("DiceComercial");
-        column.add("Dimension");
-        column.add("Estado");
         for(Object it:column){
             model.addColumn(it);
         }
@@ -117,34 +120,35 @@ public void borrarFilas(){
             }
     }
 }
-//public void cargarCbo(){
-//        try {
-//            Conexion con = new Conexion();
-//            JugadorData jugador=new JugadorData(con);
-//             List<Jugador> juga= jugador.buscarTodosJugadores();
-//            for (int i = 0; i < juga.size(); i++) {
-//                cboListar.addItem(juga.get(i)); 
-//            }
-//        } catch (ClassNotFoundException ex) {
-//            System.out.println("Error al cargar cbo" +ex);
-//        }}
+public void cargarCbo(){
+        try {
+            Conexion con = new Conexion();
+            JugadorData jugador=new JugadorData(con);
+             List<Jugador> juga= jugador.buscarTodosJugadores();
+            for (int i = 0; i < juga.size(); i++) {
+                cboListar.addItem(juga.get(i)); 
+            }
+        } catch (ClassNotFoundException ex) {
+            System.out.println("Error al cargar cbo" +ex);
+        }}
 public void cargarDatos(){
         try {
-            List<Estadio> lista=null;
+            List<Sponsor> lista=null;
             borrarFilas();
             Conexion con =new Conexion();
-            EstadioData jd= new EstadioData(con);
-//            Jugador a= (Jugador)cboListar.getSelectedItem();
-            lista= (List) jd.buscarTodosEstadio();
-            for(Estadio i:lista ){
+            PatrocinioData jd= new PatrocinioData(con);
+                Jugador a= (Jugador)cboListar.getSelectedItem();
+            lista= (List) jd.buscarSponsordeJugador(a.getIdJugador());
+            for(Sponsor i:lista ){
                 //if(a.getIdAlumno()==i.getAlumno().getIdAlumno())
-                model.addRow(new Object[]{i.getIdEstadio(),i.getNombre(),i.getCiudad(),i.getCategoria(),i.isActivo(),i.getDireccionComercial(),i.getDimension(),i.isEstado()});
+                  model.addRow(new Object[]{i.getIdSponsor(),i.getMarca(),i.isActivo()});
             }   } catch (ClassNotFoundException ex) {
-            Logger.getLogger(frmiVerEstadios.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(frmiBuscarSponsorxJugador.class.getName()).log(Level.SEVERE, null, ex);
         }
 }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnListar;
+    private javax.swing.JComboBox<Jugador> cboListar;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jtListas;
     // End of variables declaration//GEN-END:variables

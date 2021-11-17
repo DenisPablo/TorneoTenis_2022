@@ -61,7 +61,7 @@ public class frmiVerSponsors extends javax.swing.JInternalFrame {
         ));
         jScrollPane1.setViewportView(jtListas);
 
-        btnListar.setText("Ver Jugadores");
+        btnListar.setText("Ver Sponsor");
         btnListar.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 btnListarMouseClicked(evt);

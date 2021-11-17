@@ -5,11 +5,12 @@
  */
 package Vistas;
 
-import Data.EstadioData;
+import Data.EncuentroData;
 import Data.JugadorData;
 import Modelo.Conexion;
-import Modelo.Estadio;
+import Modelo.Encuentro;
 import Modelo.Jugador;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
@@ -20,12 +21,12 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author Romi
  */
-public class frmiVerEstadios extends javax.swing.JInternalFrame {
+public class frmiListarEncuentrosProximos extends javax.swing.JInternalFrame {
     private DefaultTableModel model;
     /**
      * Creates new form frmiListar
      */
-    public frmiVerEstadios() {
+    public frmiListarEncuentrosProximos() {
         initComponents();
         model =new DefaultTableModel();
 //        cargarCbo();
@@ -61,7 +62,7 @@ public class frmiVerEstadios extends javax.swing.JInternalFrame {
         ));
         jScrollPane1.setViewportView(jtListas);
 
-        btnListar.setText("Ver Estadios");
+        btnListar.setText("Ver Encuentros");
         btnListar.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 btnListarMouseClicked(evt);
@@ -76,14 +77,14 @@ public class frmiVerEstadios extends javax.swing.JInternalFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(btnListar, javax.swing.GroupLayout.PREFERRED_SIZE, 186, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(261, 261, 261))
+                .addGap(245, 245, 245))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap()
+                .addGap(21, 21, 21)
                 .addComponent(btnListar)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 32, Short.MAX_VALUE)
+                .addGap(18, 18, Short.MAX_VALUE)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 319, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -97,13 +98,19 @@ public class frmiVerEstadios extends javax.swing.JInternalFrame {
 public void armarCabeceraTablaJugador(){
         ArrayList<Object> column= new ArrayList<Object>();
         column.add("Id");
-        column.add("Nombre");
-        column.add("Ciudad");
-        column.add("Categoria");
-        column.add("Activo");
-        column.add("DiceComercial");
-        column.add("Dimension");
+        column.add("id J1");
+        column.add("Nombre J1");
+        column.add("Id J2");
+        column.add("Nombre J2");
+        column.add("Fecha Enc");
+        column.add("Resultado");
+        column.add("Ganador");
         column.add("Estado");
+        column.add("idEstadio");
+        column.add("Estadio");
+        column.add("activo");
+        column.add("idTorneo");
+        column.add("Torneo");
         for(Object it:column){
             model.addColumn(it);
         }
@@ -130,17 +137,17 @@ public void borrarFilas(){
 //        }}
 public void cargarDatos(){
         try {
-            List<Estadio> lista=null;
+            List<Encuentro> lista=null;
             borrarFilas();
             Conexion con =new Conexion();
-            EstadioData jd= new EstadioData(con);
+            EncuentroData jd= new EncuentroData(con);
 //            Jugador a= (Jugador)cboListar.getSelectedItem();
-            lista= (List) jd.buscarTodosEstadio();
-            for(Estadio i:lista ){
+            lista= (List) jd.listarProximosEncuentros();
+            for(Encuentro i:lista ){
                 //if(a.getIdAlumno()==i.getAlumno().getIdAlumno())
-                model.addRow(new Object[]{i.getIdEstadio(),i.getNombre(),i.getCiudad(),i.getCategoria(),i.isActivo(),i.getDireccionComercial(),i.getDimension(),i.isEstado()});
+                model.addRow(new Object[]{i.getIdEncuentro(),i.getJugador1().getIdJugador(),i.getJugador1().getNombre(),i.getJugador2().getIdJugador(),i.getJugador2().getNombre(),i.getFechaEncuentro(),i.getResultado(),i.getJugadorGanador().getIdJugador(),i.getJugadorGanador().getNombre(),i.getEstado(),i.getEstadio().getIdEstadio(),i.getEstadio().getNombre(),i.isActivo(),i.getTorneo().getIdTorneo(),i.getTorneo().getNombre()});
             }   } catch (ClassNotFoundException ex) {
-            Logger.getLogger(frmiVerEstadios.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(frmiListarEncuentrosProximos.class.getName()).log(Level.SEVERE, null, ex);
         }
 }
     // Variables declaration - do not modify//GEN-BEGIN:variables

@@ -67,7 +67,7 @@
     </Container>
     <Component class="javax.swing.JButton" name="btnListar">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Ver Jugadores"/>
+        <Property name="text" type="java.lang.String" value="Ver Sponsor"/>
       </Properties>
       <Events>
         <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="btnListarMouseClicked"/>
