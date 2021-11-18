@@ -3,7 +3,11 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
+<<<<<<< HEAD:torneotenis2 (5).sql
 -- Tiempo de generación: 18-11-2021 a las 05:29:49
+=======
+-- Tiempo de generación: 17-11-2021 a las 20:36:20
+>>>>>>> 798030132a965260d72d7d6bc90e60a56fcb56d7:torneotenis2 (4).sql
 -- Versión del servidor: 10.4.21-MariaDB
 -- Versión de PHP: 8.0.11
 
@@ -40,6 +44,7 @@ CREATE TABLE `encuentro` (
   `idTorneo` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+<<<<<<< HEAD:torneotenis2 (5).sql
 --
 -- Volcado de datos para la tabla `encuentro`
 --
@@ -51,6 +56,8 @@ INSERT INTO `encuentro` (`idEncuentro`, `jugador1`, `jugador2`, `fechaEncuentro`
 (32, 8, 11, '2021-11-11', '51x36', 11, 'Finalizado', 6, 1, 4),
 (33, 5, 10, '2021-11-11', '', 0, 'En Juego', 7, 1, 4);
 
+=======
+>>>>>>> 798030132a965260d72d7d6bc90e60a56fcb56d7:torneotenis2 (4).sql
 -- --------------------------------------------------------
 
 --
@@ -78,8 +85,12 @@ INSERT INTO `estadio` (`idEstadio`, `nombre`, `ciudad`, `categoria`, `activo`, `
 (5, 'La Lucha', 'San Luis', 'cesped', 1, 'Av Los puqios', '25*30', 0),
 (6, 'Juan Gilberto Funes', 'La Punta', 'Cemento', 1, 'Av Los Tilos', '20*30', 0),
 (7, 'La Lucha', 'San Luis', 'cesped', 1, 'Av Los puqios', '25*30', 0),
+<<<<<<< HEAD:torneotenis2 (5).sql
 (8, 'Pepe', 'San Luis', 'Cemento', 1, 'Av Fundador ', '20*30', 0),
 (9, 'dasd', 'asdas', 'Cesped', 1, 'asda', '20x30', 0);
+=======
+(8, 'Pepe', 'San Luis', 'Cemento', 1, 'Av Fundador ', '20*30', 0);
+>>>>>>> 798030132a965260d72d7d6bc90e60a56fcb56d7:torneotenis2 (4).sql
 
 -- --------------------------------------------------------
 
@@ -107,6 +118,7 @@ CREATE TABLE `jugador` (
 --
 
 INSERT INTO `jugador` (`idJugador`, `nombre`, `dni`, `fechaNac`, `altura`, `peso`, `estilo`, `manoHabil`, `torneosGanados`, `ranking`, `puntaje`, `activo`) VALUES
+<<<<<<< HEAD:torneotenis2 (5).sql
 (4, 'Julio', 12235235, '1996-03-23', 1.78, 78.3, 'agresivo', 'derecho', 0, 3, 2, 1),
 (5, 'Mario', 23565565, '1996-03-23', 1.78, 78.3, 'agresivo', 'Zurdo', 0, 4, 2, 1),
 (8, 'asdljah', 12345678, '2021-11-03', 1.78, 78.3, 'Agresivo', 'Derecha', 0, 1, 3, 1),
@@ -114,6 +126,13 @@ INSERT INTO `jugador` (`idJugador`, `nombre`, `dni`, `fechaNac`, `altura`, `peso
 (10, 'Chavo', 1323564, '2021-11-04', 1.69, 67.3, 'Voleadores', 'Derecha', 0, 6, 0, 1),
 (11, 'Luis', 23452685, '2021-11-01', 178, 780, 'Voleadores', 'Izquierda', 0, 2, 3, 1),
 (12, 'sdad', 13546412, '2021-11-04', 178, 780, 'Agresivo', 'Derecha', 0, 7, 0, 1);
+=======
+(4, 'Julio', 12235235, '1996-03-23', 1.78, 78.3, 'agresivo', 'derecho', 0, 2, 2, 1),
+(5, 'Mario', 23565565, '1996-03-23', 1.78, 78.3, 'agresivo', 'Zurdo', 0, 3, 2, 1),
+(8, 'asdljah', 12345678, '2021-11-03', 1.78, 78.3, 'Agresivo', 'Derecha', 0, 1, 3, 1),
+(9, 'Pepe', 12345678, '2021-11-01', 178.3, 87.3, 'Agresivo', 'Derecha', 0, 4, 0, 1),
+(10, 'Chavo', 1323564, '2021-11-04', 1.69, 67.3, 'Voleadores', 'Derecha', 0, 5, 0, 1);
+>>>>>>> 798030132a965260d72d7d6bc90e60a56fcb56d7:torneotenis2 (4).sql
 
 -- --------------------------------------------------------
 
@@ -136,8 +155,12 @@ CREATE TABLE `patrocinio` (
 --
 
 INSERT INTO `patrocinio` (`idPatrocinio`, `idSponsor`, `idJugador`, `fechIniContrato`, `fechFinContrato`, `activo`, `Indumentaria`) VALUES
+<<<<<<< HEAD:torneotenis2 (5).sql
 (7, 10, 5, '2021-11-01', '2021-11-28', 1, 'Relojes'),
 (8, 6, 10, '2021-11-09', '2021-11-28', 1, 'Ropa');
+=======
+(7, 10, 5, '2021-11-01', '2021-11-28', 1, 'Relojes');
+>>>>>>> 798030132a965260d72d7d6bc90e60a56fcb56d7:torneotenis2 (4).sql
 
 -- --------------------------------------------------------
 
@@ -156,14 +179,22 @@ CREATE TABLE `sponsor` (
 --
 
 INSERT INTO `sponsor` (`idSponsor`, `marca`, `activo`) VALUES
+<<<<<<< HEAD:torneotenis2 (5).sql
 (2, 'Adidas2', 1),
+=======
+(2, 'Adidas2', 0),
+>>>>>>> 798030132a965260d72d7d6bc90e60a56fcb56d7:torneotenis2 (4).sql
 (3, 'Nike', 1),
 (6, 'Adidas', 1),
 (7, 'Nike', 1),
 (8, 'wilson', 1),
 (9, 'Fila', 1),
+<<<<<<< HEAD:torneotenis2 (5).sql
 (10, 'asda', 1),
 (11, 'Adidass', 1);
+=======
+(10, 'asda', 1);
+>>>>>>> 798030132a965260d72d7d6bc90e60a56fcb56d7:torneotenis2 (4).sql
 
 -- --------------------------------------------------------
 
@@ -186,9 +217,13 @@ CREATE TABLE `torneo` (
 INSERT INTO `torneo` (`idTorneo`, `nombre`, `fechaNacInicio`, `fechaNacFinal`, `activo`) VALUES
 (2, 'La Cruda', '2021-01-11', '2021-12-12', 1),
 (3, 'The Champion', '2021-03-11', '2022-03-11', 1),
+<<<<<<< HEAD:torneotenis2 (5).sql
 (4, 'ggggggggggg', '2021-11-01', '2021-11-28', 1),
 (5, 'Plata', '2021-11-01', '2021-11-28', 1),
 (6, 'La Liga', '2021-11-01', '2021-11-20', 1);
+=======
+(4, 'ggggggggggg', '2021-11-01', '2021-11-28', 1);
+>>>>>>> 798030132a965260d72d7d6bc90e60a56fcb56d7:torneotenis2 (4).sql
 
 --
 -- Índices para tablas volcadas
@@ -201,6 +236,10 @@ ALTER TABLE `encuentro`
   ADD PRIMARY KEY (`idEncuentro`),
   ADD KEY `j1` (`jugador1`),
   ADD KEY `j2` (`jugador2`),
+<<<<<<< HEAD:torneotenis2 (5).sql
+=======
+  ADD KEY `ganador2` (`jugadorGanador`),
+>>>>>>> 798030132a965260d72d7d6bc90e60a56fcb56d7:torneotenis2 (4).sql
   ADD KEY `estadio` (`idEstadio`),
   ADD KEY `encuentro_ibfk_1` (`idTorneo`);
 
@@ -244,37 +283,61 @@ ALTER TABLE `torneo`
 -- AUTO_INCREMENT de la tabla `encuentro`
 --
 ALTER TABLE `encuentro`
+<<<<<<< HEAD:torneotenis2 (5).sql
   MODIFY `idEncuentro` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=34;
+=======
+  MODIFY `idEncuentro` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
+>>>>>>> 798030132a965260d72d7d6bc90e60a56fcb56d7:torneotenis2 (4).sql
 
 --
 -- AUTO_INCREMENT de la tabla `estadio`
 --
 ALTER TABLE `estadio`
+<<<<<<< HEAD:torneotenis2 (5).sql
   MODIFY `idEstadio` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+=======
+  MODIFY `idEstadio` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+>>>>>>> 798030132a965260d72d7d6bc90e60a56fcb56d7:torneotenis2 (4).sql
 
 --
 -- AUTO_INCREMENT de la tabla `jugador`
 --
 ALTER TABLE `jugador`
+<<<<<<< HEAD:torneotenis2 (5).sql
   MODIFY `idJugador` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+=======
+  MODIFY `idJugador` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+>>>>>>> 798030132a965260d72d7d6bc90e60a56fcb56d7:torneotenis2 (4).sql
 
 --
 -- AUTO_INCREMENT de la tabla `patrocinio`
 --
 ALTER TABLE `patrocinio`
+<<<<<<< HEAD:torneotenis2 (5).sql
   MODIFY `idPatrocinio` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+=======
+  MODIFY `idPatrocinio` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+>>>>>>> 798030132a965260d72d7d6bc90e60a56fcb56d7:torneotenis2 (4).sql
 
 --
 -- AUTO_INCREMENT de la tabla `sponsor`
 --
 ALTER TABLE `sponsor`
+<<<<<<< HEAD:torneotenis2 (5).sql
   MODIFY `idSponsor` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+=======
+  MODIFY `idSponsor` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+>>>>>>> 798030132a965260d72d7d6bc90e60a56fcb56d7:torneotenis2 (4).sql
 
 --
 -- AUTO_INCREMENT de la tabla `torneo`
 --
 ALTER TABLE `torneo`
+<<<<<<< HEAD:torneotenis2 (5).sql
   MODIFY `idTorneo` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+=======
+  MODIFY `idTorneo` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+>>>>>>> 798030132a965260d72d7d6bc90e60a56fcb56d7:torneotenis2 (4).sql
 
 --
 -- Restricciones para tablas volcadas
@@ -287,7 +350,12 @@ ALTER TABLE `encuentro`
   ADD CONSTRAINT `encuentro_ibfk_1` FOREIGN KEY (`idTorneo`) REFERENCES `torneo` (`idTorneo`),
   ADD CONSTRAINT `estadio` FOREIGN KEY (`idEstadio`) REFERENCES `estadio` (`idEstadio`),
   ADD CONSTRAINT `j1` FOREIGN KEY (`jugador1`) REFERENCES `jugador` (`idJugador`),
+<<<<<<< HEAD:torneotenis2 (5).sql
   ADD CONSTRAINT `j2` FOREIGN KEY (`jugador2`) REFERENCES `jugador` (`idJugador`);
+=======
+  ADD CONSTRAINT `j2` FOREIGN KEY (`jugador2`) REFERENCES `jugador` (`idJugador`),
+  ADD CONSTRAINT `jugagana` FOREIGN KEY (`jugadorGanador`) REFERENCES `jugador` (`idJugador`);
+>>>>>>> 798030132a965260d72d7d6bc90e60a56fcb56d7:torneotenis2 (4).sql
 
 --
 -- Filtros para la tabla `patrocinio`
