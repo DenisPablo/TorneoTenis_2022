@@ -18,6 +18,7 @@ import java.time.ZoneId;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -65,6 +66,7 @@ public class frmiModificarJugador extends javax.swing.JInternalFrame {
         jDateChooser1 = new com.toedter.calendar.JDateChooser();
 
         setClosable(true);
+        setResizable(true);
         setTitle("Modificar Jugador");
 
         jLabel7.setText("Altura");
@@ -279,6 +281,7 @@ public void cargarCbo(){
 
     private void btnModificarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnModificarMouseClicked
       try {
+          boolean a;
             Conexion con = new Conexion();
             Jugador j=new Jugador();
             j=(Jugador)cboJugador.getSelectedItem();
@@ -292,7 +295,12 @@ public void cargarCbo(){
             j.setEstilo(cboEstilo.getSelectedItem().toString());
             j.setActivo(cbActivo.isSelected());
             JugadorData jd=new JugadorData(con);
-            jd.actualizarJugador(j);
+            a=jd.actualizarJugador(j);
+            if(a) {
+               JOptionPane.showMessageDialog(null,"El encuentro se modifico con exito"); 
+            } else {
+                JOptionPane.showMessageDialog(null,"Error al conectar con la base de datos:" );
+            }
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(frmiAgregarSponsor.class.getName()).log(Level.SEVERE, null, ex);
         }

@@ -53,6 +53,7 @@ public class frmiModificarTorneo extends javax.swing.JInternalFrame {
         jdFin = new com.toedter.calendar.JDateChooser();
 
         setClosable(true);
+        setResizable(true);
         setTitle("Modificar Torneo");
 
         jLabel2.setText("Fecha de Inicio");

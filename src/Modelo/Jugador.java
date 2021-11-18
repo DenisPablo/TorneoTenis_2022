@@ -159,7 +159,7 @@ public class Jugador {
 
     @Override
     public String toString() {
-        return "Jugador{" + " idJugador= " + idJugador + "nombre=" + nombre + ", dni=" + dni + ", altura=" + altura + ", estilo=" + estilo + ", ranking=" + ranking + ", activo=" + activo + '}';
+        return ("Jugador" + " ID " + idJugador + " Nombre: " + nombre + " DNI: " + dni + " Ranking: " + ranking );
     }
     
     

@@ -51,6 +51,7 @@ public class frmiListarTorneosPorJugador extends javax.swing.JInternalFrame {
         cboListar = new javax.swing.JComboBox<>();
 
         setClosable(true);
+        setResizable(true);
         setTitle("Listas");
 
         jtListas.setModel(new javax.swing.table.DefaultTableModel(

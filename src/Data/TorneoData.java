@@ -18,6 +18,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -32,7 +33,7 @@ public class TorneoData {
      try {
         con = conexion.getConexion();
     } catch (SQLException ex) {
-       System.out.println("Error en la conexcion: "+ex);
+       JOptionPane.showMessageDialog(null,"Error al conectar con la base de datos:" + ex);
     }
  }
      
@@ -49,10 +50,10 @@ public class TorneoData {
          ps.setBoolean(4,t.isActivo());
         
          ps.executeUpdate();
-         System.out.println("Encuentro Guardado con Exito");
+         JOptionPane.showMessageDialog(null,"Torneo agregado con exito: ");
      }
      catch (SQLException ex){
-    System.out.println("Error al conectar con la base de datos: "+ex); 
+    JOptionPane.showMessageDialog(null,"Error al conectar con la base de datos:" + ex);
     }
 
      }
@@ -78,11 +79,12 @@ public class TorneoData {
        }
     }
     catch(SQLException ex){
-        System.out.println("Error al conectar la base de datos" + ex);
+       JOptionPane.showMessageDialog(null,"Error al conectar con la base de datos:" + ex);
     }
     
     return t;
 }  
+     
      public void modificadarTorneo (Torneo t) {
         String sql = "UPDATE `torneo` SET `nombre`=?,`fechaNacInicio`=?,`fechaNacFinal`=?,`activo`=? WHERE idTorneo=?";
         try{
@@ -95,10 +97,10 @@ public class TorneoData {
 
             ps.executeUpdate();
             ps.close();
-                System.out.println("Sponsor modificada con exito.");
+                JOptionPane.showMessageDialog(null,"Torneo modificado con exito: ");
         }
         catch (SQLException ex){
-                System.out.println("Error al actualizar sponsor: "+ex);
+                JOptionPane.showMessageDialog(null,"Error al conectar con la base de datos:" + ex);
         }
 
  }
@@ -114,9 +116,9 @@ public class TorneoData {
             ps.executeUpdate();
             ps.close();
             
-            System.out.println("Torneo suspendido con exito.");
+            JOptionPane.showMessageDialog(null,"Toreno dado de baja con exito: ");
         } catch (SQLException ex) {
-            System.out.println("Error al conectar con la base de datos. "+ex);
+           JOptionPane.showMessageDialog(null,"Error al conectar con la base de datos:" + ex);
         }
     }
      
@@ -131,9 +133,9 @@ public class TorneoData {
             ps.executeUpdate();
             ps.close();
             
-            System.out.println("Torneo dado de alta con exito.");
+            JOptionPane.showMessageDialog(null,"Torneo dado de alta con exito: ");
         } catch (SQLException ex) {
-            System.out.println("Error al conectar con la base de datos. "+ex);
+            JOptionPane.showMessageDialog(null,"Error al conectar con la base de datos:" + ex);
         }
      
      }
@@ -149,9 +151,9 @@ public class TorneoData {
             ps.executeUpdate();
             ps.close();
             
-            System.out.println("Torneo Borrada con exito.");
+            JOptionPane.showMessageDialog(null,"Torneo borrado con exito: ");
         } catch (SQLException ex) {
-             System.out.println("Error al conectar con la base de datos.  "+ex);
+             JOptionPane.showMessageDialog(null,"Error al conectar con la base de datos:" + ex);
         }
         
     }
@@ -177,7 +179,7 @@ public class TorneoData {
     ps.close();
     }
     catch(SQLException ex){
-    System.out.println("Error al conectar con la base de datos. "+ ex);
+   JOptionPane.showMessageDialog(null,"Error al conectar con la base de datos:" + ex);
     }
     return resultados;
     }
@@ -214,12 +216,38 @@ public class TorneoData {
              }
             
         } catch (SQLException ex) {
-            System.out.println("Error al obtener la busqueda de jugador"+ex);
+            JOptionPane.showMessageDialog(null,"Error al conectar con la base de datos:" + ex);
         }
     
          return resultados;
         
      }
+     
+     public List<Torneo> devolverActivos(){
+     
+    List<Torneo> resultados = new ArrayList();
+    Torneo t = null;
+    String sql = "SELECT * FROM torneo Where activo=true";
+    try{
+        PreparedStatement ps = con.prepareStatement(sql);
+        ResultSet rs = ps.executeQuery();
+      while(rs.next()){
+          t = new Torneo();
+        t.setIdTorneo(rs.getInt("idTorneo"));
+        t.setNombre(rs.getNString("nombre"));
+        t.setFechaNacInicio(rs.getDate("fechaNacInicio").toLocalDate());
+        t.setFehcaNacFinal(rs.getDate("fechaNacFinal").toLocalDate());
+        t.setActivo(rs.getBoolean("activo"));
+        resultados.add(t);
+         
+    }
+    ps.close();
+    }
+    catch(SQLException ex){
+   JOptionPane.showMessageDialog(null,"Error al conectar con la base de datos:" + ex);
+    }
+    return resultados;
+    }
      
      }
      

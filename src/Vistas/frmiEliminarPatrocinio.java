@@ -14,6 +14,7 @@ import Modelo.Sponsor;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -65,6 +66,7 @@ public void cargarCbo(){
         jButton2 = new javax.swing.JButton();
 
         setClosable(true);
+        setResizable(true);
         setTitle("Eliminar/Activar Patrocinio");
 
         jLabel13.setText("Patrocinio");
@@ -87,10 +89,15 @@ public void cargarCbo(){
             }
         });
 
-        jButton2.setText("Eliminar");
+        jButton2.setText("Activar");
         jButton2.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jButton2MouseClicked(evt);
+            }
+        });
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
             }
         });
 
@@ -163,8 +170,13 @@ public void cargarCbo(){
             Conexion con = new Conexion();
             Patrocinio p=new Patrocinio();
             PatrocinioData patrocinio=new PatrocinioData(con);
-            p=(Patrocinio)CboEliminarPatrocinio.getSelectedItem();
-            patrocinio.bajaPatrocinio(p.getIdPatrocinio());
+            p=(Patrocinio)CboEliminarPatrocinio.getSelectedItem();            
+            boolean a =  patrocinio.bajaPatrocinio(p.getIdPatrocinio());
+            if(a) {
+               JOptionPane.showMessageDialog(null,"El encuentro se agrego con exito"); 
+            } else {
+                JOptionPane.showMessageDialog(null,"Error al conectar con la base de datos:" );
+            }
             EncuentroData jd=new EncuentroData(con);
             jd.calcularRankingPuntaje();
         } catch (ClassNotFoundException ex) {
@@ -181,7 +193,12 @@ public void cargarCbo(){
             Patrocinio p=new Patrocinio();
             PatrocinioData patrocinio=new PatrocinioData(con);
             p=(Patrocinio)CboActivarPatrocinio.getSelectedItem();
-            patrocinio.altaPatrocinio(p.getIdPatrocinio());
+            boolean a =  patrocinio.altaPatrocinio(p.getIdPatrocinio());
+            if(a) {
+               JOptionPane.showMessageDialog(null,"El encuentro se agrego con exito"); 
+            } else {
+                JOptionPane.showMessageDialog(null,"Error al conectar con la base de datos:" );
+            }
             EncuentroData jd=new EncuentroData(con);
             jd.calcularRankingPuntaje();
         } catch (ClassNotFoundException ex) {
@@ -191,6 +208,10 @@ public void cargarCbo(){
          CboEliminarPatrocinio.removeAllItems(); 
         cargarCbo();
     }//GEN-LAST:event_jButton2MouseClicked
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton2ActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

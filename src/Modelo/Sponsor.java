@@ -53,7 +53,7 @@ public class Sponsor {
 
     @Override
     public String toString() {
-        return "Sponsor{" + "idSponsor=" + idSponsor + ", marca=" + marca + ", activo=" + activo + '}';
+        return ("Sponsor" + " ID " + idSponsor + " Marca " + marca);
     }
 
     

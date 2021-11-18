@@ -80,6 +80,7 @@ public void cargarCbo(){
         jcInicio = new com.toedter.calendar.JDateChooser();
 
         setClosable(true);
+        setResizable(true);
         setTitle("Agregar Patrocinio");
 
         jLabel1.setText("Sponsor");
@@ -96,6 +97,11 @@ public void cargarCbo(){
         btnCargar.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 btnCargarMouseClicked(evt);
+            }
+        });
+        btnCargar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCargarActionPerformed(evt);
             }
         });
 
@@ -234,13 +240,23 @@ public void cargarCbo(){
             p.setIndumentaria(cboIndumentaria.getSelectedItem().toString());
             p.setActivo(cbActivo.isSelected());
         
-            pat.guardarPatrocinio(p);
+            
+            boolean a =  pat.guardarPatrocinio(p);
+            if(a) {
+               JOptionPane.showMessageDialog(null,"El encuentro se agrego con exito"); 
+            } else {
+                JOptionPane.showMessageDialog(null,"Error al conectar con la base de datos:" );
+            }
             EncuentroData jd=new EncuentroData(con);
             jd.calcularRankingPuntaje();
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(frmiAgregarSponsor.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_btnCargarMouseClicked
+
+    private void btnCargarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCargarActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnCargarActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

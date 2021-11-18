@@ -3,20 +3,38 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/Romi/Documents/NetBeansProjects/TorneoTenis/src/Vistas/frmiModificarSponsor.java</file>
-            <file>file:/C:/Users/Romi/Documents/NetBeansProjects/TorneoTenis/src/Vistas/frmiAgregarPatrocinio.java</file>
-            <file>file:/C:/Users/Romi/Documents/NetBeansProjects/TorneoTenis/src/Modelo/Torneo.java</file>
-            <file>file:/C:/Users/Romi/Documents/NetBeansProjects/TorneoTenis/src/Modelo/Sponsor.java</file>
-            <file>file:/C:/Users/Romi/Documents/NetBeansProjects/TorneoTenis/src/Vistas/frmiAgregarSponsor.java</file>
-            <file>file:/C:/Users/Romi/Documents/NetBeansProjects/TorneoTenis/src/Data/SponsorData.java</file>
-            <file>file:/C:/Users/Romi/Documents/NetBeansProjects/TorneoTenis/src/Data/Main.java</file>
-            <file>file:/C:/Users/Romi/Documents/NetBeansProjects/TorneoTenis/src/Data/EncuentroData.java</file>
-            <file>file:/C:/Users/Romi/Documents/NetBeansProjects/TorneoTenis/src/Vistas/frmiEliminarSponsor.java</file>
-            <file>file:/C:/Users/Romi/Documents/NetBeansProjects/TorneoTenis/src/Vistas/frmiModificarPatrocinio.java</file>
-            <file>file:/C:/Users/Romi/Documents/NetBeansProjects/TorneoTenis/src/Data/TorneoData.java</file>
-            <file>file:/C:/Users/Romi/Documents/NetBeansProjects/TorneoTenis/src/Modelo/Conexion.java</file>
-            <file>file:/C:/Users/Romi/Documents/NetBeansProjects/TorneoTenis/src/Vistas/frmiEliminarPatrocinio.java</file>
-            <file>file:/C:/Users/Romi/Documents/NetBeansProjects/TorneoTenis/src/Data/PatrocinioData.java</file>
+            <file>file:/media/pablo/RespaldoA/Proyectos%20Lab/TorneoTenis/src/Vistas/frmiEliminarTorneo.java</file>
+            <file>file:/media/pablo/RespaldoA/Proyectos%20Lab/TorneoTenis/src/Vistas/frmiBuscarSponsorxJugador.java</file>
+            <file>file:/media/pablo/RespaldoA/Proyectos%20Lab/TorneoTenis/src/Vistas/frmiListarEncuentrosProximos.java</file>
+            <file>file:/media/pablo/RespaldoA/Proyectos%20Lab/TorneoTenis/src/Vistas/frmiAgregarTorneo.java</file>
+            <file>file:/media/pablo/RespaldoA/Proyectos%20Lab/TorneoTenis/src/Vistas/frmiVerEncuentros.java</file>
+            <file>file:/media/pablo/RespaldoA/Proyectos%20Lab/TorneoTenis/src/Vistas/frmiEliminarEncuentro.java</file>
+            <file>file:/media/pablo/RespaldoA/Proyectos%20Lab/TorneoTenis/src/Vistas/frmiVerJugadores.java</file>
+            <file>file:/media/pablo/RespaldoA/Proyectos%20Lab/TorneoTenis/src/Vistas/frmiEliminarJugador.java</file>
+            <file>file:/media/pablo/RespaldoA/Proyectos%20Lab/TorneoTenis/src/Vistas/frmiListarJugadoresPorPuntaje.java</file>
+            <file>file:/media/pablo/RespaldoA/Proyectos%20Lab/TorneoTenis/src/Vistas/frmiModificarEncuentro.java</file>
+            <file>file:/media/pablo/RespaldoA/Proyectos%20Lab/TorneoTenis/src/Vistas/frmiAgregarJugador.java</file>
+            <file>file:/media/pablo/RespaldoA/Proyectos%20Lab/TorneoTenis/src/Vistas/frmiBuscaJugadoresdeunSponsor.java</file>
+            <file>file:/media/pablo/RespaldoA/Proyectos%20Lab/TorneoTenis/src/Vistas/frmiAgregarEstadio.java</file>
+            <file>file:/media/pablo/RespaldoA/Proyectos%20Lab/TorneoTenis/src/Vistas/frmiModificarSponsor.java</file>
+            <file>file:/media/pablo/RespaldoA/Proyectos%20Lab/TorneoTenis/src/Vistas/frmiVerPatrocinios.java</file>
+            <file>file:/media/pablo/RespaldoA/Proyectos%20Lab/TorneoTenis/src/Vistas/frmiModificarEstadio.java</file>
+            <file>file:/media/pablo/RespaldoA/Proyectos%20Lab/TorneoTenis/src/Vistas/frmiEliminarEstadio.java</file>
+            <file>file:/media/pablo/RespaldoA/Proyectos%20Lab/TorneoTenis/src/Vistas/frmiModificarTorneo.java</file>
+            <file>file:/media/pablo/RespaldoA/Proyectos%20Lab/TorneoTenis/src/Vistas/frmiListarTorneosPorJugador.java</file>
+            <file>file:/media/pablo/RespaldoA/Proyectos%20Lab/TorneoTenis/src/Data/JugadorData.java</file>
+            <file>file:/media/pablo/RespaldoA/Proyectos%20Lab/TorneoTenis/src/Vistas/frmiVerEstadios.java</file>
+            <file>file:/media/pablo/RespaldoA/Proyectos%20Lab/TorneoTenis/src/Vistas/frmiVerSponsors.java</file>
+            <file>file:/media/pablo/RespaldoA/Proyectos%20Lab/TorneoTenis/src/Vistas/frmiEliminarSponsor.java</file>
+            <file>file:/media/pablo/RespaldoA/Proyectos%20Lab/TorneoTenis/src/Vistas/frmiEliminarPatrocinio.java</file>
+            <file>file:/media/pablo/RespaldoA/Proyectos%20Lab/TorneoTenis/src/Data/TorneoData.java</file>
+            <file>file:/media/pablo/RespaldoA/Proyectos%20Lab/TorneoTenis/src/Vistas/frmiVerTorneos.java</file>
+            <file>file:/media/pablo/RespaldoA/Proyectos%20Lab/TorneoTenis/src/Vistas/frmiModificarPatrocinio.java</file>
+            <file>file:/media/pablo/RespaldoA/Proyectos%20Lab/TorneoTenis/src/Vistas/frmiAgregarEncuentro.java</file>
+            <file>file:/media/pablo/RespaldoA/Proyectos%20Lab/TorneoTenis/src/Vistas/frmiBuscarEncuentrosPorFecha.java</file>
+            <file>file:/media/pablo/RespaldoA/Proyectos%20Lab/TorneoTenis/src/Vistas/frmiModificarJugador.java</file>
+            <file>file:/media/pablo/RespaldoA/Proyectos%20Lab/TorneoTenis/src/Vistas/frmiAgregarPatrocinio.java</file>
+            <file>file:/media/pablo/RespaldoA/Proyectos%20Lab/TorneoTenis/src/Vistas/frmiAgregarSponsor.java</file>
         </group>
     </open-files>
 </project-private>

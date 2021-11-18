@@ -41,6 +41,7 @@ public class frmiAgregarSponsor extends javax.swing.JInternalFrame {
         btnLimpiar = new javax.swing.JButton();
 
         setClosable(true);
+        setResizable(true);
         setTitle("Agregar Sponsor");
 
         jLabel1.setText("Marca");

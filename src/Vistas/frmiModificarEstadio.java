@@ -53,6 +53,7 @@ public class frmiModificarEstadio extends javax.swing.JInternalFrame {
         btnLimpiar = new javax.swing.JButton();
 
         setClosable(true);
+        setResizable(true);
         setTitle("Modificar Estadio");
 
         cboCategoria.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Cesped", "Cemento", "Ladrillo" }));

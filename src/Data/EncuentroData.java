@@ -37,14 +37,14 @@ public class EncuentroData {
      try {
         this.con = conexion.getConexion();
     } catch (SQLException ex) {
-       System.out.println("Error en la conexcion: "+ex);
+      JOptionPane.showMessageDialog(null,"Error al conectar con la base de datos:" + ex);
     }
  }
     
-    public void agregarEncuentro(Encuentro en){
+    public boolean agregarEncuentro(Encuentro en){
     
      String sql = "INSERT INTO encuentro (`jugador1`, `jugador2`, `fechaEncuentro`, `resultado`, `jugadorGanador`, `estado`, `idEstadio`, `activo`, `idTorneo`) VALUES (?,?,?,?,?,?,?,?,?)";
-
+        boolean a;
      try{
          PreparedStatement ps = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
          ps.setObject(1,en.getJugador1().getIdJugador());
@@ -58,12 +58,12 @@ public class EncuentroData {
          ps.setObject(9, en.getTorneo().getIdTorneo());
         
          ps.executeUpdate();
-         System.out.println("Encuentro Guardado con Exito");
+         a = true;
      }
      catch (SQLException ex){
-    System.out.println("Error al conectar con la base de datos: "+ex); 
+         a = false;
     }
-
+       return a;
     }
     
     public Encuentro buscarEncuentro(int id){
@@ -106,29 +106,28 @@ public class EncuentroData {
             }
         }
         catch(SQLException ex){
-            System.out.println("Error al conectar la base de datos" + ex);
+            JOptionPane.showMessageDialog(null,"Error al conectar con la base de datos:" + ex);
         }
         
     }
     catch(ClassNotFoundException ex){
-            Logger.getLogger(EncuentroData.class.getName()).log(Level.SEVERE, null, ex);
+           JOptionPane.showMessageDialog(null,"Error al conectar con la base de datos:" + ex);
     }
     return en;
 }
     
-    public void darBajaEncuentro(int id){
+    public boolean darBajaEncuentro(int id){
     
          String sql = "UPDATE encuentro SET activo=? WHERE idEncuentro=?";
-         
+         boolean a;
          try {
              PreparedStatement ps = con.prepareStatement(sql);
              ps.setBoolean(1, false);
              ps.setInt(2, id);
              ps.executeUpdate();
              ps.close();
-             System.out.println("Encuentro suspendido con exito.");
          } catch (SQLException ex) {
-             System.out.println("Error al conectar con la base de datos. "+ex);
+             JOptionPane.showMessageDialog(null,"Error al conectar con la base de datos:" + ex);
          }
           try {
          Conexion con1=new Conexion();
@@ -152,30 +151,31 @@ public class EncuentroData {
                  
              }
              
-             
+             a = true;
          } catch (SQLException ex) {
-             Logger.getLogger(EncuentroData.class.getName()).log(Level.SEVERE, null, ex);
+             a = false;
          }
+        
      } catch (ClassNotFoundException ex) {
-            Logger.getLogger(EncuentroData.class.getName()).log(Level.SEVERE, null, ex);
+           a = false;
         }
+          return a;
     }
     
-    public void darAltaEncuentro(int id){
+    public boolean darAltaEncuentro(int id){
         
     
          String sql = "UPDATE encuentro SET activo=? WHERE idEncuentro=?";
-         
+         boolean a;
          try {
              PreparedStatement ps = con.prepareStatement(sql);
              ps.setBoolean(1, true);
              ps.setInt(2, id);
              ps.executeUpdate();
              ps.close();
-             
-             System.out.println("Encuentro activado con exito.");
+             a = true;
          } catch (SQLException ex) {
-             System.out.println("Error al conectar con la base de datos. "+ex);
+             a = false;
          }
           try {
          
@@ -202,13 +202,13 @@ public class EncuentroData {
              
              
          } catch (SQLException ex) {
-             Logger.getLogger(EncuentroData.class.getName()).log(Level.SEVERE, null, ex);
+             a = false;
          }
          
      } catch (ClassNotFoundException ex) {
-            Logger.getLogger(EncuentroData.class.getName()).log(Level.SEVERE, null, ex);
+           a = false;
         }
-        
+        return a;
     }
     
     public void borrarEncuentro(int id){
@@ -223,9 +223,9 @@ public class EncuentroData {
             ps.executeUpdate();
             ps.close();
             
-            System.out.println("Encuentro Borrada con exito.");
+           JOptionPane.showMessageDialog(null,"Encuentro borrado con exito: ");
         } catch (SQLException ex) {
-             System.out.println("Error al conectar con la base de datos.  "+ex);
+             JOptionPane.showMessageDialog(null,"Error al conectar con la base de datos:" + ex);
         }
         
     }
@@ -275,11 +275,11 @@ public class EncuentroData {
            
         }
         catch(SQLException ex){
-            System.out.println("Error al conectar con la base de datos. "+ ex);
+           JOptionPane.showMessageDialog(null,"Error al conectar con la base de datos:" + ex);
         }
     }
     catch(ClassNotFoundException ex){
-            Logger.getLogger(EncuentroData.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(null,"Error al conectar con la base de datos:" + ex);
     }
         return resultados; 
     }
@@ -292,17 +292,18 @@ public class EncuentroData {
                 ps.setInt(2, id);
                 ps.executeUpdate();
                 ps.close();
-                    System.out.println("Encuentro Postergado con Exito");
+                
+                JOptionPane.showMessageDialog(null,"Encuentro postuesto con exito: ");
                 }
             catch (SQLException ex){
-            System.out.println("Error al conectar con la base de datos: "+ex);
+            JOptionPane.showMessageDialog(null,"Error al conectar con la base de datos:" + ex);
             }
 }
     
-    public void modificarEncuentro(Encuentro en){
+    public boolean modificarEncuentro(Encuentro en){
     
         String sql = "UPDATE encuentro SET `jugador1`=?,`jugador2`=?,`fechaEncuentro`=?,`resultado`=?,`jugadorGanador`=?,`estado`=?,`idEstadio`=?,`activo`=?,`idTorneo`=? Where idEncuentro=?";
-        
+        boolean a;
         try {
         PreparedStatement ps = con.prepareStatement(sql);
          ps.setObject(1,en.getJugador1().getIdJugador());
@@ -318,14 +319,13 @@ public class EncuentroData {
          ps.executeUpdate();
          ps.close();
 
-        System.out.println("Encuentro modificado con exito.");
+         a = true;
         } catch (SQLException ex) {
-            System.out.println("Error al conectar con la base de datos. " + ex);
+           a = false;
         }
     
-    
+    return a;
     }
-    
 
     public List<Encuentro> listarProximosEncuentros(){
         
@@ -368,11 +368,11 @@ public class EncuentroData {
                 ps.close();
         }
         catch(SQLException ex){
-            System.out.println("Error al conectar con la base de datos. "+ ex);
+           JOptionPane.showMessageDialog(null,"Error al conectar con la base de datos:" + ex);
         }
     }
     catch(ClassNotFoundException ex){
-            Logger.getLogger(EncuentroData.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(null,"Error al conectar con la base de datos:" + ex);
     }
         return resultados; 
     }
@@ -419,11 +419,10 @@ public class EncuentroData {
         }
         catch(SQLException ex){
             JOptionPane.showMessageDialog(null, "el jugador  no ah jugado en ninguna cancha");
-            System.out.println("Error al conectar con la base de datos. "+ ex);
         }
     }
     catch(ClassNotFoundException ex){
-            Logger.getLogger(EncuentroData.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(null,"Error al conectar con la base de datos:" + ex);
     }
         return resultados; 
 }
@@ -456,16 +455,14 @@ public class EncuentroData {
         }
         catch(SQLException ex){
             JOptionPane.showMessageDialog(null, "el jugador  no ah jugado en ninguna cancha");
-            System.out.println("Error al conectar con la base de datos. "+ ex);
         }
     }
     catch(ClassNotFoundException ex){
-            Logger.getLogger(EncuentroData.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(null,"Error al conectar con la base de datos:" + ex);
     }
         return resultados; 
     }
-    
-    
+   
     public void calcularRankingPuntaje(){
         ArrayList<Jugador> resultados = new ArrayList();
         List<Sponsor> resulSponsor = new ArrayList();
@@ -496,7 +493,7 @@ public class EncuentroData {
                 }
             }
             catch(SQLException ex){
-                System.out.println("Error al conectar la base de datos" + ex);
+                JOptionPane.showMessageDialog(null,"Error al conectar con la base de datos:" + ex);
             }
             for (int i = 0; i < resultados.size(); i++) {
                 j1=resultados.get(i);
@@ -525,17 +522,18 @@ public class EncuentroData {
                 j2 = jugadorData.buscarJugador(rs.getInt(1));
                 j2.setRanking(x);
                 jugadorData.actualizarJugador(j2);
-             
-                }
                 
+                
+                }
+                JOptionPane.showMessageDialog(null,"Ranking actualizado con exito: ");
                 
             } catch (SQLException ex) {
-                Logger.getLogger(EncuentroData.class.getName()).log(Level.SEVERE, null, ex);
+                JOptionPane.showMessageDialog(null,"Error al conectar con la base de datos:" + ex);
             }
             
         }
         catch(ClassNotFoundException ex){
-            Logger.getLogger(EncuentroData.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(null,"Error al conectar con la base de datos:" + ex);
         }
     
     
@@ -543,6 +541,114 @@ public class EncuentroData {
     
     }
     
+    
+     public List<Encuentro> devolverActivos(){
+    
+        ArrayList<Encuentro> resultados = new ArrayList();
+   
+          try{
+  
+        Encuentro en = new Encuentro();
+        Jugador j1 = new Jugador();
+        Jugador j2 = new Jugador();
+        Jugador j3 = new Jugador();
+        Estadio e1 = new Estadio();
+        Torneo t=new Torneo();
+        Conexion con1 = new Conexion();
+        JugadorData jugadorData = new JugadorData(con1);
+        EstadioData estadioData = new EstadioData(con1);
+        TorneoData td= new TorneoData(con1);
+        String sql = "SELECT * FROM encuentro Where activo=true";
+        try{
+            PreparedStatement ps = con.prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+            while(rs.next()){
+                en = new Encuentro();
+                en.setIdEncuentro(rs.getInt(1));
+                j1 = jugadorData.buscarPorID(rs.getInt(2));
+                en.setJugador1(j1);
+                j2 = jugadorData.buscarPorID(rs.getInt(3));
+                en.setJugador2(j2);
+                j3 = jugadorData.buscarPorID(rs.getInt(6));
+                en.setJugadorGanador(j3);
+                e1 = estadioData.buscarEstadio(rs.getInt(8));
+                en.setEstadio(e1);
+                en.setFechaEncuentro(rs.getDate(4).toLocalDate());
+                en.setResultado(rs.getString(5));
+                en.setEstado(rs.getString(7));
+                en.setActivo(rs.getBoolean(9));
+                t=td.buscarTorneo(rs.getInt(10));
+                en.setTorneo(t);
+
+                resultados.add(en);
+            }
+            ps.close();
+          
+           
+        }
+        catch(SQLException ex){
+           JOptionPane.showMessageDialog(null,"Error al conectar con la base de datos:" + ex);
+        }
+    }
+    catch(ClassNotFoundException ex){
+            JOptionPane.showMessageDialog(null,"Error al conectar con la base de datos:" + ex);
+    }
+        return resultados; 
+    }
+     
+     public List<Encuentro> devolverInactivos(){
+    
+        ArrayList<Encuentro> resultados = new ArrayList();
+   
+          try{
+  
+        Encuentro en = new Encuentro();
+        Jugador j1 = new Jugador();
+        Jugador j2 = new Jugador();
+        Jugador j3 = new Jugador();
+        Estadio e1 = new Estadio();
+        Torneo t=new Torneo();
+        Conexion con1 = new Conexion();
+        JugadorData jugadorData = new JugadorData(con1);
+        EstadioData estadioData = new EstadioData(con1);
+        TorneoData td= new TorneoData(con1);
+        String sql = "SELECT * FROM encuentro Where activo=false";
+        try{
+            PreparedStatement ps = con.prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+            while(rs.next()){
+                en = new Encuentro();
+                en.setIdEncuentro(rs.getInt(1));
+                j1 = jugadorData.buscarPorID(rs.getInt(2));
+                en.setJugador1(j1);
+                j2 = jugadorData.buscarPorID(rs.getInt(3));
+                en.setJugador2(j2);
+                j3 = jugadorData.buscarPorID(rs.getInt(6));
+                en.setJugadorGanador(j3);
+                e1 = estadioData.buscarEstadio(rs.getInt(8));
+                en.setEstadio(e1);
+                en.setFechaEncuentro(rs.getDate(4).toLocalDate());
+                en.setResultado(rs.getString(5));
+                en.setEstado(rs.getString(7));
+                en.setActivo(rs.getBoolean(9));
+                t=td.buscarTorneo(rs.getInt(10));
+                en.setTorneo(t);
+
+                resultados.add(en);
+            }
+            ps.close();
+          
+           
+        }
+        catch(SQLException ex){
+           JOptionPane.showMessageDialog(null,"Error al conectar con la base de datos:" + ex);
+        }
+    }
+    catch(ClassNotFoundException ex){
+            JOptionPane.showMessageDialog(null,"Error al conectar con la base de datos:" + ex);
+    }
+        return resultados; 
+    }
     }
     
 

@@ -45,6 +45,7 @@ public class frmiEliminarTorneo extends javax.swing.JInternalFrame {
         btnActivar1 = new javax.swing.JButton();
 
         setClosable(true);
+        setResizable(true);
         setTitle("Eliminar/Agregar Torneo");
 
         jLabel35.setText("Eliminar");

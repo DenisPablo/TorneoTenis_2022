@@ -48,6 +48,7 @@ public class frmiEliminarJugador extends javax.swing.JInternalFrame {
         btnActivar.setText("Activar");
 
         setClosable(true);
+        setResizable(true);
         setTitle("Eliminar/Activar Jugador");
 
         jLabel35.setText("Eliminar");

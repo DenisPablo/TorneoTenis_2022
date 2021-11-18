@@ -63,6 +63,7 @@ public class frmiEliminarEstadio extends javax.swing.JInternalFrame {
         CboActivarEstadio = new javax.swing.JComboBox<>();
 
         setClosable(true);
+        setResizable(true);
         setTitle("Eliminar/Activar Estadio");
 
         jLabel35.setText("Eliminar");

@@ -15,6 +15,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -27,7 +28,7 @@ public class SponsorData {
         try {
             this.con = conexion.getConexion();
         } catch (SQLException ex) {
-            System.out.println("Error en la conexion");
+            JOptionPane.showMessageDialog(null,"Error al conectar con la base de datos:" + ex);
         }
     }
 
@@ -43,9 +44,9 @@ public class SponsorData {
                 ps.setBoolean(3, sponsor.isActivo());
                 ps.executeUpdate();
                 
-                System.out.println("Sposor guardado con exito.");
+                JOptionPane.showMessageDialog(null,"Sponsor guardado con exito: ");
         } catch (SQLException ex) {
-            System.out.println("Error al guardar Sponsor "+ex);
+            JOptionPane.showMessageDialog(null,"Error al conectar con la base de datos:" + ex);
         }}
         
    public Sponsor buscarSponsor (int ID){
@@ -65,10 +66,11 @@ public class SponsorData {
         }
         }
         catch(SQLException ex){
-         System.out.println("Sponsor no encontrado: " + ex);
+         JOptionPane.showMessageDialog(null,"Error al conectar con la base de datos:" + ex);
         }
         return spon;
 }   
+   
     public void modificadarSponsor (Sponsor s) {
         String sql = "UPDATE sponsor SET marca=?,activo=? Where idSponsor=?";
         try{
@@ -79,13 +81,14 @@ public class SponsorData {
 
             ps.executeUpdate();
             ps.close();
-                System.out.println("Sponsor modificada con exito.");
+                JOptionPane.showMessageDialog(null,"Sponsor modificado con exito: ");
         }
         catch (SQLException ex){
-                System.out.println("Error al actualizar sponsor: "+ex);
+                JOptionPane.showMessageDialog(null,"Error al conectar con la base de datos:" + ex);
         }
 
  }
+    
       public Sponsor bajaSponsor (int id){
          Sponsor spon = new Sponsor();
          String sql = "UPDATE sponsor SET activo=? WHERE idSponsor=?";
@@ -97,11 +100,12 @@ public class SponsorData {
             ps.close();
         }
         catch(SQLException ex){
-         System.out.println("Sponsor no encontrado: " + ex);
+         JOptionPane.showMessageDialog(null,"Error al conectar con la base de datos:" + ex);
         }
         return spon;
 }   
-         public Sponsor altaSponsor (int id){
+      
+      public Sponsor altaSponsor (int id){
          Sponsor spon = new Sponsor();
          String sql = "UPDATE sponsor SET activo=? WHERE idSponsor=?";
          try{
@@ -112,10 +116,11 @@ public class SponsorData {
             ps.close();
         }
         catch(SQLException ex){
-         System.out.println("Sponsor no encontrado: " + ex);
+         JOptionPane.showMessageDialog(null,"Error al conectar con la base de datos:" + ex);
         }
         return spon;
 }
+         
       public void borrarSponsor(int id){
             String sql="DELETE FROM sponsor WHERE idSponsor=?";
             PreparedStatement ps;
@@ -125,11 +130,12 @@ public class SponsorData {
                 ps.executeUpdate();
                 ps.close();
 
-                System.out.println("Sponsor borrado definitivamente");
+                JOptionPane.showMessageDialog(null,"Sponsor borrado con exito: ");
             } catch (SQLException ex) {
-                 System.out.println("Error al borrar "+ex);
+                 JOptionPane.showMessageDialog(null,"Error al conectar con la base de datos:" + ex);
             }
     }
+      
      public List<Sponsor> buscarTodosSposor(){
         List<Sponsor> resultados;
         resultados = new ArrayList<>();
@@ -148,7 +154,54 @@ public class SponsorData {
             ps.close();
             }
         catch(SQLException ex){
-                System.out.println("No se encontraron resultados: "+ ex);
+               JOptionPane.showMessageDialog(null,"Error al conectar con la base de datos:" + ex);
+            }
+        return resultados;
+  }
+     
+     public List<Sponsor> buscarActivos(){
+        List<Sponsor> resultados;
+        resultados = new ArrayList<>();
+        Sponsor sponsor= null;
+        String sql = "SELECT * FROM sponsor Where activo=true";
+        try{
+            PreparedStatement ps = con.prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+        while(rs.next()){
+                 sponsor=new Sponsor();
+                 sponsor.setIdSponsor(rs.getInt(1));
+                 sponsor.setMarca(rs.getString(2));
+                 sponsor.setActivo(rs.getBoolean(3));
+                 resultados.add(sponsor);
+            }
+            ps.close();
+            }
+        catch(SQLException ex){
+               JOptionPane.showMessageDialog(null,"Error al conectar con la base de datos:" + ex);
+            }
+        return resultados;
+  }
+     
+     public List<Sponsor> buscarInactivos(){
+         
+        List<Sponsor> resultados;
+        resultados = new ArrayList<>();
+        Sponsor sponsor= null;
+        String sql = "SELECT * FROM sponsor Where activo=false";
+        try{
+            PreparedStatement ps = con.prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+        while(rs.next()){
+                 sponsor=new Sponsor();
+                 sponsor.setIdSponsor(rs.getInt(1));
+                 sponsor.setMarca(rs.getString(2));
+                 sponsor.setActivo(rs.getBoolean(3));
+                 resultados.add(sponsor);
+            }
+            ps.close();
+            }
+        catch(SQLException ex){
+               JOptionPane.showMessageDialog(null,"Error al conectar con la base de datos:" + ex);
             }
         return resultados;
   }

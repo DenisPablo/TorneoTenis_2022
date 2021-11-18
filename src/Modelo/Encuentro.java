@@ -131,7 +131,7 @@ public class Encuentro {
     }
     @Override
     public String toString() {
-        return "Encuentro{" + "idEncuentro=" + idEncuentro + ", jugador1=" + jugador1 + ", jugador2=" + jugador2 + ", fechaEncuentro=" + fechaEncuentro + ", resultado=" + resultado + ", jugadorGanador=" + jugadorGanador + ", estado=" + estado + ", estadio=" + estadio + ", activo=" + activo + ", torneo=" + torneo + '}';
+        return ("Encuentro:" + " ID: " + idEncuentro + " Jugador 1: " + jugador1 + " Jugador 2 " + jugador2 + " Fecha: " + fechaEncuentro + " Resultado: " + resultado + " jugadorGanador: " + jugadorGanador );
     }
     
 }

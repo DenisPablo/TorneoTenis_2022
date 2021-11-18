@@ -52,6 +52,7 @@ public class frmiBuscarEncuentrosPorFecha extends javax.swing.JInternalFrame {
         jdFecha = new com.toedter.calendar.JDateChooser();
 
         setClosable(true);
+        setResizable(true);
         setTitle("Listas");
 
         jtListas.setModel(new javax.swing.table.DefaultTableModel(

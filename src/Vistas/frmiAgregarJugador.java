@@ -16,6 +16,7 @@ import java.time.ZoneId;
 import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -63,6 +64,7 @@ public class frmiAgregarJugador extends javax.swing.JInternalFrame {
         jTextField13.setText("jTextField13");
 
         setClosable(true);
+        setResizable(true);
         setTitle("Agregar Jugador");
 
         jLabel1.setText("Nombre");
@@ -230,6 +232,7 @@ public class frmiAgregarJugador extends javax.swing.JInternalFrame {
 
     private void btnCargarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCargarMouseClicked
         try {
+            boolean a;
             Conexion con = new Conexion();
             Jugador j=new Jugador();
             JugadorData jd=new JugadorData(con);
@@ -246,7 +249,12 @@ public class frmiAgregarJugador extends javax.swing.JInternalFrame {
             if(rbIzq.isSelected())
             j.setManoHabil("Izquierda");
             j.setActivo(cbActivo.isSelected());
-            jd.guardarJugador(j);
+            a=jd.guardarJugador(j);
+            if(a) {
+               JOptionPane.showMessageDialog(null,"El Jugador se agrego con exito"); 
+            } else {
+                JOptionPane.showMessageDialog(null,"Error al conectar con la base de datos:" );
+            }
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(frmiAgregarSponsor.class.getName()).log(Level.SEVERE, null, ex);
         }

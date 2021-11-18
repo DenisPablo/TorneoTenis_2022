@@ -20,6 +20,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -32,11 +33,11 @@ public class PatrocinioData {
         try {
             this.con = conexion.getConexion();
         } catch (SQLException ex) {
-            System.out.println("Error en la conexion");
+            JOptionPane.showMessageDialog(null,"Error al conectar con la base de datos:" + ex);
         }
     }
-     public void guardarPatrocinio(Patrocinio patrocinio) {
-         
+     public boolean guardarPatrocinio(Patrocinio patrocinio) {
+         boolean a = false;
             try {
                 
                 Conexion p=new Conexion();
@@ -73,22 +74,25 @@ public class PatrocinioData {
                         jd.actualizarJugador(j1);
                         
                     } catch (ClassNotFoundException ex) {
-                        Logger.getLogger(PatrocinioData.class.getName()).log(Level.SEVERE, null, ex);
+                        a = false;
                     }
                     
                     
                     
-                    System.out.println("Patrocinio guardado con exito.");
+                    a = true;
                 } catch (SQLException ex) {
-                    System.out.println("Error al guardar Patrocinio "+ex);}}
+                    a = false;}}
                 else
-                    System.out.println("Solo se permiten 3 sponsor por jugador");
+                   JOptionPane.showMessageDialog(null,"Solo se pueden agregar 3 sponsor:");
                 } catch (ClassNotFoundException ex) {
-                Logger.getLogger(PatrocinioData.class.getName()).log(Level.SEVERE, null, ex);
-        }}
+                a = false;
+        }
+            return a;
+     }
  
-     public void modificadarPatrocicio (Patrocinio patrocinio) {
+     public boolean modificadarPatrocicio (Patrocinio patrocinio) {
         String sql = "UPDATE patrocinio SET `idPatrocinio`=?,`idSponsor`=?,`idJugador`=?,`fechIniContrato`=?,`fechFinContrato`=?,`activo`=?,`indumentaria`=? Where `idPatrocinio`=?";
+        boolean a;
         try{
             PreparedStatement ps = con.prepareStatement(sql);
             ps.setInt(1, patrocinio.getIdPatrocinio());
@@ -101,12 +105,12 @@ public class PatrocinioData {
              ps.setInt(8, patrocinio.getIdPatrocinio());
             ps.executeUpdate();
             ps.close();
-                System.out.println("Patrocinio modificada con exito.");
+                a = true;
         }
         catch (SQLException ex){
-                System.out.println("Error al actualizar Patrocinio: "+ex);
+                a = false;
         }
-
+  return a;
  }
    
       public Patrocinio buscarPatrocinio (int ID){
@@ -137,31 +141,36 @@ public class PatrocinioData {
                  }
              }
              catch(SQLException ex){
-                 System.out.println("Patrocinio no encontrado: " + ex);
+                 JOptionPane.showMessageDialog(null,"Error al conectar con la base de datos:" + ex);
              }
          }
         catch(ClassNotFoundException ex){
-                Logger.getLogger(PatrocinioData.class.getName()).log(Level.SEVERE, null, ex);
+                JOptionPane.showMessageDialog(null,"Error al conectar con la base de datos:" + ex);
         }
           return pat;
 }   
      
-      public void bajaPatrocinio (int id){
-         String sql = "UPDATE patrocinio SET activo=? WHERE idPatrocinio=?";
+      public boolean bajaPatrocinio (int id){
+          String sql = "UPDATE patrocinio SET activo=? WHERE idPatrocinio=?";
+          boolean a;
          try{
          PreparedStatement ps = con.prepareStatement(sql);
             ps.setBoolean(1, false);
             ps.setInt(2, id);
             ps.executeUpdate();
             ps.close();
+            
+            a = true;
             }
          catch(SQLException ex){
-             System.out.println("Patrocinio no encontrado: " + ex);
+             a = false;
             }
+         return a;
 }   
       
-      public void altaPatrocinio (int id){
+      public boolean altaPatrocinio (int id){
           String sql = "UPDATE patrocinio SET activo=? WHERE idPatrocinio=?";
+          boolean a = false;
          try{
          PreparedStatement ps = con.prepareStatement(sql);
             ps.setBoolean(1, true);
@@ -170,8 +179,9 @@ public class PatrocinioData {
             ps.close();
         }
         catch(SQLException ex){
-         System.out.println("Patrocinio no encontrado: " + ex);
+        a = false;
         }
+         return a;
 }
       
       public void borrarPatrocinio(int id){
@@ -183,10 +193,10 @@ public class PatrocinioData {
                 ps.executeUpdate();
                 ps.close();
 
-                System.out.println("Patrocinio borrado definitivamente");
+                JOptionPane.showMessageDialog(null,"Patrocinio borrado con exito: ");
             } 
             catch (SQLException ex) {
-                 System.out.println("Error al borrar "+ex);
+                JOptionPane.showMessageDialog(null,"Error al conectar con la base de datos:" + ex);
             }
     }
     
@@ -220,16 +230,17 @@ public class PatrocinioData {
                 ps.close();
             }
             catch(SQLException ex){
-                System.out.println("No se encontraron resultados: "+ ex);
+                JOptionPane.showMessageDialog(null,"Error al conectar con la base de datos:" + ex);
             }
             
         }
         catch(ClassNotFoundException ex){
-                Logger.getLogger(PatrocinioData.class.getName()).log(Level.SEVERE, null, ex);
+                JOptionPane.showMessageDialog(null,"Error al conectar con la base de datos:" + ex);
             }
         return resultados;
   }
-    public List<Jugador> buscarJugadoresdeSponsor(int sp){
+      
+     public List<Jugador> buscarJugadoresdeSponsor(int sp){
           List<Jugador> resultados;
           resultados = new ArrayList<>();
         try{
@@ -248,16 +259,17 @@ public class PatrocinioData {
                 ps.close();
             }
             catch(SQLException ex){
-                System.out.println("No se encontraron resultados: "+ ex);
+               JOptionPane.showMessageDialog(null,"Error al conectar con la base de datos:" + ex);
             }
             
         }
         catch(ClassNotFoundException ex){
-                Logger.getLogger(PatrocinioData.class.getName()).log(Level.SEVERE, null, ex);
+                JOptionPane.showMessageDialog(null,"Error al conectar con la base de datos:" + ex);
             }
         return resultados;
   }
-    public List<Sponsor> buscarSponsordeJugador(int sp){
+    
+     public List<Sponsor> buscarSponsordeJugador(int sp){
           List<Sponsor> resultados;
           resultados = new ArrayList<>();
         try{
@@ -276,13 +288,95 @@ public class PatrocinioData {
                 ps.close();
             }
             catch(SQLException ex){
-                System.out.println("No se encontraron resultados: "+ ex);
+                JOptionPane.showMessageDialog(null,"Error al conectar con la base de datos:" + ex);
             }
             
         }
         catch(ClassNotFoundException ex){
-                Logger.getLogger(PatrocinioData.class.getName()).log(Level.SEVERE, null, ex);
+               JOptionPane.showMessageDialog(null,"Error al conectar con la base de datos:" + ex);
             }
         return resultados;
 }
+     
+     public List<Patrocinio> buscarActivos(){
+         
+          List<Patrocinio> resultados;
+          resultados = new ArrayList<>();
+        try{
+            Conexion p = new Conexion();
+            Patrocinio patrocinio= null;
+            SponsorData s=new SponsorData(p);
+            Sponsor spon=new Sponsor();
+            JugadorData j=new JugadorData(p);
+            Jugador jug=new Jugador();
+            String sql = "SELECT * FROM patrocinio Where activo=true";
+            try{
+                PreparedStatement ps = con.prepareStatement(sql);
+                ResultSet rs = ps.executeQuery();
+                while(rs.next()){
+                    patrocinio=new Patrocinio();
+                    patrocinio.setIdPatrocinio(rs.getInt(1));
+                    spon=s.buscarSponsor(rs.getInt(2));
+                    patrocinio.setSponsor(spon);
+                    jug=j.buscarJugador(rs.getInt(3));
+                    patrocinio.setJugador(jug);
+                    patrocinio.setFechaInicioContrato(rs.getDate(4).toLocalDate());
+                    patrocinio.setFechaFinContrato(rs.getDate(5).toLocalDate());
+                    patrocinio.setActivo(rs.getBoolean(6));
+                    patrocinio.setIndumentaria(rs.getString(7));
+                    resultados.add(patrocinio);
+                }
+                ps.close();
+            }
+            catch(SQLException ex){
+                JOptionPane.showMessageDialog(null,"Error al conectar con la base de datos:" + ex);
+            }
+            
+        }
+        catch(ClassNotFoundException ex){
+                JOptionPane.showMessageDialog(null,"Error al conectar con la base de datos:" + ex);
+            }
+        return resultados;
+  }
+     
+     public List<Patrocinio> buscarInactivos(){
+          
+         List<Patrocinio> resultados;
+          resultados = new ArrayList<>();
+        try{
+            Conexion p = new Conexion();
+            Patrocinio patrocinio= null;
+            SponsorData s=new SponsorData(p);
+            Sponsor spon=new Sponsor();
+            JugadorData j=new JugadorData(p);
+            Jugador jug=new Jugador();
+            String sql = "SELECT * FROM patrocinio Where activo=false";
+            try{
+                PreparedStatement ps = con.prepareStatement(sql);
+                ResultSet rs = ps.executeQuery();
+                while(rs.next()){
+                    patrocinio=new Patrocinio();
+                    patrocinio.setIdPatrocinio(rs.getInt(1));
+                    spon=s.buscarSponsor(rs.getInt(2));
+                    patrocinio.setSponsor(spon);
+                    jug=j.buscarJugador(rs.getInt(3));
+                    patrocinio.setJugador(jug);
+                    patrocinio.setFechaInicioContrato(rs.getDate(4).toLocalDate());
+                    patrocinio.setFechaFinContrato(rs.getDate(5).toLocalDate());
+                    patrocinio.setActivo(rs.getBoolean(6));
+                    patrocinio.setIndumentaria(rs.getString(7));
+                    resultados.add(patrocinio);
+                }
+                ps.close();
+            }
+            catch(SQLException ex){
+                JOptionPane.showMessageDialog(null,"Error al conectar con la base de datos:" + ex);
+            }
+            
+        }
+        catch(ClassNotFoundException ex){
+                JOptionPane.showMessageDialog(null,"Error al conectar con la base de datos:" + ex);
+            }
+        return resultados;
+  }
 }

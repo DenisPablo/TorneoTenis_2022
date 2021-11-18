@@ -47,6 +47,7 @@ public class frmiVerEncuentros extends javax.swing.JInternalFrame {
         btnListar = new javax.swing.JButton();
 
         setClosable(true);
+        setResizable(true);
         setTitle("Listas");
 
         jtListas.setModel(new javax.swing.table.DefaultTableModel(

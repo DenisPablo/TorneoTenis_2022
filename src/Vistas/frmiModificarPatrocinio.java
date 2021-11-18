@@ -21,6 +21,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -88,6 +89,7 @@ public void cargarCbo(){
         jcFin = new com.toedter.calendar.JDateChooser();
 
         setClosable(true);
+        setResizable(true);
 
         cbActivo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -101,6 +103,11 @@ public void cargarCbo(){
         btnCargar.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 btnCargarMouseClicked(evt);
+            }
+        });
+        btnCargar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCargarActionPerformed(evt);
             }
         });
 
@@ -270,7 +277,12 @@ public void cargarCbo(){
             p.setFechaFinContrato(ldf);
             p.setIndumentaria(cboIndumentaria.getSelectedItem().toString());
             p.setActivo(cbActivo.isSelected());
-            pat.modificadarPatrocicio(p);
+            boolean a =  pat.modificadarPatrocicio(p);
+            if(a) {
+               JOptionPane.showMessageDialog(null,"El encuentro se agrego con exito"); 
+            } else {
+                JOptionPane.showMessageDialog(null,"Error al conectar con la base de datos:" );
+            }
             EncuentroData jd=new EncuentroData(con);
             jd.calcularRankingPuntaje();
         } catch (ClassNotFoundException ex) {
@@ -294,6 +306,10 @@ public void cargarCbo(){
         cboIndumentaria.setSelectedItem(p.getIndumentaria().toString());
        cbActivo.setSelected(p.isActivo());
     }//GEN-LAST:event_jButton1MouseClicked
+
+    private void btnCargarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCargarActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnCargarActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

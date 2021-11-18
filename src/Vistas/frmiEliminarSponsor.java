@@ -64,6 +64,7 @@ public class frmiEliminarSponsor extends javax.swing.JInternalFrame {
         btnActivar1 = new javax.swing.JButton();
 
         setClosable(true);
+        setResizable(true);
         setTitle("Eliminar/Activar Sponsor");
 
         jLabel35.setText("Eliminar");

@@ -52,8 +52,11 @@ public class frmiAgregarEstadio extends javax.swing.JInternalFrame {
         cbActivo = new javax.swing.JCheckBox();
         btnCargar = new javax.swing.JButton();
         btnLimpiar = new javax.swing.JButton();
+        cbEstado = new javax.swing.JCheckBox();
+        jLabel8 = new javax.swing.JLabel();
 
         setClosable(true);
+        setResizable(true);
         setTitle("Agregar Estadio");
 
         Nomnre.setText("Nombre");
@@ -68,12 +71,23 @@ public class frmiAgregarEstadio extends javax.swing.JInternalFrame {
 
         jLabel6.setText("Activo");
 
+        tfDimension.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                tfDimensionKeyTyped(evt);
+            }
+        });
+
         cboCategoria.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Cesped", "Cemento", "Ladrillo" }));
 
         btnCargar.setText("Cargar");
         btnCargar.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 btnCargarMouseClicked(evt);
+            }
+        });
+        btnCargar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCargarActionPerformed(evt);
             }
         });
 
@@ -83,6 +97,8 @@ public class frmiAgregarEstadio extends javax.swing.JInternalFrame {
                 btnLimpiarMouseClicked(evt);
             }
         });
+
+        jLabel8.setText("Estado");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -98,7 +114,8 @@ public class frmiAgregarEstadio extends javax.swing.JInternalFrame {
                             .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(jLabel5, javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jLabel6, javax.swing.GroupLayout.Alignment.TRAILING))
+                            .addComponent(jLabel6, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel8, javax.swing.GroupLayout.Alignment.TRAILING))
                         .addGap(50, 50, 50)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
                             .addComponent(cboCategoria, 0, 209, Short.MAX_VALUE)
@@ -106,7 +123,8 @@ public class frmiAgregarEstadio extends javax.swing.JInternalFrame {
                             .addComponent(tfNombre)
                             .addComponent(tfCiudad)
                             .addComponent(tfDirCom)
-                            .addComponent(tfDimension)))
+                            .addComponent(tfDimension)
+                            .addComponent(cbEstado)))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(209, 209, 209)
                         .addComponent(btnCargar)
@@ -141,7 +159,11 @@ public class frmiAgregarEstadio extends javax.swing.JInternalFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(cbActivo)
                     .addComponent(jLabel6))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 17, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(cbEstado)
+                    .addComponent(jLabel8))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 46, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnCargar)
                     .addComponent(btnLimpiar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -173,11 +195,20 @@ public class frmiAgregarEstadio extends javax.swing.JInternalFrame {
             j.setActivo(cbActivo.isSelected());
             j.setDireccionComercial(tfDirCom.getText());
             j.setDimension(tfDimension.getText());
+            j.setEstado(cbEstado.isSelected());
             jd.guardarEstadio(j);
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(frmiAgregarSponsor.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_btnCargarMouseClicked
+
+    private void tfDimensionKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tfDimensionKeyTyped
+        // TODO add your handling code here:
+    }//GEN-LAST:event_tfDimensionKeyTyped
+
+    private void btnCargarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCargarActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnCargarActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -185,12 +216,14 @@ public class frmiAgregarEstadio extends javax.swing.JInternalFrame {
     private javax.swing.JButton btnCargar;
     private javax.swing.JButton btnLimpiar;
     private javax.swing.JCheckBox cbActivo;
+    private javax.swing.JCheckBox cbEstado;
     private javax.swing.JComboBox<String> cboCategoria;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel8;
     private javax.swing.JTextField tfCiudad;
     private javax.swing.JTextField tfDimension;
     private javax.swing.JTextField tfDirCom;

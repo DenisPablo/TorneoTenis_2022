@@ -14,6 +14,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -26,7 +27,7 @@ public class JugadorData {
         try {
             this.con = conexion.getConexion();
         } catch (SQLException ex) {
-            System.out.println("Error en la conexion");
+            JOptionPane.showMessageDialog(null,"Error al conectar con la base de datos:" + ex);
         }
     }
     
@@ -34,8 +35,8 @@ public class JugadorData {
         //To change body of generated methods, choose Tools | Templates.
     }
     
-    public void guardarJugador(Jugador jugador) {
-     
+    public boolean guardarJugador(Jugador jugador) {
+        boolean a;
             String sql = "INSERT INTO jugador(nombre,dni,fechaNac,altura,peso,estilo,manoHabil,torneosGanados, ranking, puntaje, activo) VALUES (?,?,?,?,?,?,?,?,?,?,?)";
             try {
                 PreparedStatement ps = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
@@ -53,10 +54,11 @@ public class JugadorData {
                 ps.setBoolean(11, jugador.isActivo());
                 ps.executeUpdate();
                 
-                System.out.println("Jugador guardado con exito.");
+               a=true ;
         } catch (SQLException ex) {
-            System.out.println("Error al guardar "+ex);
+          a=false;
         }
+            return a;
     }
     
     
@@ -69,9 +71,9 @@ public class JugadorData {
             ps.executeUpdate();
             ps.close();
             
-            System.out.println("Jugador borrado definitivamente");
+           JOptionPane.showMessageDialog(null,"Jugador borrado con exito: ");
         } catch (SQLException ex) {
-             System.out.println("Error al borrar "+ex);
+            JOptionPane.showMessageDialog(null,"Error al conectar con la base de datos:" + ex);
         }  
     }
     
@@ -103,7 +105,7 @@ public class JugadorData {
     ps.close();
     }
     catch(SQLException ex){
-        System.out.println("No se encontraron resultados: "+ ex);
+       JOptionPane.showMessageDialog(null,"Error al conectar con la base de datos:" + ex);
     }
 return resultados;
 
@@ -136,7 +138,7 @@ return resultados;
        }
        }
        catch(SQLException ex){
-        System.out.println("Jugador no encontrado: " + ex);
+       JOptionPane.showMessageDialog(null,"Error al conectar con la base de datos:" + ex);
        }
        return jugador;
        }
@@ -152,9 +154,9 @@ return resultados;
             ps.executeUpdate();
             ps.close();
             
-            System.out.println("Jugador dado de baja con exito");
+           JOptionPane.showMessageDialog(null,"Jugador dado de baja con exito: ");
         } catch (SQLException ex) {
-            System.out.println("Error al desactivar "+ex);
+            JOptionPane.showMessageDialog(null,"Error al conectar con la base de datos:" + ex);
         }
     }
     
@@ -167,9 +169,9 @@ return resultados;
             ps.setInt(2, id);
             ps.executeUpdate();
             
-            System.out.println("Jugador dado de alta nuevamente con exito.");
+            JOptionPane.showMessageDialog(null,"Jugador dado de alta con exito: ");
         } catch (SQLException ex) {
-            System.out.println("Error al desactivar "+ex);
+            JOptionPane.showMessageDialog(null,"Error al conectar con la base de datos:" + ex);
         }
     }
         
@@ -201,7 +203,7 @@ return resultados;
              }
             
         } catch (SQLException ex) {
-            System.out.println("Error al obtener la busqueda de jugador"+ex);
+          JOptionPane.showMessageDialog(null,"Error al conectar con la base de datos:" + ex);
         }
     
          return jugador;
@@ -209,7 +211,8 @@ return resultados;
   }
         
         
-     public void actualizarJugador(Jugador jugador){
+     public Boolean actualizarJugador(Jugador jugador){
+         boolean a;
         String sql = "UPDATE jugador SET nombre=?, dni=?, fechaNac=?, altura=?, peso=?, estilo=?, manoHabil=? ,torneosGanados=?, ranking=?, puntaje=?, activo=? Where idJugador=?";
 
         try {
@@ -230,11 +233,11 @@ return resultados;
         ps.executeUpdate();
         ps.close();
 
-        System.out.println("Jugador modificado con exito.");
+            a=true;
         } catch (SQLException ex) {
-            System.out.println("Error al conectar con la base de datos. " + ex);
+           a=false;
         }
-
+        return a;
    }
      
      public List<Jugador> buscarJugadorPorNombre (String nombre){
@@ -265,7 +268,7 @@ return resultados;
         ps.close();
         }
         catch(SQLException ex){
-        System.out.println("No se encontraron resultados: "+ ex);
+        JOptionPane.showMessageDialog(null,"Error al conectar con la base de datos:" + ex);
         }
         return resultados;
     }
@@ -292,11 +295,81 @@ return resultados;
         ps.close();
         }
         catch(SQLException ex){
-        System.out.println("No se encontraron resultados: "+ ex);
+        JOptionPane.showMessageDialog(null,"Error al conectar con la base de datos:" + ex);
         }
         return resultados;
     }
      
+      
+     public List<Jugador> buscarActivos(){
+    List<Jugador> resultados;
+        resultados = new ArrayList<>();
+        Jugador jugador= null;
+        String sql = "SELECT * FROM jugador Where activo=true";
+    try{
+        PreparedStatement ps = con.prepareStatement(sql);
+        ResultSet rs = ps.executeQuery();
+    while(rs.next()){
+             jugador=new Jugador();
+             jugador.setIdJugador(rs.getInt(1));
+             jugador.setNombre(rs.getString(2));
+             jugador.setDni(rs.getInt(3));
+             jugador.setFechaNac(rs.getDate(4).toLocalDate());
+             jugador.setAltura(rs.getDouble(5));
+             jugador.setPeso(rs.getDouble(6));
+             jugador.setEstilo(rs.getString(7));
+             jugador.setManoHabil(rs.getString(8));
+             jugador.setTorneoGanados(rs.getInt(9));
+             jugador.setRanking(rs.getInt(10));
+             jugador.setPuntaje(rs.getInt(11));
+             jugador.setActivo(rs.getBoolean(12));
+
+    resultados.add(jugador);
+    }
+    ps.close();
+    }
+    catch(SQLException ex){
+       JOptionPane.showMessageDialog(null,"Error al conectar con la base de datos:" + ex);
+    }
+return resultados;
+
+  }     
+    
+    
+     public List<Jugador> buscarInactivos(){
+    List<Jugador> resultados;
+        resultados = new ArrayList<>();
+        Jugador jugador= null;
+        
+        String sql = "SELECT * FROM jugador Where activo=false";
+    try{
+        PreparedStatement ps = con.prepareStatement(sql);
+        ResultSet rs = ps.executeQuery();
+    while(rs.next()){
+             jugador=new Jugador();
+             jugador.setIdJugador(rs.getInt(1));
+             jugador.setNombre(rs.getString(2));
+             jugador.setDni(rs.getInt(3));
+             jugador.setFechaNac(rs.getDate(4).toLocalDate());
+             jugador.setAltura(rs.getDouble(5));
+             jugador.setPeso(rs.getDouble(6));
+             jugador.setEstilo(rs.getString(7));
+             jugador.setManoHabil(rs.getString(8));
+             jugador.setTorneoGanados(rs.getInt(9));
+             jugador.setRanking(rs.getInt(10));
+             jugador.setPuntaje(rs.getInt(11));
+             jugador.setActivo(rs.getBoolean(12));
+
+    resultados.add(jugador);
+    }
+    ps.close();
+    }
+    catch(SQLException ex){
+       JOptionPane.showMessageDialog(null,"Error al conectar con la base de datos:" + ex);
+    }
+return resultados;
+
+  }     
     
 }
 

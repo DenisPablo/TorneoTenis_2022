@@ -17,6 +17,7 @@ import Modelo.Torneo;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -120,6 +121,7 @@ public class frmiEliminarEncuentro extends javax.swing.JInternalFrame {
         CboEliminarEncuentro = new javax.swing.JComboBox<>();
 
         setClosable(true);
+        setResizable(true);
         setTitle("Eliminar/Activar Encuentro");
 
         jInternalFrame1.setTitle("Modificar Encuentro");
@@ -464,6 +466,11 @@ public class frmiEliminarEncuentro extends javax.swing.JInternalFrame {
                 jButton1MouseClicked(evt);
             }
         });
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         btnActivar.setText("Activar");
         btnActivar.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -568,7 +575,12 @@ public class frmiEliminarEncuentro extends javax.swing.JInternalFrame {
             Encuentro p=new Encuentro();
             EncuentroData ed=new EncuentroData(con);
             p=(Encuentro)CboEliminarEncuentro.getSelectedItem();
-            ed.darBajaEncuentro(p.getIdEncuentro());
+            boolean a = ed.darBajaEncuentro(p.getIdEncuentro());
+            if(a) {
+               JOptionPane.showMessageDialog(null,"El encuentro se dio de baja con exito"); 
+            } else {
+                JOptionPane.showMessageDialog(null,"Error al conectar con la base de datos:" );
+            }
             ed.calcularRankingPuntaje();
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(frmiEliminarSponsor.class.getName()).log(Level.SEVERE, null, ex);
@@ -583,13 +595,22 @@ public class frmiEliminarEncuentro extends javax.swing.JInternalFrame {
             Encuentro p=new Encuentro();
             EncuentroData ed=new EncuentroData(con);
             p=(Encuentro)CboActivarEncuentro.getSelectedItem();
-            ed.darBajaEncuentro(p.getIdEncuentro());
+            boolean a = ed.darAltaEncuentro(p.getIdEncuentro());
+            if(a) {
+               JOptionPane.showMessageDialog(null,"El encuentro se dio de alta con exito"); 
+            } else {
+                JOptionPane.showMessageDialog(null,"Error al conectar con la base de datos:" );
+            }
             ed.calcularRankingPuntaje();
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(frmiEliminarSponsor.class.getName()).log(Level.SEVERE, null, ex);
         }
         cargarCbo();
     }//GEN-LAST:event_btnActivarMouseClicked
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton1ActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

@@ -48,6 +48,7 @@ public class frmiAgregarTorneo extends javax.swing.JInternalFrame {
         jdFin = new com.toedter.calendar.JDateChooser();
 
         setClosable(true);
+        setResizable(true);
         setTitle("Agregar Torneo");
 
         jLabel1.setText("Nombre");

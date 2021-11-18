@@ -14,6 +14,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -26,7 +27,7 @@ public class EstadioData {
         try {
             this.con = conexion.getConexion();
         } catch (SQLException ex) {
-            System.out.println("Error en la conexion");
+           JOptionPane.showMessageDialog(null,"Error al conectar con la base de datos:" + ex);
         }
     }
     
@@ -49,9 +50,9 @@ public class EstadioData {
                 ps.setBoolean(7, estadio.isEstado());
                 ps.executeUpdate();
                 
-                System.out.println("Estadio guardado con exito.");
+                JOptionPane.showMessageDialog(null,"Estadio guardo con exito: ");
         } catch (SQLException ex) {
-            System.out.println("Error al guardar "+ex);
+            JOptionPane.showMessageDialog(null,"Error al conectar con la base de datos:" + ex);
         }
     }
        
@@ -76,7 +77,7 @@ public class EstadioData {
         }   
         }
         catch(SQLException ex){
-         System.out.println("Estadio no encontrado: " + ex);
+        JOptionPane.showMessageDialog(null,"Error al conectar con la base de datos:" + ex);
         }
         return estadio;
 }     
@@ -96,10 +97,10 @@ public class EstadioData {
 
             ps.executeUpdate();
             ps.close();
-                System.out.println("Estadio modificada con exito.");
+               JOptionPane.showMessageDialog(null,"Estadio modificado con exito: ");
         }
         catch (SQLException ex){
-                System.out.println("Error al actualizar Estadio: "+ex);
+                JOptionPane.showMessageDialog(null,"Error al conectar con la base de datos:" + ex);
         }
  }
        
@@ -114,7 +115,7 @@ public class EstadioData {
             ps.close();
         }
         catch(SQLException ex){
-         System.out.println("Estadio no encontrado: " + ex);
+         JOptionPane.showMessageDialog(null,"Error al conectar con la base de datos:" + ex);
         }
         return estadio;
 }   
@@ -130,7 +131,7 @@ public class EstadioData {
             ps.close();
         }
         catch(SQLException ex){
-         System.out.println("Estadio no encontrado: " + ex);
+        JOptionPane.showMessageDialog(null,"Error al conectar con la base de datos:" + ex);
         }
         return estadio;
     }
@@ -145,14 +146,14 @@ public class EstadioData {
                 ps.executeUpdate();
                 ps.close();
 
-                System.out.println("Estadio borrado definitivamente");
+              JOptionPane.showMessageDialog(null,"Estadio eliminado con exito: ");
             } catch (SQLException ex) {
-                 System.out.println("Error al borrar "+ex);
+                 JOptionPane.showMessageDialog(null,"Error al conectar con la base de datos:" + ex);
             }
     }
        
        
-            public List<Estadio> buscarTodosEstadio(){
+        public List<Estadio> buscarTodosEstadio(){
         List<Estadio> resultados;
         resultados = new ArrayList<>();
         Estadio estadio= null;
@@ -175,9 +176,65 @@ public class EstadioData {
             ps.close();
             }
         catch(SQLException ex){
-                System.out.println("No se encontraron resultados: "+ ex);
+               JOptionPane.showMessageDialog(null,"Error al conectar con la base de datos:" + ex);
             }
         return resultados;
   }
 
+        public List<Estadio> buscarActivos(){
+        List<Estadio> resultados;
+        resultados = new ArrayList<>();
+        Estadio estadio= null;
+        String sql = "SELECT * FROM estadio Where activo=true";
+        try{
+            PreparedStatement ps = con.prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+        while(rs.next()){
+                 estadio=new Estadio();
+                 estadio.setIdEstadio(rs.getInt(1));
+                 estadio.setNombre(rs.getString(2));
+                 estadio.setCiudad(rs.getString(3));
+                 estadio.setCategoria(rs.getString(4));
+                 estadio.setActivo(rs.getBoolean(5));
+                 estadio.setDireccionComercial(rs.getString(6));
+                 estadio.setDimension(rs.getString(7));
+                 estadio.setEstado(rs.getBoolean(8));
+                 resultados.add(estadio);
+            }
+            ps.close();
+            }
+        catch(SQLException ex){
+               JOptionPane.showMessageDialog(null,"Error al conectar con la base de datos:" + ex);
+            }
+        return resultados;
+  }
+        
+        public List<Estadio> buscarInactivos(){
+        List<Estadio> resultados;
+        resultados = new ArrayList<>();
+        Estadio estadio= null;
+        String sql = "SELECT * FROM estadio Where activo=false";
+        
+        try{
+            PreparedStatement ps = con.prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+        while(rs.next()){
+                 estadio=new Estadio();
+                 estadio.setIdEstadio(rs.getInt(1));
+                 estadio.setNombre(rs.getString(2));
+                 estadio.setCiudad(rs.getString(3));
+                 estadio.setCategoria(rs.getString(4));
+                 estadio.setActivo(rs.getBoolean(5));
+                 estadio.setDireccionComercial(rs.getString(6));
+                 estadio.setDimension(rs.getString(7));
+                 estadio.setEstado(rs.getBoolean(8));
+                 resultados.add(estadio);
+            }
+            ps.close();
+            }
+        catch(SQLException ex){
+               JOptionPane.showMessageDialog(null,"Error al conectar con la base de datos:" + ex);
+            }
+        return resultados;
+  }
 }
