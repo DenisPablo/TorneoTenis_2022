@@ -22,15 +22,15 @@ import javax.swing.table.DefaultTableModel;
  * @author Romi
  */
 public class frmiListarEncuentrosProximos extends javax.swing.JInternalFrame {
-    private DefaultTableModel model;
-    /**
-     * Creates new form frmiListar
-     */
-    public frmiListarEncuentrosProximos() {
+        private DefaultTableModel model;
+        private List<Encuentro> lista=null;
+        private EncuentroData jd;
+         
+    public frmiListarEncuentrosProximos(Conexion con) {
         initComponents();
         model =new DefaultTableModel();
-//        cargarCbo();
         armarCabeceraTablaJugador();
+         jd= new EncuentroData(con);
     }
 
     /**
@@ -125,31 +125,14 @@ public void borrarFilas(){
             }
     }
 }
-//public void cargarCbo(){
-//        try {
-//            Conexion con = new Conexion();
-//            JugadorData jugador=new JugadorData(con);
-//             List<Jugador> juga= jugador.buscarTodosJugadores();
-//            for (int i = 0; i < juga.size(); i++) {
-//                cboListar.addItem(juga.get(i)); 
-//            }
-//        } catch (ClassNotFoundException ex) {
-//            System.out.println("Error al cargar cbo" +ex);
-//        }}
 public void cargarDatos(){
-        try {
-            List<Encuentro> lista=null;
-            borrarFilas();
-            Conexion con =new Conexion();
-            EncuentroData jd= new EncuentroData(con);
-//            Jugador a= (Jugador)cboListar.getSelectedItem();
-            lista= (List) jd.listarProximosEncuentros();
-            for(Encuentro i:lista ){
-                //if(a.getIdAlumno()==i.getAlumno().getIdAlumno())
-                model.addRow(new Object[]{i.getIdEncuentro(),i.getJugador1().getIdJugador(),i.getJugador1().getNombre(),i.getJugador2().getIdJugador(),i.getJugador2().getNombre(),i.getFechaEncuentro(),i.getResultado(),i.getJugadorGanador().getIdJugador(),i.getJugadorGanador().getNombre(),i.getEstado(),i.getEstadio().getIdEstadio(),i.getEstadio().getNombre(),i.isActivo(),i.getTorneo().getIdTorneo(),i.getTorneo().getNombre()});
-            }   } catch (ClassNotFoundException ex) {
-            Logger.getLogger(frmiListarEncuentrosProximos.class.getName()).log(Level.SEVERE, null, ex);
-        }
+    borrarFilas();
+    //            Jugador a= (Jugador)cboListar.getSelectedItem();
+    lista= (List) jd.listarProximosEncuentros();
+    for(Encuentro i:lista ){
+        //if(a.getIdAlumno()==i.getAlumno().getIdAlumno())
+        model.addRow(new Object[]{i.getIdEncuentro(),i.getJugador1().getIdJugador(),i.getJugador1().getNombre(),i.getJugador2().getIdJugador(),i.getJugador2().getNombre(),i.getFechaEncuentro(),i.getResultado(),i.getJugadorGanador().getIdJugador(),i.getJugadorGanador().getNombre(),i.getEstado(),i.getEstadio().getIdEstadio(),i.getEstadio().getNombre(),i.isActivo(),i.getTorneo().getIdTorneo(),i.getTorneo().getNombre()});
+    }
 }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnListar;

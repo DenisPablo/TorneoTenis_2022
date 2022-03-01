@@ -88,7 +88,7 @@ public class Estadio {
 
     @Override
     public String toString() {
-        return ("Estadio" + " ID: " + idEstadio + " Nombre: " + nombre + " Ciudad: " + ciudad + " Categoria: " + categoria);
+        return ( "Nombre: " + nombre + " Ciudad: " + ciudad);
     }
 
     public Estadio(int idEstadio, String nombre, String ciudad, String categoria, boolean activo, String direccionComercial, String dimension, boolean estado) {

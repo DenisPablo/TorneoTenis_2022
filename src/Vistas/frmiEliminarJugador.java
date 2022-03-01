@@ -11,6 +11,7 @@ import Modelo.Jugador;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -18,11 +19,20 @@ import java.util.logging.Logger;
  */
 public class frmiEliminarJugador extends javax.swing.JInternalFrame {
 
-    /**
-     * Creates new form frmiEliminarJugador
-     */
-    public frmiEliminarJugador() {
+        private JugadorData jugador;
+        private Jugador p;
+        private JugadorData patrocinio;
+        private Jugador p1;
+        private JugadorData patrocinio1;
+        
+    public frmiEliminarJugador(Conexion con) {
         initComponents();
+        
+        jugador=new JugadorData(con);
+        p=new Jugador();  
+        patrocinio=new JugadorData(con);
+        p1=new Jugador();
+        patrocinio1=new JugadorData(con);
         cargarCbo();
     }
 
@@ -132,46 +142,33 @@ public class frmiEliminarJugador extends javax.swing.JInternalFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 public void cargarCbo(){
-        try {
-            Conexion con = new Conexion();
-            JugadorData jugador=new JugadorData(con);
-             List<Jugador> juga= jugador.buscarTodosJugadores();
-            for (int i = 0; i < juga.size(); i++) {
-                  if(juga.get(i).isActivo()==false)
-                    CboActivarJugador.addItem(juga.get(i)); 
-            }
-            for (int i = 0; i < juga.size(); i++) {
-                  if(juga.get(i).isActivo()==true)
-                    CboEliminarJugador.addItem(juga.get(i)); 
-            }
-        } catch (ClassNotFoundException ex) {
-            System.out.println("Error al cargar cbo" +ex);
-        }}
+    List<Jugador> juga= jugador.buscarTodosJugadores();
+    for (int i = 0; i < juga.size(); i++) {
+        if(juga.get(i).isActivo()==false)
+            CboActivarJugador.addItem(juga.get(i));
+    }
+    for (int i = 0; i < juga.size(); i++) {
+        if(juga.get(i).isActivo()==true)
+            CboEliminarJugador.addItem(juga.get(i));
+    }
+}
     private void jButton1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton1MouseClicked
-     try {
-            Conexion con = new Conexion();
-            Jugador p=new Jugador();
-            JugadorData patrocinio=new JugadorData(con);
-            p=(Jugador)CboEliminarJugador.getSelectedItem();
-            patrocinio.desactivarJugador(p.getIdJugador());
-        } catch (ClassNotFoundException ex) {
-            Logger.getLogger(frmiEliminarSponsor.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        if(CboEliminarJugador.getSelectedItem() != null){
+        p=(Jugador)CboEliminarJugador.getSelectedItem();
+        patrocinio.desactivarJugador(p.getIdJugador());
+        
+        
+        }else{JOptionPane.showMessageDialog(null, "Seleccione un Jugador.");}
          CboActivarJugador.removeAllItems();
          CboEliminarJugador.removeAllItems(); 
         cargarCbo();
     }//GEN-LAST:event_jButton1MouseClicked
 
     private void btnActivar1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnActivar1MouseClicked
-        try {
-            Conexion con = new Conexion();
-            Jugador p=new Jugador();
-            JugadorData patrocinio=new JugadorData(con);
-            p=(Jugador)CboActivarJugador.getSelectedItem();
-            patrocinio.activarJugador(p.getIdJugador());
-        } catch (ClassNotFoundException ex) {
-            Logger.getLogger(frmiEliminarSponsor.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        if(CboActivarJugador.getSelectedItem() != null){
+        p1=(Jugador)CboActivarJugador.getSelectedItem();
+        patrocinio1.activarJugador(p1.getIdJugador());
+        }else{JOptionPane.showMessageDialog(null, "Seleccione un Jugador.");}
          CboActivarJugador.removeAllItems();
          CboEliminarJugador.removeAllItems(); 
         cargarCbo();

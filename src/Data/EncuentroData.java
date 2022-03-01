@@ -56,7 +56,7 @@ public class EncuentroData {
          ps.setObject(7, en.getEstadio().getIdEstadio());
          ps.setBoolean(8, en.isActivo());
          ps.setObject(9, en.getTorneo().getIdTorneo());
-        
+         
          ps.executeUpdate();
          a = true;
      }
@@ -116,7 +116,7 @@ public class EncuentroData {
     return en;
 }
     
-    public boolean darBajaEncuentro(int id){
+    public void darBajaEncuentro(int id){
     
          String sql = "UPDATE encuentro SET activo=? WHERE idEncuentro=?";
          boolean a;
@@ -129,40 +129,40 @@ public class EncuentroData {
          } catch (SQLException ex) {
              JOptionPane.showMessageDialog(null,"Error al conectar con la base de datos:" + ex);
          }
-          try {
-         Conexion con1=new Conexion();
-         Jugador j= new Jugador();
-         JugadorData   j1 = new JugadorData(con1);
-         j.setPuntaje(j.getPuntaje() + 3);
-         
-         j1.actualizarJugador(j);
-         
-         String sql1 = "SELECT * FROM jugador ORDER BY jugador.puntaje DESC";
-         PreparedStatement ps;
-         try {
-             ps = con.prepareStatement(sql1);
-             ResultSet rs = ps.executeQuery();
-             int x=0;
-             while(rs.next() && rs.getInt(1) != j.getIdJugador()){
-                 ++x;
-                 j= j1.buscarJugador(rs.getInt(1));
-                 j.setRanking(x);
-                 j1.actualizarJugador(j);
-                 
-             }
-             
-             a = true;
-         } catch (SQLException ex) {
-             a = false;
-         }
-        
-     } catch (ClassNotFoundException ex) {
-           a = false;
-        }
-          return a;
-    }
+//          try {
+//         Conexion con1=new Conexion();
+//         Jugador j= new Jugador();
+//         JugadorData   j1 = new JugadorData(con1);
+//         j.setPuntaje(j.getPuntaje() + 3);
+//         
+//         j1.actualizarJugador(j);
+//         
+//         String sql1 = "SELECT * FROM jugador ORDER BY jugador.puntaje DESC";
+//         PreparedStatement ps;
+//         try {
+//             ps = con.prepareStatement(sql1);
+//             ResultSet rs = ps.executeQuery();
+//             int x=0;
+//             while(rs.next() && rs.getInt(1) != j.getIdJugador()){
+//                 ++x;
+//                 j= j1.buscarJugador(rs.getInt(1));
+//                 j.setRanking(x);
+//                 j1.actualizarJugador(j);
+//                 
+//             }
+//             
+//             a = true;
+//         } catch (SQLException ex) {
+//             a = false;
+//         }
+//        
+//     } catch (ClassNotFoundException ex) {
+//           a = false;
+//        }
+//          return a;
+   }
     
-    public boolean darAltaEncuentro(int id){
+    public void darAltaEncuentro(int id){
         
     
          String sql = "UPDATE encuentro SET activo=? WHERE idEncuentro=?";
@@ -175,40 +175,40 @@ public class EncuentroData {
              ps.close();
              a = true;
          } catch (SQLException ex) {
-             a = false;
-         }
-          try {
-         
-         Conexion con1=new Conexion();
-         Jugador j= new Jugador();
-         JugadorData   j1 = new JugadorData(con1);
-         j.setPuntaje(j.getPuntaje() - 3);
-         
-         j1.actualizarJugador(j);
-         
-         String sql1 = "SELECT * FROM jugador ORDER BY jugador.puntaje DESC";
-         PreparedStatement ps;
-         try {
-             ps = con.prepareStatement(sql1);
-             ResultSet rs = ps.executeQuery();
-             int x=0;
-             while(rs.next() && rs.getInt(1) != j.getIdJugador()){
-                 ++x;
-                 j= j1.buscarJugador(rs.getInt(1));
-                 j.setRanking(x);
-                 j1.actualizarJugador(j);
-                 
-             }
-             
-             
-         } catch (SQLException ex) {
-             a = false;
-         }
-         
-     } catch (ClassNotFoundException ex) {
-           a = false;
-        }
-        return a;
+             JOptionPane.showMessageDialog(null,"Error al conectar con la base de datos:" + ex);
+           }
+//          try {
+//         
+//         Conexion con1=new Conexion();
+//         Jugador j= new Jugador();
+//         JugadorData   j1 = new JugadorData(con1);
+//         j.setPuntaje(j.getPuntaje() - 3);
+//         
+//         j1.actualizarJugador(j);
+//         
+//         String sql1 = "SELECT * FROM jugador ORDER BY jugador.puntaje DESC";
+//         PreparedStatement ps;
+//         try {
+//             ps = con.prepareStatement(sql1);
+//             ResultSet rs = ps.executeQuery();
+//             int x=0;
+//             while(rs.next() && rs.getInt(1) != j.getIdJugador()){
+//                 ++x;
+//                 j= j1.buscarJugador(rs.getInt(1));
+//                 j.setRanking(x);
+//                 j1.actualizarJugador(j);
+//                 
+//             }
+//             
+//             
+//         } catch (SQLException ex) {
+//             a = false;
+//         }
+//         
+//     } catch (ClassNotFoundException ex) {
+//           a = false;
+//        }
+//        return a;
     }
     
     public void borrarEncuentro(int id){
@@ -300,10 +300,10 @@ public class EncuentroData {
             }
 }
     
-    public boolean modificarEncuentro(Encuentro en){
+    public void modificarEncuentro(Encuentro en){
     
         String sql = "UPDATE encuentro SET `jugador1`=?,`jugador2`=?,`fechaEncuentro`=?,`resultado`=?,`jugadorGanador`=?,`estado`=?,`idEstadio`=?,`activo`=?,`idTorneo`=? Where idEncuentro=?";
-        boolean a;
+
         try {
         PreparedStatement ps = con.prepareStatement(sql);
          ps.setObject(1,en.getJugador1().getIdJugador());
@@ -319,12 +319,12 @@ public class EncuentroData {
          ps.executeUpdate();
          ps.close();
 
-         a = true;
+         
         } catch (SQLException ex) {
-           a = false;
+           JOptionPane.showMessageDialog(null,"Error al conectar con la base de datos:" + ex);
         }
     
-    return a;
+    
     }
 
     public List<Encuentro> listarProximosEncuentros(){
@@ -467,6 +467,7 @@ public class EncuentroData {
         ArrayList<Jugador> resultados = new ArrayList();
         List<Sponsor> resulSponsor = new ArrayList();
          Encuentro en = new Encuentro();
+         
         try{
             Jugador j1 = new Jugador();
             Jugador j2 = new Jugador();
@@ -478,11 +479,12 @@ public class EncuentroData {
             EstadioData estadioData = new EstadioData(con1);
             TorneoData torneoData=new TorneoData(con1);
             PatrocinioData pd= new PatrocinioData(con1);
+            
             String sql = "SELECT JugadorGanador FROM `encuentro` WHERE estado=?";
             try{
                 
                 PreparedStatement ps = con.prepareStatement(sql);
-                 ps.setString(1, "Finalizado");
+                ps.setString(1, "Finalizado");
                 ResultSet rs = ps.executeQuery();
                 while(rs.next()) {
                     
@@ -499,7 +501,8 @@ public class EncuentroData {
                 j1=resultados.get(i);
                 int contpuntaje=0;
                 int contpatrocinios=0;
-                j1.setPuntaje(0);
+               // j1.setPuntaje(0); //No se que funcion cumple
+                
                 for (int j = 0; j < resultados.size(); j++) {
                     if (j1.equals(resultados.get(j))){
                         contpuntaje++;
@@ -507,10 +510,12 @@ public class EncuentroData {
                         contpatrocinios=resulSponsor.size();
                     }
                 }
-                 j1.setPuntaje(contpuntaje*3+contpatrocinios);
+              //   j1.setRanking(contpuntaje * 3 + contpatrocinios);
                  jugadorData.actualizarJugador(j3);
             }
+            
             int x=0;
+            
             String sql1 = "SELECT * FROM jugador ORDER BY jugador.puntaje DESC";
             PreparedStatement ps;
             try {
@@ -553,7 +558,7 @@ public class EncuentroData {
         Jugador j2 = new Jugador();
         Jugador j3 = new Jugador();
         Estadio e1 = new Estadio();
-        Torneo t=new Torneo();
+        Torneo t =new Torneo();
         Conexion con1 = new Conexion();
         JugadorData jugadorData = new JugadorData(con1);
         EstadioData estadioData = new EstadioData(con1);
@@ -649,8 +654,61 @@ public class EncuentroData {
     }
         return resultados; 
     }
+     
+        public Jugador buscarJugadorGanador(int id){
+      
+       Encuentro en = new Encuentro();
+       Jugador j1 = new Jugador();
+        Jugador j2 = new Jugador();
+        Jugador j3 = new Jugador();
+        
+    try{
+        
+        Estadio e1 = new Estadio();
+        Torneo t =new Torneo();
+        Conexion con1 = new Conexion();
+        JugadorData jugadorData = new JugadorData(con1);
+        EstadioData estadioData = new EstadioData(con1);
+        TorneoData torneoData=new TorneoData(con1);
+        String sql = "SELECT * FROM `encuentro` WHERE encuentro.idEncuentro=?";
+        try{
+
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setInt(1, id);
+            ResultSet rs = ps.executeQuery();
+            if(rs.next()) {
+                en.setIdEncuentro(rs.getInt(1));
+                j1 = jugadorData.buscarPorID(rs.getInt(2));
+                en.setJugador1(j1);
+                j2 = jugadorData.buscarPorID(rs.getInt(3));
+                en.setJugador2(j2);
+                en.setFechaEncuentro(rs.getDate(4).toLocalDate());
+                en.setResultado(rs.getString(5));
+                j3 = jugadorData.buscarPorID(rs.getInt(6));
+                en.setJugadorGanador(j3);
+                en.setEstado(rs.getString(7));
+                e1 = estadioData.buscarEstadio(rs.getInt(8));
+                en.setEstadio(e1);
+                en.setActivo(rs.getBoolean(9));
+                t=torneoData.buscarTorneo(rs.getInt(10));
+                en.setTorneo(t);
+                
+            }
+        }
+        catch(SQLException ex){
+            JOptionPane.showMessageDialog(null,"Error al conectar con la base de datos:" + ex);
+        }
+        
     }
-    
+    catch(ClassNotFoundException ex){
+           JOptionPane.showMessageDialog(null,"Error al conectar con la base de datos:" + ex);
+    }
+    return j3;
+  }
+        
+        
+}
+
 
 
 

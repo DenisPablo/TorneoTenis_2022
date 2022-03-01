@@ -1,3 +1,4 @@
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -19,6 +20,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -27,14 +29,16 @@ import javax.swing.table.DefaultTableModel;
  */
 public class frmiBuscarEncuentrosPorFecha extends javax.swing.JInternalFrame {
     private DefaultTableModel model;
-    /**
-     * Creates new form frmiListar
-     */
-    public frmiBuscarEncuentrosPorFecha() {
+    
+        private List<Encuentro> lista=null;
+        private EncuentroData encd;
+   
+    public frmiBuscarEncuentrosPorFecha(Conexion con) {
         initComponents();
         model =new DefaultTableModel();
 //        cargarCbo();
         armarCabeceraTablaJugador();
+        encd = new EncuentroData(con);
     }
 
     /**
@@ -74,6 +78,11 @@ public class frmiBuscarEncuentrosPorFecha extends javax.swing.JInternalFrame {
                 btnListarMouseClicked(evt);
             }
         });
+        btnListar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnListarActionPerformed(evt);
+            }
+        });
 
         jdFecha.setDateFormatString("yyyy-MM-dd");
 
@@ -107,6 +116,10 @@ public class frmiBuscarEncuentrosPorFecha extends javax.swing.JInternalFrame {
     private void btnListarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnListarMouseClicked
           cargarDatos();
     }//GEN-LAST:event_btnListarMouseClicked
+
+    private void btnListarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnListarActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnListarActionPerformed
 public void armarCabeceraTablaJugador(){
         ArrayList<Object> column= new ArrayList<Object>();
         column.add("Id");
@@ -142,24 +155,18 @@ public void borrarFilas(){
 //            System.out.println("Error al cargar cbo" +ex);
 //        }}
 public void cargarDatos(){
-        try {
-            List<Encuentro> lista=null;
-            borrarFilas();
-            Conexion con =new Conexion();
-            EncuentroData jd= new EncuentroData(con);
-            Date fecini=(Date) jdFecha.getDate();
-            LocalDate ld=fecini.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
-            lista= (List) jd.buscarPorFecha(ld);
-            for(Encuentro i:lista ){
-                 model.addRow(new Object[]{i.getIdEncuentro(),i.getJugador1().getIdJugador()
-                         ,i.getJugador1().getNombre(),i.getJugador2().getIdJugador(),
-                         i.getJugador2().getNombre(),i.getFechaEncuentro(),i.getResultado(),
-                         i.getJugadorGanador().getIdJugador(),i.getJugadorGanador().getNombre(),
-                         i.getEstado(),i.getEstadio().getIdEstadio(),i.getEstadio().getNombre(),
-                         i.isActivo(),i.getTorneo().getIdTorneo(),i.getTorneo().getNombre()});
-            }   } catch (ClassNotFoundException ex) {
-            Logger.getLogger(frmiBuscarEncuentrosPorFecha.class.getName()).log(Level.SEVERE, null, ex);
-        }
+    borrarFilas();
+    Date fecini=(Date) jdFecha.getDate();
+    LocalDate ld=fecini.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+    lista= (List) encd.buscarPorFecha(ld);
+    for(Encuentro i:lista ){
+        model.addRow(new Object[]{i.getIdEncuentro(),i.getJugador1().getIdJugador()
+                ,i.getJugador1().getNombre(),i.getJugador2().getIdJugador(),
+                i.getJugador2().getNombre(),i.getFechaEncuentro(),i.getResultado(),
+                i.getJugadorGanador().getIdJugador(),i.getJugadorGanador().getNombre(),
+                i.getEstado(),i.getEstadio().getIdEstadio(),i.getEstadio().getNombre(),
+                i.isActivo(),i.getTorneo().getIdTorneo(),i.getTorneo().getNombre()});
+    }
 }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnListar;

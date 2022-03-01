@@ -23,13 +23,11 @@ import javax.swing.table.DefaultTableModel;
  */
 public class frmiVerEncuentros extends javax.swing.JInternalFrame {
     private DefaultTableModel model;
-    /**
-     * Creates new form frmiListar
-     */
-    public frmiVerEncuentros() {
+     EncuentroData jd;
+    public frmiVerEncuentros(Conexion con) {
         initComponents();
         model =new DefaultTableModel();
-//        cargarCbo();
+        jd= new EncuentroData(con);
         armarCabeceraTablaJugador();
     }
 
@@ -137,19 +135,14 @@ public void borrarFilas(){
 //            System.out.println("Error al cargar cbo" +ex);
 //        }}
 public void cargarDatos(){
-        try {
-            List<Encuentro> lista=null;
-            borrarFilas();
-            Conexion con =new Conexion();
-            EncuentroData jd= new EncuentroData(con);
-//            Jugador a= (Jugador)cboListar.getSelectedItem();
-            lista= (List) jd.devolverTodosEncuentros();
-            for(Encuentro i:lista ){
-                //if(a.getIdAlumno()==i.getAlumno().getIdAlumno())
-                model.addRow(new Object[]{i.getIdEncuentro(),i.getJugador1().getIdJugador(),i.getJugador1().getNombre(),i.getJugador2().getIdJugador(),i.getJugador2().getNombre(),i.getFechaEncuentro(),i.getResultado(),i.getJugadorGanador().getIdJugador(),i.getJugadorGanador().getNombre(),i.getEstado(),i.getEstadio().getIdEstadio(),i.getEstadio().getNombre(),i.isActivo(),i.getTorneo().getIdTorneo(),i.getTorneo().getNombre()});
-            }   } catch (ClassNotFoundException ex) {
-            Logger.getLogger(frmiVerEncuentros.class.getName()).log(Level.SEVERE, null, ex);
-        }
+    List<Encuentro> lista=null;
+    borrarFilas();
+    //            Jugador a= (Jugador)cboListar.getSelectedItem();
+    lista= (List) jd.devolverTodosEncuentros();
+    for(Encuentro i:lista ){
+        //if(a.getIdAlumno()==i.getAlumno().getIdAlumno())
+        model.addRow(new Object[]{i.getIdEncuentro(),i.getJugador1().getIdJugador(),i.getJugador1().getNombre(),i.getJugador2().getIdJugador(),i.getJugador2().getNombre(),i.getFechaEncuentro(),i.getResultado(),i.getJugadorGanador().getIdJugador(),i.getJugadorGanador().getNombre(),i.getEstado(),i.getEstadio().getIdEstadio(),i.getEstadio().getNombre(),i.isActivo(),i.getTorneo().getIdTorneo(),i.getTorneo().getNombre()});
+    }
 }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnListar;

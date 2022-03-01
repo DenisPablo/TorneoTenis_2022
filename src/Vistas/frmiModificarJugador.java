@@ -14,7 +14,9 @@ import Modelo.Patrocinio;
 import Modelo.Sponsor;
 import java.sql.Date;
 import java.time.LocalDate;
+import java.time.Period;
 import java.time.ZoneId;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -25,12 +27,20 @@ import javax.swing.JOptionPane;
  * @author Romi
  */
 public class frmiModificarJugador extends javax.swing.JInternalFrame {
-
-    /**
-     * Creates new form frmiModificarJugador
-     */
-    public frmiModificarJugador() {
+    
+        private JugadorData jugador1;
+        private Jugador j1;
+        private Jugador j;
+        private JugadorData jd;
+        
+    public frmiModificarJugador(Conexion con) {
         initComponents();
+        
+        jugador1=new JugadorData(con);
+        j1= new Jugador();
+        j=new Jugador();
+        jd=new JugadorData(con);
+        
         cargarCbo();
     }
 
@@ -121,6 +131,12 @@ public class frmiModificarJugador extends javax.swing.JInternalFrame {
             }
         });
 
+        cboJugador.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cboJugadorActionPerformed(evt);
+            }
+        });
+
         btnBuscar.setText("Buscar");
         btnBuscar.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -180,7 +196,7 @@ public class frmiModificarJugador extends javax.swing.JInternalFrame {
                         .addComponent(jLabel1)
                         .addComponent(jLabel2))
                     .addComponent(cboJugador, javax.swing.GroupLayout.PREFERRED_SIZE, 311, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(63, Short.MAX_VALUE))
+                .addContainerGap(37, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(btnBuscar)
@@ -231,22 +247,42 @@ public class frmiModificarJugador extends javax.swing.JInternalFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnModificar)
                     .addComponent(btnLimpiar))
-                .addContainerGap(218, Short.MAX_VALUE))
+                .addContainerGap(53, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 public void cargarCbo(){
-        try {
-            Conexion con = new Conexion();
-            JugadorData jugador=new JugadorData(con);
-             List<Jugador> juga= jugador.buscarTodosJugadores();
-            for (int i = 0; i < juga.size(); i++) {
-                cboJugador.addItem(juga.get(i)); 
-            }
-        } catch (ClassNotFoundException ex) {
-            System.out.println("Error al cargar cbo" +ex);
-        }}
+    List<Jugador> juga= jugador1.buscarTodosJugadores();
+    for (int i = 0; i < juga.size(); i++) {
+        cboJugador.addItem(juga.get(i));
+    }
+}
+
+public boolean vFecha(LocalDate ld) {
+         LocalDate ld2 = ld;
+         Period rango = Period.between(ld2, LocalDate.now());
+         if (rango.getYears() < 40 && LocalDate.now().isAfter(ld) && rango.getYears()>18 ){ 
+         return true;
+         }
+         JOptionPane.showMessageDialog(null, "La Fecha de nacimiento es invalida.");
+         return false;
+         }
+
+  public boolean validarCampos(){
+           
+        if(tfAltura.getText().isEmpty() ){return false;}
+        if(tfNombre.getText().isEmpty() ){return false;}
+        if(tfDni.getText().isEmpty()    ){return false;}
+        if(tfPeso.getText().isEmpty()   ){return false;}
+        if(tfNombre.getText().isEmpty()) {return false;}
+        
+        if(cboEstilo.getSelectedItem() == null){return false;}
+        if(jDateChooser1.getDate() == null)         {return false;}
+        
+        return true;
+       }
+  
     private void btnLimpiarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnLimpiarMouseClicked
         tfAltura.setText("");
         tfNombre.setText("");
@@ -257,55 +293,74 @@ public void cargarCbo(){
         cboEstilo.setSelectedIndex(0);
         rbDer.setSelected(false);
         rbIzq.setSelected(false);
-         jDateChooser1.setDate(null);
-         cboJugador.setSelectedIndex(0);
+        jDateChooser1.setDate(null);
+        cboJugador.setSelectedIndex(0);
          
     }//GEN-LAST:event_btnLimpiarMouseClicked
 
     private void btnBuscarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnBuscarMouseClicked
-        Jugador j= new Jugador();
-        j= (Jugador) cboJugador.getSelectedItem();
-        tfNombre.setText(j.getNombre());
-        tfDni.setText(j.getDni()+"");
-        Date fecFin=java.sql.Date.valueOf(j.getFechaNac());
+        
+        j1= (Jugador) cboJugador.getSelectedItem();
+        tfNombre.setText(j1.getNombre());
+        tfDni.setText(j1.getDni()+"");
+        Date fecFin=java.sql.Date.valueOf(j1.getFechaNac());
         jDateChooser1.setDate(fecFin);
-        tfAltura.setText(j.getAltura()+"");
-        tfPeso.setText(j.getPeso()+"");
-        cboEstilo.setSelectedItem(j.getEstilo().toString());
-        if( j.getManoHabil().equals("Derecha"))
+        tfAltura.setText(j1.getAltura()+"");
+        tfPeso.setText(j1.getPeso()+"");
+        cboEstilo.setSelectedItem(j1.getEstilo().toString());
+        if( j1.getManoHabil().equals("Derecha"))
            rbDer.setSelected(true);
-        if(j.getManoHabil().equals("Izquierda"))
+        if(j1.getManoHabil().equals("Izquierda"))
             rbIzq.setSelected(true);
-       cbActivo.setSelected(j.isActivo());
+       cbActivo.setSelected(j1.isActivo());
     }//GEN-LAST:event_btnBuscarMouseClicked
 
     private void btnModificarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnModificarMouseClicked
-      try {
-          boolean a;
-            Conexion con = new Conexion();
-            Jugador j=new Jugador();
-            j=(Jugador)cboJugador.getSelectedItem();
-            j.setNombre(tfNombre.getText());
-            j.setDni(Integer.parseInt(tfDni.getText()));
-            java.util.Date fecini=(java.util.Date) jDateChooser1.getDate();
-            LocalDate ld=fecini.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
-            j.setFechaNac(ld);
-            j.setAltura(Double.parseDouble(tfAltura.getText()));
-            j.setPeso(Double.parseDouble(tfPeso.getText()));
-            j.setEstilo(cboEstilo.getSelectedItem().toString());
-            j.setActivo(cbActivo.isSelected());
-            JugadorData jd=new JugadorData(con);
-            a=jd.actualizarJugador(j);
-            if(a) {
-               JOptionPane.showMessageDialog(null,"El encuentro se modifico con exito"); 
-            } else {
-                JOptionPane.showMessageDialog(null,"Error al conectar con la base de datos:" );
-            }
-        } catch (ClassNotFoundException ex) {
-            Logger.getLogger(frmiAgregarSponsor.class.getName()).log(Level.SEVERE, null, ex);
+        boolean a = false;
+        if(validarCampos()){
+        j=(Jugador)cboJugador.getSelectedItem();
+        j.setNombre(tfNombre.getText());
+        
+        int dniV = Integer.parseInt(tfDni.getText());
+        
+        boolean repetido = false;
+
+List<Jugador> Jugadores = new ArrayList();
+Jugadores = jd.buscarTodosJugadores();
+for(int i = 0;i<Jugadores.size();i++){
+    if(Jugadores.get(i).getDni() == dniV && Jugadores.get(i).getIdJugador() != j.getIdJugador()){    
+        JOptionPane.showMessageDialog(null, "El Dni no se modificara porque ya existe.");
+        repetido = true;
+    }
+}
+        
+        if(repetido == false){
+        j.setDni(Integer.parseInt(tfDni.getText()));
         }
+        
+        
+        java.util.Date fecini=(java.util.Date) jDateChooser1.getDate();
+        LocalDate ld=fecini.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+       
+        j.setFechaNac(ld);
+        
+        j.setAltura(Double.parseDouble(tfAltura.getText()));
+        j.setPeso(Double.parseDouble(tfPeso.getText()));
+        j.setEstilo(cboEstilo.getSelectedItem().toString());
+        j.setActivo(cbActivo.isSelected());
+        
+   
+
+
+        if(vFecha(ld)){
+        jd.actualizarJugador(j);
+        
+        JOptionPane.showMessageDialog(null,"El Jugador se modifico con exito");
+        }
+        
         cboJugador.removeAllItems(); 
         cargarCbo();
+        }else{JOptionPane.showMessageDialog(null, "Por favor complete todos los campos.");}
     }//GEN-LAST:event_btnModificarMouseClicked
 
     private void tfDniActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfDniActionPerformed
@@ -326,6 +381,10 @@ public void cargarCbo(){
          char c=evt.getKeyChar();
      if(c<'0'||c>'9'||c=='.')evt.consume();
     }//GEN-LAST:event_tfPesoKeyTyped
+
+    private void cboJugadorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cboJugadorActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cboJugadorActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

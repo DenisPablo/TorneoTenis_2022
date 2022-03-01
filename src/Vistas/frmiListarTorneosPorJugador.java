@@ -24,16 +24,18 @@ import javax.swing.table.DefaultTableModel;
  * @author Romi
  */
 public class frmiListarTorneosPorJugador extends javax.swing.JInternalFrame {
-    private DefaultTableModel model;
-    /**
-     * Creates new form frmiListar
-     */
-    public frmiListarTorneosPorJugador() {
+        private DefaultTableModel model;
+        private JugadorData jugador;
+        private List<Torneo> lista=null;
+        private EncuentroData jd;
+     
+    public frmiListarTorneosPorJugador(Conexion con) {
         initComponents();
         model =new DefaultTableModel();
-//        cargarCbo();
         armarCabeceraTablaJugador();
         cargarCbo();
+        jugador=new JugadorData(con);
+        jd= new EncuentroData(con);
     }
 
     /**
@@ -128,31 +130,20 @@ public void borrarFilas(){
     }
 }
 public void cargarCbo(){
-        try {
-            Conexion con = new Conexion();
-            JugadorData jugador=new JugadorData(con);
-             List<Jugador> juga= jugador.buscarTodosJugadores();
-            for (int i = 0; i < juga.size(); i++) {
-                cboListar.addItem(juga.get(i)); 
-            }
-        } catch (ClassNotFoundException ex) {
-            System.out.println("Error al cargar cbo" +ex);
-        }}
+    List<Jugador> juga= jugador.buscarTodosJugadores();
+    for (int i = 0; i < juga.size(); i++) {
+        cboListar.addItem(juga.get(i));
+    }
+}
 public void cargarDatos(){
-       try {
-            List<Torneo> lista=null;
-            borrarFilas();
-            Conexion con =new Conexion();
-            EncuentroData jd= new EncuentroData(con);
-            Jugador a= (Jugador)cboListar.getSelectedItem();
-            lista= (List) jd.buscarPorTorneo(a.getIdJugador());
-            for(Torneo i:lista ){
-                //if(a.getIdAlumno()==i.getAlumno().getIdAlumno())
-                model.addRow(new Object[]{i.getIdTorneo(),i.getNombre(),
-                    i.getFechaNacInicio(),i.getFehcaNacFinal(),i.isActivo()});
-           }   } catch (ClassNotFoundException ex) {
-            Logger.getLogger(frmiListarEncuentrosProximos.class.getName()).log(Level.SEVERE, null, ex);
-        }
+    borrarFilas();
+    Jugador a= (Jugador)cboListar.getSelectedItem();
+    lista= (List) jd.buscarPorTorneo(a.getIdJugador());
+    for(Torneo i:lista ){
+        //if(a.getIdAlumno()==i.getAlumno().getIdAlumno())
+        model.addRow(new Object[]{i.getIdTorneo(),i.getNombre(),
+            i.getFechaNacInicio(),i.getFehcaNacFinal(),i.isActivo()});
+    }
 }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnListar;

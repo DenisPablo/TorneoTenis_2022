@@ -22,13 +22,11 @@ import javax.swing.table.DefaultTableModel;
  */
 public class frmiVerEstadios extends javax.swing.JInternalFrame {
     private DefaultTableModel model;
-    /**
-     * Creates new form frmiListar
-     */
-    public frmiVerEstadios() {
+     EstadioData jd;
+    public frmiVerEstadios(Conexion con) {
         initComponents();
         model =new DefaultTableModel();
-//        cargarCbo();
+        jd= new EstadioData(con);
         armarCabeceraTablaJugador();
     }
 
@@ -68,6 +66,11 @@ public class frmiVerEstadios extends javax.swing.JInternalFrame {
                 btnListarMouseClicked(evt);
             }
         });
+        btnListar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnListarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -95,6 +98,10 @@ public class frmiVerEstadios extends javax.swing.JInternalFrame {
     private void btnListarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnListarMouseClicked
           cargarDatos();
     }//GEN-LAST:event_btnListarMouseClicked
+
+    private void btnListarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnListarActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnListarActionPerformed
 public void armarCabeceraTablaJugador(){
         ArrayList<Object> column= new ArrayList<Object>();
         column.add("Id");
@@ -130,19 +137,14 @@ public void borrarFilas(){
 //            System.out.println("Error al cargar cbo" +ex);
 //        }}
 public void cargarDatos(){
-        try {
-            List<Estadio> lista=null;
-            borrarFilas();
-            Conexion con =new Conexion();
-            EstadioData jd= new EstadioData(con);
-//            Jugador a= (Jugador)cboListar.getSelectedItem();
-            lista= (List) jd.buscarTodosEstadio();
-            for(Estadio i:lista ){
-                //if(a.getIdAlumno()==i.getAlumno().getIdAlumno())
-                model.addRow(new Object[]{i.getIdEstadio(),i.getNombre(),i.getCiudad(),i.getCategoria(),i.isActivo(),i.getDireccionComercial(),i.getDimension(),i.isEstado()});
-            }   } catch (ClassNotFoundException ex) {
-            Logger.getLogger(frmiVerEstadios.class.getName()).log(Level.SEVERE, null, ex);
-        }
+    List<Estadio> lista=null;
+    borrarFilas();
+    //            Jugador a= (Jugador)cboListar.getSelectedItem();
+    lista= (List) jd.buscarTodosEstadio();
+    for(Estadio i:lista ){
+        //if(a.getIdAlumno()==i.getAlumno().getIdAlumno())
+        model.addRow(new Object[]{i.getIdEstadio(),i.getNombre(),i.getCiudad(),i.getCategoria(),i.isActivo(),i.getDireccionComercial(),i.getDimension(),i.isEstado()});
+    }
 }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnListar;

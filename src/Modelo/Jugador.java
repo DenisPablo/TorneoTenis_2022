@@ -23,6 +23,7 @@ public class Jugador {
     private int ranking=0;
     private int puntaje=0;
     private boolean activo;
+    private int encuentrosGanados = 0;
 
     public Jugador(int idJugador, String nombre, int dni, LocalDate fechaNac, double altura, double peso, String estilo, String manoHabil, int torneoGanados, int ranking, int puntaje, boolean activo) {
         this.idJugador = idJugador;
@@ -155,21 +156,38 @@ public class Jugador {
 
     
 
+    public void sumarPuntos(int puntos) {
+        puntaje += puntos;
+    }
     
+    public void restarPuntos(int puntos) {
+        puntaje -= puntos;
+    }
 
-    @Override
-    public String toString() {
-        return ("Jugador" + " ID " + idJugador + " Nombre: " + nombre + " DNI: " + dni + " Ranking: " + ranking );
+    public void ganarTorneo() {
+        torneoGanados++;
+    }
+    
+    public void ganarEncuentro() {
+        encuentrosGanados++;
+    }
+
+    public int getEncuentrosGanados() {
+        return encuentrosGanados;
+    }
+
+    public void setEncuentrosGanados(int encuentrosGanados) {
+        this.encuentrosGanados = encuentrosGanados;
     }
     
     
-    
-    
-    
-    
-    
-    
-    
-    
+    @Override
+      public String toString() {
+        return ("Nombre: " + nombre + " DNI: " + dni);
+    }
+
+  
+ 
+
     
 }

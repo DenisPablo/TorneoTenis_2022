@@ -7,12 +7,17 @@ package Vistas;
 
 import Data.TorneoData;
 import Modelo.Conexion;
+import Modelo.Jugador;
 import Modelo.Torneo;
+import static Vistas.frmiAgregarEncuentro.vHora;
 import java.time.LocalDate;
 import java.time.ZoneId;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -20,11 +25,15 @@ import java.util.logging.Logger;
  */
 public class frmiAgregarTorneo extends javax.swing.JInternalFrame {
 
-    /**
-     * Creates new form frmiCargarTorneo
-     */
-    public frmiAgregarTorneo() {
+        private Torneo tor;
+        private TorneoData tord;
+   
+   
+    public frmiAgregarTorneo(Conexion con) {
         initComponents();
+       tor = new Torneo();
+       tord = new TorneoData(con);
+        
     }
 
     /**
@@ -65,6 +74,11 @@ public class frmiAgregarTorneo extends javax.swing.JInternalFrame {
                 BtnCargarMouseClicked(evt);
             }
         });
+        BtnCargar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BtnCargarActionPerformed(evt);
+            }
+        });
 
         btnLimpiar.setText("Limpiar");
         btnLimpiar.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -87,27 +101,28 @@ public class frmiAgregarTorneo extends javax.swing.JInternalFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(jdInicio, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(57, 57, 57)
-                                .addComponent(jdFin, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel2)
-                                .addGap(158, 158, 158)
-                                .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createSequentialGroup()
                                 .addComponent(jLabel10)
                                 .addGap(44, 44, 44)
                                 .addComponent(cbActivo))
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jLabel1)
                                 .addGap(13, 13, 13)
-                                .addComponent(tfNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 216, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addComponent(tfNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 216, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jdInicio, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel2))
+                                .addGap(57, 57, 57)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jdFin, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE))))
                         .addGap(23, 23, 23))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addComponent(BtnCargar)
                         .addGap(18, 18, 18)
                         .addComponent(btnLimpiar)
-                        .addGap(55, 55, 55))))
+                        .addGap(55, 55, 55)))
+                .addContainerGap(63, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -128,7 +143,7 @@ public class frmiAgregarTorneo extends javax.swing.JInternalFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel10)
                     .addComponent(cbActivo))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 31, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 39, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(BtnCargar)
                     .addComponent(btnLimpiar))
@@ -140,30 +155,50 @@ public class frmiAgregarTorneo extends javax.swing.JInternalFrame {
 
     private void btnLimpiarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnLimpiarMouseClicked
         
+       limpiar();
+       
+    }//GEN-LAST:event_btnLimpiarMouseClicked
+        
+    private void limpiar() {
         tfNombre.setText("");
         cbActivo.setSelected(false);
-       
+    }
+    
+    public boolean validarCampos(){
         
-    }//GEN-LAST:event_btnLimpiarMouseClicked
-
+    if(tfNombre.getText().isEmpty())         {return false;}
+    if(jdInicio.getDate() == null)           {return false;} 
+    if(jdFin.getDate() == null)              {return false;}
+    
+    return true;
+    }
+   
+        
     private void BtnCargarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BtnCargarMouseClicked
-        try {
-            Conexion con = new Conexion();
-            Torneo j=new Torneo();
-            TorneoData jd=new TorneoData(con);
-            j.setNombre(tfNombre.getText());
-            Date fecini=(Date) jdInicio.getDate();
-            LocalDate ld=fecini.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
-            j.setFechaNacInicio(ld);
-            Date fecFin=(Date) jdFin.getDate();
-            LocalDate ld1=fecFin.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
-            j.setFehcaNacFinal(ld1);
-            j.setActivo(cbActivo.isSelected());
-            jd.agregarTorneo(j);
-        } catch (ClassNotFoundException ex) {
-            Logger.getLogger(frmiAgregarSponsor.class.getName()).log(Level.SEVERE, null, ex);
+     
+        if(validarCampos()){
+        tor.setNombre(tfNombre.getText());
+        Date fecini=(Date) jdInicio.getDate();
+        LocalDate ld=fecini.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+        Date fecFin=(Date) jdFin.getDate();
+        LocalDate ld1=fecFin.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+        if(vHora(ld)  && ld1.isAfter(ld)) {
+            tor.setFechaNacInicio(ld);        
+            tor.setFehcaNacFinal(ld1);
+            tor.setActivo(cbActivo.isSelected());
+            
+           
+            tord.agregarTorneo(tor);
+            limpiar();
+            }else{JOptionPane.showMessageDialog(null, "Fecha invalida, verifique los datos ingresados.");}
+        } else {
+            JOptionPane.showMessageDialog(null,"Por favor complete todos los campos.");
         }
     }//GEN-LAST:event_BtnCargarMouseClicked
+
+    private void BtnCargarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnCargarActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_BtnCargarActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

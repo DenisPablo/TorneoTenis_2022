@@ -22,12 +22,11 @@ import javax.swing.table.DefaultTableModel;
  */
 public class frmiVerTorneos extends javax.swing.JInternalFrame {
     private DefaultTableModel model;
-    /**
-     * Creates new form frmiListar
-     */
-    public frmiVerTorneos() {
+     TorneoData jd;
+    public frmiVerTorneos(Conexion con) {
         initComponents();
         model =new DefaultTableModel();
+        jd= new TorneoData(con);
 //        cargarCbo();
         armarCabeceraTablaJugador();
     }
@@ -127,19 +126,14 @@ public void borrarFilas(){
 //            System.out.println("Error al cargar cbo" +ex);
 //        }}
 public void cargarDatos(){
-        try {
-            List<Torneo> lista=null;
-            borrarFilas();
-            Conexion con =new Conexion();
-            TorneoData jd= new TorneoData(con);
-//            Jugador a= (Jugador)cboListar.getSelectedItem();
-            lista= (List) jd.devolverTodosTorneos();
-            for(Torneo i:lista ){
-                //if(a.getIdAlumno()==i.getAlumno().getIdAlumno())
-                model.addRow(new Object[]{i.getIdTorneo(),i.getNombre(),i.getFechaNacInicio(),i.getFehcaNacFinal(),i.isActivo()});
-            }   } catch (ClassNotFoundException ex) {
-            Logger.getLogger(frmiVerTorneos.class.getName()).log(Level.SEVERE, null, ex);
-        }
+    List<Torneo> lista=null;
+    borrarFilas();
+    //            Jugador a= (Jugador)cboListar.getSelectedItem();
+    lista= (List) jd.devolverTodosTorneos();
+    for(Torneo i:lista ){
+        //if(a.getIdAlumno()==i.getAlumno().getIdAlumno())
+        model.addRow(new Object[]{i.getIdTorneo(),i.getNombre(),i.getFechaNacInicio(),i.getFehcaNacFinal(),i.isActivo()});
+    }
 }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnListar;

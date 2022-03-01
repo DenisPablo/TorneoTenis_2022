@@ -21,7 +21,7 @@ public class Patrocinio {
 
     @Override
     public String toString() {
-        return ("Patrocinio" + " ID " + idPatrocinio + " Sponsor " + sponsor + " Jugador: " + jugador + " Indumentaria: " + indumentaria);
+        return ("Sponsor: " + sponsor + " Jugador: " + jugador + " Tipo: " + indumentaria);
     }
 
     public Patrocinio(){}

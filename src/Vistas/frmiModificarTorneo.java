@@ -8,12 +8,15 @@ package Vistas;
 import Data.TorneoData;
 import Modelo.Conexion;
 import Modelo.Torneo;
+import static Vistas.frmiAgregarEncuentro.vHora;
 import java.time.LocalDate;
+import java.time.Period;
 import java.time.ZoneId;
 import java.util.Date;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -21,11 +24,16 @@ import java.util.logging.Logger;
  */
 public class frmiModificarTorneo extends javax.swing.JInternalFrame {
 
-    /**
-     * Creates new form frmiModificarTorneo
-     */
-    public frmiModificarTorneo() {
+     TorneoData orneo;
+     Torneo j;
+     TorneoData jd;
+     Torneo j1;
+    public frmiModificarTorneo(Conexion con) {
         initComponents();
+        orneo=new TorneoData(con);
+        j=new Torneo();
+        jd=new TorneoData(con);
+        j1= new Torneo();
         cargarCbo();
     }
 
@@ -179,49 +187,63 @@ public class frmiModificarTorneo extends javax.swing.JInternalFrame {
 
     }//GEN-LAST:event_btnLimpiarMouseClicked
 public void cargarCbo(){
-        try {
-            Conexion con = new Conexion();
-            TorneoData orneo=new TorneoData(con);
-            
-            List<Torneo> tor= orneo.devolverTodosTorneos();
-            for (int i = 0; i < tor.size(); i++) {
-                cboorneo.addItem(tor.get(i)); 
-            }
-        } catch (ClassNotFoundException ex) {
-            Logger.getLogger(frmiModificarSponsor.class.getName()).log(Level.SEVERE, null, ex);
-        }
+    List<Torneo> tor= orneo.devolverTodosTorneos();
+    for (int i = 0; i < tor.size(); i++) {
+        cboorneo.addItem(tor.get(i));
+    }
  }
+
+ public boolean vFecha(LocalDate ld) {
+         LocalDate ld2 = ld;
+         Period rango = Period.between(ld2, LocalDate.now());
+         if (rango.getYears() < 1){ 
+         return true;
+         }
+         JOptionPane.showMessageDialog(null, "No se puede modificar la fecha de inicio pasado el año.");
+         return false;
+         }
+
+   public boolean validarCampos(){
+        
+    if(tfNombre.getText().isEmpty())         {return false;}
+    if(jdInicio.getDate() == null)           {return false;} 
+    if(jdFin.getDate() == null)              {return false;}
+    if(cboorneo.getSelectedItem() == null)   {return false;}
+    
+    return true;
+    }
+
     private void BtnCargarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BtnCargarMouseClicked
-        try {
-           Conexion con = new Conexion();
-            Torneo j=new Torneo();
-            TorneoData jd=new TorneoData(con);
-            j=(Torneo)cboorneo.getSelectedItem();
-            j.setNombre(tfNombre.getText());
-            Date fecini=(Date) jdInicio.getDate();
-            LocalDate ld=fecini.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
-            j.setFechaNacInicio(ld);
-            Date fecFin=(Date) jdFin.getDate();
-            LocalDate ld1=fecFin.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+        if(validarCampos()){ 
+        j=(Torneo)cboorneo.getSelectedItem();
+        j.setNombre(tfNombre.getText());
+        Date fecini=(Date) jdInicio.getDate();
+        LocalDate ld=fecini.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+        Date fecFin=(Date) jdFin.getDate();
+        LocalDate ld1=fecFin.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+            
+            if(vFecha(ld)){
+            j.setFechaNacInicio(ld);            
             j.setFehcaNacFinal(ld1);
             j.setActivo(cbActivo.isSelected());
+            
             jd.modificadarTorneo(j);
-        } catch (ClassNotFoundException ex) {
-            Logger.getLogger(frmiAgregarSponsor.class.getName()).log(Level.SEVERE, null, ex);
-        }
+            }
+            
         cboorneo.removeAllItems();
         cargarCbo();
+        }else{JOptionPane.showMessageDialog(null, "Por favor complete todos los campos.");}
     }//GEN-LAST:event_BtnCargarMouseClicked
 
     private void btnBuscarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnBuscarMouseClicked
-        Torneo j= new Torneo();
-        j= (Torneo) cboorneo.getSelectedItem();
-        tfNombre.setText(j.getNombre());
-        Date fecFin=java.sql.Date.valueOf(j.getFechaNacInicio());
+        
+        j1= (Torneo) cboorneo.getSelectedItem();
+        tfNombre.setText(j1.getNombre());
+        Date fecFin=java.sql.Date.valueOf(j1.getFechaNacInicio());
         jdInicio.setDate(fecFin);
-        Date fecFin1=java.sql.Date.valueOf(j.getFehcaNacFinal());
+        Date fecFin1=java.sql.Date.valueOf(j1.getFehcaNacFinal());
         jdFin.setDate(fecFin1);
-       cbActivo.setSelected(j.isActivo());
+       cbActivo.setSelected(j1.isActivo());
     }//GEN-LAST:event_btnBuscarMouseClicked
 
 

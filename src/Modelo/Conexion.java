@@ -7,6 +7,7 @@ package Modelo;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
 /**
@@ -15,7 +16,7 @@ import java.sql.SQLException;
  */
 public class Conexion {
    
-    private String url="jdbc:mysql://localhost/torneotenis2";
+    private String url="jdbc:mysql://localhost/torneoFinal";
     private String usuario="root";
     private String password="";
     private Connection conexion;
@@ -43,6 +44,10 @@ public class Conexion {
                         + "&user=" + usuario + "&password=" + password);
         }
         return conexion;
+    }
+
+    public PreparedStatement prepareStatement(String sql1) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
 }

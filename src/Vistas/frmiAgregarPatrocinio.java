@@ -13,6 +13,7 @@ import Modelo.Conexion;
 import Modelo.Jugador;
 import Modelo.Patrocinio;
 import Modelo.Sponsor;
+import static Vistas.frmiAgregarEncuentro.vHora;
 import java.text.DateFormat;
 import java.time.LocalDate;
 import java.time.ZoneId;
@@ -28,26 +29,35 @@ import javax.swing.JOptionPane;
  */
 public class frmiAgregarPatrocinio extends javax.swing.JInternalFrame {
 
-    /**
-     * Creates new form frmiAgregarPatrocinio
-     */
+      private Patrocinio p;
+      private  PatrocinioData pat;
+      private  Sponsor s;
+      private  Jugador j;
+      private  EncuentroData encd;
+            
     DateFormat df =DateFormat.getDateInstance();//para el JCalendar
-    public frmiAgregarPatrocinio() {
+    public frmiAgregarPatrocinio(Conexion con) {
         initComponents();
         cargarCbo();
+        
+        p = new Patrocinio();
+        pat = new PatrocinioData(con);
+        s = new Sponsor();
+        j = new Jugador();
+        encd = new EncuentroData(con);
     }
 public void cargarCbo(){
         try {
             Conexion con = new Conexion();
             SponsorData sponsor=new SponsorData(con);
            
-            List<Sponsor> spone= sponsor.buscarTodosSposor();
+            List<Sponsor> spone= sponsor.buscarActivos();
             for (int i = 0; i < spone.size(); i++) {
                 cboSponsor.addItem(spone.get(i)); 
               
             }
             JugadorData jugador=new JugadorData(con);
-             List<Jugador> juga= jugador.buscarTodosJugadores();
+             List<Jugador> juga= jugador.buscarActivos();
             for (int i = 0; i < juga.size(); i++) {
                 cboJugador.addItem(juga.get(i)); }
         } catch (ClassNotFoundException ex) {
@@ -213,45 +223,60 @@ public void cargarCbo(){
     }//GEN-LAST:event_cbActivoActionPerformed
 
     private void btnLimpiarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnLimpiarMouseClicked
-      
+      limpiar();
+        
+    }//GEN-LAST:event_btnLimpiarMouseClicked
+    public void limpiar() {
         cbActivo.setSelected(false);
         cboIndumentaria.setSelectedIndex(0);
         cboJugador.setSelectedIndex(0);
         cboSponsor.setSelectedIndex(0);
-    }//GEN-LAST:event_btnLimpiarMouseClicked
-
+    }
+    
+    public boolean validarCampos(){
+    
+       if(cboIndumentaria.getSelectedItem() == null) {return false;} 
+       if(cboJugador.getSelectedItem() == null)      {return false;}
+       if(cboSponsor.getSelectedItem() == null)      {return false;}
+        
+       if(jcInicio.getDate() == null) {return false;}
+       if(jcFin.getDate() == null)    {return false;}
+       
+        return true;
+    }
+    
     private void btnCargarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCargarMouseClicked
-         try {
-            Conexion con = new Conexion();
-            Patrocinio p=new Patrocinio();
-            Sponsor s=new Sponsor();
-            Jugador j=new Jugador();
-            PatrocinioData pat=new PatrocinioData(con);
-            j=(Jugador) cboJugador.getSelectedItem();
-            p.setJugador(j);
-            s=(Sponsor) cboSponsor.getSelectedItem();
-            p.setSponsor(s);
-            Date fecini=(Date) jcInicio.getDate();
-           LocalDate ld=fecini.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
-            p.setFechaInicioContrato(ld);
-            Date fecFin=(Date) jcFin.getDate();
-           LocalDate ldf=fecFin.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+       
+        if(validarCampos()){
+        
+        j=(Jugador) cboJugador.getSelectedItem();
+        p.setJugador(j);
+        s=(Sponsor) cboSponsor.getSelectedItem();
+        p.setSponsor(s);
+        Date fecini=(Date) jcInicio.getDate();
+        LocalDate ld=fecini.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+        Date fecFin=(Date) jcFin.getDate();
+        LocalDate ldf=fecFin.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+        if(vHora(ld) && ldf.isAfter(ld)) {
+            p.setFechaInicioContrato(ld);           
             p.setFechaFinContrato(ldf);
             p.setIndumentaria(cboIndumentaria.getSelectedItem().toString());
             p.setActivo(cbActivo.isSelected());
-        
+            
             
             boolean a =  pat.guardarPatrocinio(p);
             if(a) {
-               JOptionPane.showMessageDialog(null,"El encuentro se agrego con exito"); 
+                JOptionPane.showMessageDialog(null,"El Patrocinio se agrego con exito"); 
             } else {
                 JOptionPane.showMessageDialog(null,"Error al conectar con la base de datos:" );
             }
-            EncuentroData jd=new EncuentroData(con);
-            jd.calcularRankingPuntaje();
-        } catch (ClassNotFoundException ex) {
-            Logger.getLogger(frmiAgregarSponsor.class.getName()).log(Level.SEVERE, null, ex);
+            
+            encd.calcularRankingPuntaje();
+            limpiar();
+        } else {
+            JOptionPane.showMessageDialog(null,"Fecha invalida, verifique los datos ingresados.");
         }
+         }else{JOptionPane.showMessageDialog(null, "Por favor complete todos los campos");}
     }//GEN-LAST:event_btnCargarMouseClicked
 
     private void btnCargarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCargarActionPerformed

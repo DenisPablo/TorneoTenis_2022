@@ -12,8 +12,11 @@ import Modelo.Jugador;
 import Modelo.Patrocinio;
 import Modelo.Sponsor;
 import java.time.LocalDate;
+import java.time.Period;
 import java.time.ZoneId;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
@@ -21,15 +24,44 @@ import javax.swing.JOptionPane;
 /**
  *
  * @author Romi
- */
+ */     
 public class frmiAgregarJugador extends javax.swing.JInternalFrame {
 
-    /**
-     * Creates new form frmiAgregarJugador
-     */
-    public frmiAgregarJugador() {
+   
+    
+    private Jugador j;
+    private JugadorData jd;
+    
+    public frmiAgregarJugador(Conexion con) {
         initComponents();
+        
+        j = new Jugador();
+        jd = new JugadorData(con);
     }
+    
+       public boolean vFecha(LocalDate ld) {
+         LocalDate ld2 = ld;
+         Period rango = Period.between(ld2, LocalDate.now());
+         if (rango.getYears() < 40 && LocalDate.now().isAfter(ld) && rango.getYears()>18 ){ 
+         return true;
+         }
+         JOptionPane.showMessageDialog(null, "La Fecha de nacimiento es invalida.");
+         return false;
+         }
+       
+       public boolean validarCampos(){
+           
+        if(tfAltura.getText().isEmpty() ){return false;}
+        if(tfNombre.getText().isEmpty() ){return false;}
+        if(tfDni.getText().isEmpty()    ){return false;}
+        if(tfPeso.getText().isEmpty()   ){return false;}
+        if(tfNombre.getText().isEmpty()) {return false;}
+        
+        if(cboEstilo.getSelectedItem() == null){return false;}
+        if(jdFecNac.getDate() == null)         {return false;}
+        
+        return true;
+       }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -73,9 +105,9 @@ public class frmiAgregarJugador extends javax.swing.JInternalFrame {
 
         jLabel3.setText("Fecha de Nacimiento");
 
-        jLabel7.setText("Altura");
+        jLabel7.setText("Altura(cm)");
 
-        jLabel8.setText("Peso");
+        jLabel8.setText("Peso(kl)");
 
         jLabel9.setText("Estilo");
 
@@ -114,6 +146,11 @@ public class frmiAgregarJugador extends javax.swing.JInternalFrame {
         btnCargar.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 btnCargarMouseClicked(evt);
+            }
+        });
+        btnCargar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCargarActionPerformed(evt);
             }
         });
 
@@ -218,6 +255,9 @@ public class frmiAgregarJugador extends javax.swing.JInternalFrame {
 
     private void btnLimpiarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnLimpiarMouseClicked
 
+     limpiar();
+    }//GEN-LAST:event_btnLimpiarMouseClicked
+        public void limpiar(){
         tfAltura.setText("");
         tfNombre.setText("");
         tfDni.setText("");
@@ -227,37 +267,46 @@ public class frmiAgregarJugador extends javax.swing.JInternalFrame {
         cboEstilo.setSelectedIndex(0);
         rbDer.setSelected(false);
         rbIzq.setSelected(false);
-        jdFecNac.setDate(null);
-    }//GEN-LAST:event_btnLimpiarMouseClicked
-
+        jdFecNac.setDate(null); 
+         }
+         
     private void btnCargarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCargarMouseClicked
-        try {
-            boolean a;
-            Conexion con = new Conexion();
-            Jugador j=new Jugador();
-            JugadorData jd=new JugadorData(con);
-            j.setNombre(tfNombre.getText());
-            j.setDni(Integer.parseInt(tfDni.getText()));
-            Date fecini=(Date) jdFecNac.getDate();
-            LocalDate ld=fecini.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
-            j.setFechaNac(ld);
-            j.setAltura(Double.parseDouble(tfAltura.getText()));
-            j.setPeso(Double.parseDouble(tfPeso.getText()));
-            j.setEstilo(cboEstilo.getSelectedItem().toString());
-            if(rbDer.isSelected())
-            j.setManoHabil("Derecha");
-            if(rbIzq.isSelected())
-            j.setManoHabil("Izquierda");
-            j.setActivo(cbActivo.isSelected());
-            a=jd.guardarJugador(j);
-            if(a) {
-               JOptionPane.showMessageDialog(null,"El Jugador se agrego con exito"); 
-            } else {
-                JOptionPane.showMessageDialog(null,"Error al conectar con la base de datos:" );
-            }
-        } catch (ClassNotFoundException ex) {
-            Logger.getLogger(frmiAgregarSponsor.class.getName()).log(Level.SEVERE, null, ex);
-        }
+
+if(validarCampos()){
+j.setNombre(tfNombre.getText());
+j.setDni(Integer.parseInt(tfDni.getText()));
+Date fecini=(Date) jdFecNac.getDate();
+LocalDate ld=fecini.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+j.setFechaNac(ld);
+j.setAltura(Double.parseDouble(tfAltura.getText()));
+j.setPeso(Double.parseDouble(tfPeso.getText()));
+j.setEstilo(cboEstilo.getSelectedItem().toString());
+if(rbDer.isSelected())
+    j.setManoHabil("Derecha");
+if(rbIzq.isSelected())
+    j.setManoHabil("Izquierda");
+j.setActivo(cbActivo.isSelected());
+boolean repetido = false;
+
+List<Jugador> Jugadores = new ArrayList();
+Jugadores = jd.buscarTodosJugadores();
+for(int i = 0;i<Jugadores.size();i++){
+    if(Jugadores.get(i).getDni() == j.getDni()){    
+        JOptionPane.showMessageDialog(null,"Verifique el DNI ingresado.");
+        repetido = true;
+    }
+}
+
+
+if(!repetido && vFecha(ld)){
+    jd.guardarJugador(j);
+    limpiar();
+    JOptionPane.showMessageDialog(null,"Jugador Agregado con exito.");
+}//else{
+   // JOptionPane.showMessageDialog(null,"Verifique el DNI ingresado.");
+//}
+///////////////////////////////////////////////////////////////////////////////////////////
+}else{JOptionPane.showMessageDialog(null, "Por favor complete todos los campos.");}
     }//GEN-LAST:event_btnCargarMouseClicked
 
     private void tfDniActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfDniActionPerformed
@@ -278,6 +327,10 @@ public class frmiAgregarJugador extends javax.swing.JInternalFrame {
         char c=evt.getKeyChar();
      if(c<'0'||c>'9'||c=='.')evt.consume();
     }//GEN-LAST:event_tfPesoKeyTyped
+
+    private void btnCargarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCargarActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnCargarActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -302,4 +355,6 @@ public class frmiAgregarJugador extends javax.swing.JInternalFrame {
     private javax.swing.JTextField tfNombre;
     private javax.swing.JTextField tfPeso;
     // End of variables declaration//GEN-END:variables
+
+
 }

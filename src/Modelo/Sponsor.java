@@ -53,7 +53,7 @@ public class Sponsor {
 
     @Override
     public String toString() {
-        return ("Sponsor" + " ID " + idSponsor + " Marca " + marca);
+        return (marca);
     }
 
     

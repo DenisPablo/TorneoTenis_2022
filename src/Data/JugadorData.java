@@ -285,7 +285,7 @@ return resultados;
 
             ResultSet rs = ps.executeQuery();
           while(rs.next()){
-              jugador = new Jugador() ;
+             jugador = new Jugador() ;
              jugador.setIdJugador(rs.getInt(1));
              jugador.setNombre(rs.getString(2));
              jugador.setPuntaje(rs.getInt(11));

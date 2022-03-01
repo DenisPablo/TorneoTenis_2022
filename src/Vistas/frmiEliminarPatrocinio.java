@@ -6,6 +6,7 @@
 package Vistas;
 
 import Data.EncuentroData;
+import Data.JugadorData;
 import Data.PatrocinioData;
 import Data.SponsorData;
 import Modelo.Conexion;
@@ -22,31 +23,40 @@ import javax.swing.JOptionPane;
  */
 public class frmiEliminarPatrocinio extends javax.swing.JInternalFrame {
 
-    /**
-     * Creates new form frmiEliminarPatrocinio
-     */
-    public frmiEliminarPatrocinio() {
+        private PatrocinioData sponsor;
+        private Patrocinio p;
+        private PatrocinioData patrocinio;
+        private EncuentroData jd;
+        private Patrocinio p1;
+        private PatrocinioData patrocinio1;
+        private EncuentroData jd1;
+        private JugadorData j;
+        
+    public frmiEliminarPatrocinio(Conexion con) {
         initComponents();
+        
+        j = new JugadorData(con);
+        sponsor=new PatrocinioData(con);
+        p=new Patrocinio();
+        patrocinio=new PatrocinioData(con);
+        jd=new EncuentroData(con);
+        patrocinio1=new PatrocinioData(con);
+        p1=new Patrocinio();
+        jd1=new EncuentroData(con);
         cargarCbo();
     }
 public void cargarCbo(){
-        try {
-            Conexion con = new Conexion();
-            PatrocinioData sponsor=new PatrocinioData(con);
-           
-            List<Patrocinio> spone= sponsor.buscarTodosPatrocinio();
-            for (int i = 0; i < spone.size(); i++) {
-                if(spone.get(i).isActivo()==true)
-                CboEliminarPatrocinio.addItem(spone.get(i)); 
-              
-            }
-             List<Patrocinio> spona= sponsor.buscarTodosPatrocinio();
-            for (int i = 0; i < spona.size(); i++) {
-                if(spona.get(i).isActivo()==false)
-                CboActivarPatrocinio.addItem(spona.get(i)); }
-        } catch (ClassNotFoundException ex) {
-            System.out.println("Error al cargar cbo" +ex);
-        }}
+    List<Patrocinio> spone= sponsor.buscarTodosPatrocinio();
+    for (int i = 0; i < spone.size(); i++) {
+        if(spone.get(i).isActivo()==true)
+            CboEliminarPatrocinio.addItem(spone.get(i));
+        
+    }
+    List<Patrocinio> spona= sponsor.buscarTodosPatrocinio();
+    for (int i = 0; i < spona.size(); i++) {
+        if(spona.get(i).isActivo()==false)
+            CboActivarPatrocinio.addItem(spona.get(i)); }
+}
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -166,47 +176,43 @@ public void cargarCbo(){
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton1MouseClicked
-     try {
-            Conexion con = new Conexion();
-            Patrocinio p=new Patrocinio();
-            PatrocinioData patrocinio=new PatrocinioData(con);
-            p=(Patrocinio)CboEliminarPatrocinio.getSelectedItem();            
-            boolean a =  patrocinio.bajaPatrocinio(p.getIdPatrocinio());
-            if(a) {
-               JOptionPane.showMessageDialog(null,"El encuentro se agrego con exito"); 
-            } else {
-                JOptionPane.showMessageDialog(null,"Error al conectar con la base de datos:" );
-            }
-            EncuentroData jd=new EncuentroData(con);
-            jd.calcularRankingPuntaje();
-        } catch (ClassNotFoundException ex) {
-            Logger.getLogger(frmiEliminarSponsor.class.getName()).log(Level.SEVERE, null, ex);
+        if(CboEliminarPatrocinio.getSelectedItem() != null){
+        p=(Patrocinio)CboEliminarPatrocinio.getSelectedItem();
+        boolean a =  patrocinio.bajaPatrocinio(p.getIdPatrocinio());
+        
+//        p.getJugador().restarPuntos(1);
+//        j.actualizarJugador(p.getJugador());
+//        jd.calcularRankingPuntaje();
+        
+        if(a) {
+            JOptionPane.showMessageDialog(null,"El Patrocinio se dio de baja con exito");
+     
         }
+        }else{JOptionPane.showMessageDialog(null, "Seleccione un Patrocinio");}
          CboActivarPatrocinio.removeAllItems();
          CboEliminarPatrocinio.removeAllItems(); 
         cargarCbo();
     }//GEN-LAST:event_jButton1MouseClicked
 
     private void jButton2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton2MouseClicked
-       try {
-            Conexion con = new Conexion();
-            Patrocinio p=new Patrocinio();
-            PatrocinioData patrocinio=new PatrocinioData(con);
-            p=(Patrocinio)CboActivarPatrocinio.getSelectedItem();
-            boolean a =  patrocinio.altaPatrocinio(p.getIdPatrocinio());
-            if(a) {
-               JOptionPane.showMessageDialog(null,"El encuentro se agrego con exito"); 
-            } else {
-                JOptionPane.showMessageDialog(null,"Error al conectar con la base de datos:" );
-            }
-            EncuentroData jd=new EncuentroData(con);
-            jd.calcularRankingPuntaje();
-        } catch (ClassNotFoundException ex) {
-            Logger.getLogger(frmiEliminarSponsor.class.getName()).log(Level.SEVERE, null, ex);
+        if(CboActivarPatrocinio.getSelectedItem() != null){
+        p1=(Patrocinio)CboActivarPatrocinio.getSelectedItem();
+        boolean a =  patrocinio1.altaPatrocinio(p1.getIdPatrocinio());
+        
+//        p.getJugador().sumarPuntos(1);
+//        j.actualizarJugador(p.getJugador());
+//        jd.calcularRankingPuntaje();
+        
+        if(a) {
+            JOptionPane.showMessageDialog(null,"El encuentro se agrego con exito");
+        } else {
+            JOptionPane.showMessageDialog(null,"El Patrocinio se dio de alta con exito" );
         }
+        }else{JOptionPane.showMessageDialog(null, "Seleccione un Patrocinio");}
+        //jd.calcularRankingPuntaje();
          CboActivarPatrocinio.removeAllItems();
          CboEliminarPatrocinio.removeAllItems(); 
-        cargarCbo();
+         cargarCbo();
     }//GEN-LAST:event_jButton2MouseClicked
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed

@@ -98,7 +98,9 @@ public class SponsorData {
             ps.setInt(2, id);
             ps.executeUpdate();
             ps.close();
+            JOptionPane.showMessageDialog(null,"Sponsor borrado con exito: ");
         }
+         
         catch(SQLException ex){
          JOptionPane.showMessageDialog(null,"Error al conectar con la base de datos:" + ex);
         }
@@ -114,7 +116,9 @@ public class SponsorData {
             ps.setInt(2, id);
             ps.executeUpdate();
             ps.close();
+            JOptionPane.showMessageDialog(null,"Dado de alta con exito: "); 
         }
+         
         catch(SQLException ex){
          JOptionPane.showMessageDialog(null,"Error al conectar con la base de datos:" + ex);
         }

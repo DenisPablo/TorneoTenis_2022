@@ -5,7 +5,7 @@
 package Modelo;
 
 import java.time.LocalDate;
-
+import Modelo.Jugador;
 /**
  *
  * @author martinbordon
@@ -129,9 +129,11 @@ public class Encuentro {
     public void setTorneo(Torneo torneo) {
         this.torneo = torneo;
     }
+    
+    
     @Override
     public String toString() {
-        return ("Encuentro:" + " ID: " + idEncuentro + " Jugador 1: " + jugador1 + " Jugador 2 " + jugador2 + " Fecha: " + fechaEncuentro + " Resultado: " + resultado + " jugadorGanador: " + jugadorGanador );
+        return ( jugador1.getNombre() + " VS " + jugador2.getNombre() + " Fecha: " + fechaEncuentro + " Ganador: " + jugadorGanador.getNombre() );
     }
     
 }

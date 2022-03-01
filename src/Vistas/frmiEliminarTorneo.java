@@ -11,6 +11,7 @@ import Modelo.Torneo;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -18,11 +19,19 @@ import java.util.logging.Logger;
  */
 public class frmiEliminarTorneo extends javax.swing.JInternalFrame {
 
-    /**
-     * Creates new form frmiEliminarTorneo
-     */
-    public frmiEliminarTorneo() {
+        private TorneoData orneo;
+        private Torneo p;
+        private TorneoData patrocinio;
+        private Torneo p1;
+        private TorneoData patrocinio1;
+   
+    public frmiEliminarTorneo(Conexion con) {
         initComponents();
+        orneo=new TorneoData(con);
+        p=new Torneo();
+        patrocinio=new TorneoData(con);
+        p1=new Torneo();
+        patrocinio1=new TorneoData(con);
         cargarCbo();
     }
 
@@ -131,33 +140,21 @@ public class frmiEliminarTorneo extends javax.swing.JInternalFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 public void cargarCbo(){
-        try {
-            Conexion con = new Conexion();
-            TorneoData orneo=new TorneoData(con);
-            
-            List<Torneo> tor= orneo.devolverTodosTorneos();
-            for (int i = 0; i < tor.size(); i++) {
-                if(tor.get(i).isActivo()==false)
-                 CboActivarTorneo.addItem(tor.get(i)); 
-            }
-               for (int i = 0; i < tor.size(); i++) {
-                if(tor.get(i).isActivo()==true)
-                 CboEliminarTorneo.addItem(tor.get(i)); 
-            }
-        } catch (ClassNotFoundException ex) {
-            Logger.getLogger(frmiModificarSponsor.class.getName()).log(Level.SEVERE, null, ex);
-        }
+    List<Torneo> tor= orneo.devolverTodosTorneos();
+    for (int i = 0; i < tor.size(); i++) {
+        if(tor.get(i).isActivo()==false)
+            CboActivarTorneo.addItem(tor.get(i));
+    }
+    for (int i = 0; i < tor.size(); i++) {
+        if(tor.get(i).isActivo()==true)
+            CboEliminarTorneo.addItem(tor.get(i));
+    }
  }
     private void jButton1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton1MouseClicked
-      try {
-            Conexion con = new Conexion();
-            Torneo p=new Torneo();
-            TorneoData patrocinio=new TorneoData(con);
-            p=(Torneo)CboEliminarTorneo.getSelectedItem();
-            patrocinio.darBajaTorneo(p.getIdTorneo());
-        } catch (ClassNotFoundException ex) {
-            Logger.getLogger(frmiEliminarSponsor.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        if(CboEliminarTorneo.getSelectedItem() != null){
+        p=(Torneo)CboEliminarTorneo.getSelectedItem();
+        patrocinio.darBajaTorneo(p.getIdTorneo());
+        }else{JOptionPane.showMessageDialog(null, "Seleccione un Torneo.");}
          CboActivarTorneo.removeAllItems();
          CboEliminarTorneo.removeAllItems(); 
         cargarCbo();
@@ -165,17 +162,12 @@ public void cargarCbo(){
     }//GEN-LAST:event_jButton1MouseClicked
 
     private void btnActivar1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnActivar1MouseClicked
-        try {
-            Conexion con = new Conexion();
-            Torneo p=new Torneo();
-            TorneoData patrocinio=new TorneoData(con);
-            p=(Torneo)CboActivarTorneo.getSelectedItem();
-            patrocinio.darAltaTorneo(p.getIdTorneo());
-        } catch (ClassNotFoundException ex) {
-            Logger.getLogger(frmiEliminarSponsor.class.getName()).log(Level.SEVERE, null, ex);
-        }
-         CboActivarTorneo.removeAllItems();
-         CboEliminarTorneo.removeAllItems(); 
+        if(CboActivarTorneo.getSelectedItem() != null){
+        p1=(Torneo)CboActivarTorneo.getSelectedItem();
+        patrocinio1.darAltaTorneo(p1.getIdTorneo());
+        CboActivarTorneo.removeAllItems();
+        CboEliminarTorneo.removeAllItems(); 
+        }else{JOptionPane.showMessageDialog(null, "Seleccione un Torneo.");}
         cargarCbo();
     }//GEN-LAST:event_btnActivar1MouseClicked
 

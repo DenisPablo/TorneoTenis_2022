@@ -5,6 +5,11 @@
  */
 package Vistas;
 
+import Modelo.Conexion;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author Romi
@@ -14,8 +19,18 @@ public class Menu extends javax.swing.JFrame {
     /**
      * Creates new form Menu
      */
+    
+    Conexion conexion;
+    
     public Menu() {
-        initComponents();
+        
+       try{
+            conexion = new Conexion("jdbc:mysql://localhost/torneoFinal", "root", "");
+        } catch (ClassNotFoundException ex){
+            JOptionPane.showMessageDialog(null, "Error de driver");
+        }
+       
+       initComponents();
     }
 
     /**
@@ -65,7 +80,6 @@ public class Menu extends javax.swing.JFrame {
         jMenu34 = new javax.swing.JMenu();
         jMenu36 = new javax.swing.JMenu();
         jMenu37 = new javax.swing.JMenu();
-        jMenu38 = new javax.swing.JMenu();
         jMenu39 = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -74,7 +88,7 @@ public class Menu extends javax.swing.JFrame {
         Menu.setLayout(MenuLayout);
         MenuLayout.setHorizontalGroup(
             MenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 604, Short.MAX_VALUE)
+            .addGap(0, 605, Short.MAX_VALUE)
         );
         MenuLayout.setVerticalGroup(
             MenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -356,14 +370,6 @@ public class Menu extends javax.swing.JFrame {
         });
         jMenu32.add(jMenu37);
 
-        jMenu38.setText("Listar Torneos Por Jugador");
-        jMenu38.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jMenu38MouseClicked(evt);
-            }
-        });
-        jMenu32.add(jMenu38);
-
         jMenu39.setText("Listar Encuentros Proximos");
         jMenu39.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -380,11 +386,11 @@ public class Menu extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(Menu)
+            .addComponent(Menu, javax.swing.GroupLayout.Alignment.TRAILING)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(Menu)
+            .addComponent(Menu, javax.swing.GroupLayout.Alignment.TRAILING)
         );
 
         pack();
@@ -393,7 +399,7 @@ public class Menu extends javax.swing.JFrame {
     private void jMenu7MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenu7MouseClicked
         Menu.removeAll();
         Menu.repaint();
-        frmiAgregarTorneo aC=new frmiAgregarTorneo();
+        frmiAgregarTorneo aC=new frmiAgregarTorneo(conexion);
         aC.setVisible(true);
         Menu.add(aC);
         Menu.moveToFront(aC);
@@ -406,7 +412,7 @@ public class Menu extends javax.swing.JFrame {
     private void jMenu8MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenu8MouseClicked
         Menu.removeAll();
         Menu.repaint();
-        frmiModificarTorneo aC=new frmiModificarTorneo();
+        frmiModificarTorneo aC=new frmiModificarTorneo(conexion);
         aC.setVisible(true);
         Menu.add(aC);
         Menu.moveToFront(aC);
@@ -415,7 +421,7 @@ public class Menu extends javax.swing.JFrame {
     private void jMenu9MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenu9MouseClicked
         Menu.removeAll();
         Menu.repaint();
-        frmiEliminarTorneo aC=new frmiEliminarTorneo();
+        frmiEliminarTorneo aC=new frmiEliminarTorneo(conexion);
         aC.setVisible(true);
         Menu.add(aC);
         Menu.moveToFront(aC);        // TODO add your handling code here:
@@ -424,7 +430,7 @@ public class Menu extends javax.swing.JFrame {
     private void jMenu11MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenu11MouseClicked
          Menu.removeAll();
         Menu.repaint();
-        frmiAgregarEstadio aC=new frmiAgregarEstadio();
+        frmiAgregarEstadio aC=new frmiAgregarEstadio(conexion);
         aC.setVisible(true);
         Menu.add(aC);
         Menu.moveToFront(aC);
@@ -433,7 +439,7 @@ public class Menu extends javax.swing.JFrame {
     private void jMenu12MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenu12MouseClicked
         Menu.removeAll();
         Menu.repaint();
-        frmiModificarEstadio aC=new frmiModificarEstadio();
+        frmiModificarEstadio aC=new frmiModificarEstadio(conexion);
         aC.setVisible(true);
         Menu.add(aC);
         Menu.moveToFront(aC);
@@ -442,7 +448,7 @@ public class Menu extends javax.swing.JFrame {
     private void jMenu13MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenu13MouseClicked
         Menu.removeAll();
         Menu.repaint();
-        frmiEliminarEstadio aC=new frmiEliminarEstadio();
+        frmiEliminarEstadio aC=new frmiEliminarEstadio(conexion);
         aC.setVisible(true);
         Menu.add(aC);
         Menu.moveToFront(aC);          // TODO add your handling code here:
@@ -451,7 +457,7 @@ public class Menu extends javax.swing.JFrame {
     private void jMenu15MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenu15MouseClicked
          Menu.removeAll();
         Menu.repaint();
-        frmiAgregarJugador aC=new frmiAgregarJugador();
+        frmiAgregarJugador aC=new frmiAgregarJugador(conexion);
         aC.setVisible(true);
         Menu.add(aC);
         Menu.moveToFront(aC);        // TODO add your handling code here:
@@ -460,7 +466,7 @@ public class Menu extends javax.swing.JFrame {
     private void jMenu16MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenu16MouseClicked
         Menu.removeAll();
         Menu.repaint();
-        frmiModificarJugador aC=new frmiModificarJugador();
+        frmiModificarJugador aC=new frmiModificarJugador(conexion);
         aC.setVisible(true);
         Menu.add(aC);
         Menu.moveToFront(aC);        // TODO add your handling code here:
@@ -469,7 +475,7 @@ public class Menu extends javax.swing.JFrame {
     private void jMenu17MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenu17MouseClicked
        Menu.removeAll();
         Menu.repaint();
-        frmiEliminarJugador aC=new frmiEliminarJugador();
+        frmiEliminarJugador aC=new frmiEliminarJugador(conexion);
         aC.setVisible(true);
         Menu.add(aC);
         Menu.moveToFront(aC);
@@ -478,7 +484,7 @@ public class Menu extends javax.swing.JFrame {
     private void jMenu19MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenu19MouseClicked
         Menu.removeAll();
         Menu.repaint();
-        frmiAgregarSponsor aC=new frmiAgregarSponsor();
+        frmiAgregarSponsor aC=new frmiAgregarSponsor(conexion);
         aC.setVisible(true);
         Menu.add(aC);
         Menu.moveToFront(aC);        // TODO add your handling code here:
@@ -487,7 +493,7 @@ public class Menu extends javax.swing.JFrame {
     private void jMenu20MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenu20MouseClicked
         Menu.removeAll();
         Menu.repaint();
-        frmiModificarSponsor aC=new frmiModificarSponsor();
+        frmiModificarSponsor aC=new frmiModificarSponsor(conexion);
         aC.setVisible(true);
         Menu.add(aC);
         Menu.moveToFront(aC);         // TODO add your handling code here:
@@ -496,7 +502,7 @@ public class Menu extends javax.swing.JFrame {
     private void jMenu21MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenu21MouseClicked
         Menu.removeAll();
         Menu.repaint();
-        frmiEliminarSponsor aC=new frmiEliminarSponsor();
+        frmiEliminarSponsor aC=new frmiEliminarSponsor(conexion);
         aC.setVisible(true);
         Menu.add(aC);
         Menu.moveToFront(aC);          // TODO add your handling code here:
@@ -505,7 +511,7 @@ public class Menu extends javax.swing.JFrame {
     private void jMenu23MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenu23MouseClicked
         Menu.removeAll();
         Menu.repaint();
-        frmiAgregarPatrocinio aC=new frmiAgregarPatrocinio();
+        frmiAgregarPatrocinio aC=new frmiAgregarPatrocinio(conexion);
         aC.setVisible(true);
         Menu.add(aC);
         Menu.moveToFront(aC);      
@@ -514,7 +520,7 @@ public class Menu extends javax.swing.JFrame {
     private void jMenu24MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenu24MouseClicked
         Menu.removeAll();
         Menu.repaint();
-        frmiModificarPatrocinio aC=new frmiModificarPatrocinio();
+        frmiModificarPatrocinio aC=new frmiModificarPatrocinio(conexion);
         aC.setVisible(true);
         Menu.add(aC);
         Menu.moveToFront(aC); 
@@ -523,7 +529,7 @@ public class Menu extends javax.swing.JFrame {
     private void jMenu25MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenu25MouseClicked
        Menu.removeAll();
         Menu.repaint();
-        frmiEliminarPatrocinio aC=new frmiEliminarPatrocinio();
+        frmiEliminarPatrocinio aC=new frmiEliminarPatrocinio(conexion);
         aC.setVisible(true);
         Menu.add(aC);
         Menu.moveToFront(aC); 
@@ -532,7 +538,7 @@ public class Menu extends javax.swing.JFrame {
     private void jMenu27MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenu27MouseClicked
         Menu.removeAll();
         Menu.repaint();
-        frmiAgregarEncuentro aC=new frmiAgregarEncuentro();
+        frmiAgregarEncuentro aC=new frmiAgregarEncuentro(conexion);
         aC.setVisible(true);
         Menu.add(aC);
         Menu.moveToFront(aC);
@@ -541,7 +547,7 @@ public class Menu extends javax.swing.JFrame {
     private void jMenu28MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenu28MouseClicked
         Menu.removeAll();
         Menu.repaint();
-        frmiModificarEncuentro aC=new frmiModificarEncuentro();
+        frmiModificarEncuentro aC=new frmiModificarEncuentro(conexion);
         aC.setVisible(true);
         Menu.add(aC);
         Menu.moveToFront(aC);        // TODO add your handling code here:
@@ -550,7 +556,7 @@ public class Menu extends javax.swing.JFrame {
     private void jMenu29MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenu29MouseClicked
         Menu.removeAll();
         Menu.repaint();
-        frmiEliminarEncuentro aC=new frmiEliminarEncuentro();
+        frmiEliminarEncuentro aC=new frmiEliminarEncuentro(conexion);
         aC.setVisible(true);
         Menu.add(aC);
         Menu.moveToFront(aC);
@@ -567,7 +573,7 @@ public class Menu extends javax.swing.JFrame {
     private void jMenu31MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenu31MouseClicked
        Menu.removeAll();
         Menu.repaint();
-        frmiVerTorneos aC=new frmiVerTorneos();
+        frmiVerTorneos aC=new frmiVerTorneos(conexion);
         aC.setVisible(true);
         Menu.add(aC);
         Menu.moveToFront(aC);
@@ -576,7 +582,7 @@ public class Menu extends javax.swing.JFrame {
     private void jMenu4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenu4MouseClicked
      Menu.removeAll();
         Menu.repaint();
-        frmiVerSponsors aC=new frmiVerSponsors();
+        frmiVerSponsors aC=new frmiVerSponsors(conexion);
         aC.setVisible(true);
         Menu.add(aC);
         Menu.moveToFront(aC);
@@ -585,7 +591,7 @@ public class Menu extends javax.swing.JFrame {
     private void jMenu5MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenu5MouseClicked
          Menu.removeAll();
         Menu.repaint();
-        frmiVerEncuentros aC=new frmiVerEncuentros();
+        frmiVerEncuentros aC=new frmiVerEncuentros(conexion);
         aC.setVisible(true);
         Menu.add(aC);
         Menu.moveToFront(aC);
@@ -594,7 +600,7 @@ public class Menu extends javax.swing.JFrame {
     private void jMenu6MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenu6MouseClicked
           Menu.removeAll();
         Menu.repaint();
-        frmiVerEstadios aC=new frmiVerEstadios();
+        frmiVerEstadios aC=new frmiVerEstadios(conexion);
         aC.setVisible(true);
         Menu.add(aC);
         Menu.moveToFront(aC);
@@ -603,7 +609,7 @@ public class Menu extends javax.swing.JFrame {
     private void jMenu3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenu3MouseClicked
          Menu.removeAll();
         Menu.repaint();
-        frmiVerJugadores aC=new frmiVerJugadores();
+        frmiVerJugadores aC=new frmiVerJugadores(conexion);
         aC.setVisible(true);
         Menu.add(aC);
         Menu.moveToFront(aC);
@@ -612,7 +618,7 @@ public class Menu extends javax.swing.JFrame {
     private void jMenu30MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenu30MouseClicked
        Menu.removeAll();
         Menu.repaint();
-        frmiVerPatrocinios aC=new frmiVerPatrocinios();
+        frmiVerPatrocinios aC=new frmiVerPatrocinios(conexion);
         aC.setVisible(true);
         Menu.add(aC);
         Menu.moveToFront(aC);
@@ -621,7 +627,7 @@ public class Menu extends javax.swing.JFrame {
     private void jMenu33MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenu33MouseClicked
         Menu.removeAll();
         Menu.repaint();
-        frmiBuscarSponsorxJugador aC=new frmiBuscarSponsorxJugador();
+        frmiBuscarSponsorxJugador aC=new frmiBuscarSponsorxJugador(conexion);
         aC.setVisible(true);
         Menu.add(aC);
         Menu.moveToFront(aC);
@@ -631,7 +637,7 @@ public class Menu extends javax.swing.JFrame {
        
         Menu.removeAll();
         Menu.repaint();
-        frmiBuscaJugadoresdeunSponsor aC=new frmiBuscaJugadoresdeunSponsor();
+        frmiBuscaJugadoresdeunSponsor aC=new frmiBuscaJugadoresdeunSponsor(conexion);
         aC.setVisible(true);
         Menu.add(aC);
         Menu.moveToFront(aC);
@@ -640,7 +646,7 @@ public class Menu extends javax.swing.JFrame {
     private void jMenu36MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenu36MouseClicked
      Menu.removeAll();
         Menu.repaint();
-        frmiBuscarEncuentrosPorFecha aC=new frmiBuscarEncuentrosPorFecha();
+        frmiBuscarEncuentrosPorFecha aC=new frmiBuscarEncuentrosPorFecha(conexion);
         aC.setVisible(true);
         Menu.add(aC);
         Menu.moveToFront(aC);
@@ -649,25 +655,16 @@ public class Menu extends javax.swing.JFrame {
     private void jMenu37MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenu37MouseClicked
         Menu.removeAll();
         Menu.repaint();
-        frmiListarJugadoresPorPuntaje aC=new frmiListarJugadoresPorPuntaje();
+        frmiListarJugadoresPorPuntaje aC=new frmiListarJugadoresPorPuntaje(conexion);
         aC.setVisible(true);
         Menu.add(aC);
         Menu.moveToFront(aC);
     }//GEN-LAST:event_jMenu37MouseClicked
 
-    private void jMenu38MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenu38MouseClicked
-     Menu.removeAll();
-        Menu.repaint();
-        frmiListarTorneosPorJugador aC=new frmiListarTorneosPorJugador();
-        aC.setVisible(true);
-        Menu.add(aC);
-        Menu.moveToFront(aC);
-    }//GEN-LAST:event_jMenu38MouseClicked
-
     private void jMenu39MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenu39MouseClicked
              Menu.removeAll();
         Menu.repaint();
-        frmiListarEncuentrosProximos aC=new frmiListarEncuentrosProximos();
+        frmiListarEncuentrosProximos aC=new frmiListarEncuentrosProximos(conexion);
         aC.setVisible(true);
         Menu.add(aC);
         Menu.moveToFront(aC);
@@ -744,7 +741,6 @@ public class Menu extends javax.swing.JFrame {
     private javax.swing.JMenu jMenu34;
     private javax.swing.JMenu jMenu36;
     private javax.swing.JMenu jMenu37;
-    private javax.swing.JMenu jMenu38;
     private javax.swing.JMenu jMenu39;
     private javax.swing.JMenu jMenu4;
     private javax.swing.JMenu jMenu5;

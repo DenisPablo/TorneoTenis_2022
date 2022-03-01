@@ -89,15 +89,15 @@ public class EstadioData {
             ps.setString(1,e.getNombre());
             ps.setString(2,e.getCiudad());
             ps.setString(3, e.getCategoria());
-             ps.setBoolean(4, e.isActivo());
+            ps.setBoolean(4, e.isActivo());
             ps.setString(5, e.getDireccionComercial());
             ps.setString(6, e.getDimension());
-            ps.setInt(7, e.getIdEstadio());
-            ps.setBoolean(8,e.isEstado());
+            ps.setBoolean(7,e.isEstado());
+            ps.setInt(8, e.getIdEstadio());
 
             ps.executeUpdate();
             ps.close();
-               JOptionPane.showMessageDialog(null,"Estadio modificado con exito: ");
+              // JOptionPane.showMessageDialog(null,"Estadio modificado con exito: ");
         }
         catch (SQLException ex){
                 JOptionPane.showMessageDialog(null,"Error al conectar con la base de datos:" + ex);
@@ -185,7 +185,7 @@ public class EstadioData {
         List<Estadio> resultados;
         resultados = new ArrayList<>();
         Estadio estadio= null;
-        String sql = "SELECT * FROM estadio Where activo=true";
+        String sql = "SELECT * FROM estadio Where activo=true and estado=false";
         try{
             PreparedStatement ps = con.prepareStatement(sql);
             ResultSet rs = ps.executeQuery();
@@ -237,4 +237,19 @@ public class EstadioData {
             }
         return resultados;
   }
+        
+      public void modificarEstado(int id, boolean estado){
+         Estadio estadio = new Estadio();
+         String sql = "UPDATE estadio SET estado=? WHERE idEstadio=?";
+         try{
+         PreparedStatement ps = con.prepareStatement(sql);
+            ps.setBoolean(1, estado);
+            ps.setInt(2, id);
+            ps.executeUpdate();
+            ps.close();
+        }
+        catch(SQLException ex){
+        JOptionPane.showMessageDialog(null,"Error al conectar con la base de datos:" + ex);
+        }  
+    }        
 }

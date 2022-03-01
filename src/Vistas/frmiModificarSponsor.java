@@ -11,33 +11,28 @@ import Modelo.Sponsor;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 
-/**
- *
- * @author Romi
- */
+            
 public class frmiModificarSponsor extends javax.swing.JInternalFrame {
 
-    /**
-     * Creates new form frmiModificarSponsor
-     */
-    public frmiModificarSponsor() {
+    SponsorData sponsor1;
+    Sponsor s;
+    SponsorData sponsor;
+    
+    public frmiModificarSponsor(Conexion con) {
         initComponents();
+        sponsor1=new SponsorData(con);
+        s=new Sponsor();
+        sponsor=new SponsorData(con);
         cargarCbo();
     }
  public void cargarCbo(){
-        try {
-            Conexion con = new Conexion();
-            SponsorData sponsor=new SponsorData(con);
-            
-            sponsor.buscarTodosSposor();
-            List<Sponsor> spon= sponsor.buscarTodosSposor();
-            for (int i = 0; i < spon.size(); i++) {
-                cboSponsor.addItem(spon.get(i)); 
-            }
-        } catch (ClassNotFoundException ex) {
-            Logger.getLogger(frmiModificarSponsor.class.getName()).log(Level.SEVERE, null, ex);
-        }
+     sponsor1.buscarTodosSposor();
+     List<Sponsor> spon= sponsor1.buscarTodosSposor();
+     for (int i = 0; i < spon.size(); i++) {
+         cboSponsor.addItem(spon.get(i));
+     }
  }
     /**
      * This method is called from within the constructor to initialize the form.
@@ -155,18 +150,21 @@ public class frmiModificarSponsor extends javax.swing.JInternalFrame {
         cboSponsor.setSelectedIndex(0);
     }//GEN-LAST:event_btnLimpiarMouseClicked
 
+     public boolean validarCampos(){
+   
+        if(tfMarca.getText().isEmpty()) {return false;}
+        if(cboSponsor.getSelectedItem()==null){return false;}
+        
+        return true; 
+    }
+    
     private void btnModificarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnModificarMouseClicked
-     try {
-            Conexion con = new Conexion();
-            Sponsor s=new Sponsor();
-            s=(Sponsor)cboSponsor.getSelectedItem();
-            s.setMarca(tfMarca.getText());
-            s.setActivo(cbActivo.isSelected());
-            SponsorData sponsor=new SponsorData(con);
-            sponsor.modificadarSponsor(s);
-        } catch (ClassNotFoundException ex) {
-            Logger.getLogger(frmiAgregarSponsor.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        if(validarCampos()){
+        s=(Sponsor)cboSponsor.getSelectedItem();
+        s.setMarca(tfMarca.getText());
+        s.setActivo(cbActivo.isSelected());
+        sponsor.modificadarSponsor(s);
+        }else{JOptionPane.showMessageDialog(null, "Por favor complete todos los campos");}
     }//GEN-LAST:event_btnModificarMouseClicked
 
     private void btnBuscarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnBuscarMouseClicked

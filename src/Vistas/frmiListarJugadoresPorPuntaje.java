@@ -21,15 +21,16 @@ import javax.swing.table.DefaultTableModel;
  * @author Romi
  */
 public class frmiListarJugadoresPorPuntaje extends javax.swing.JInternalFrame {
-    private DefaultTableModel model;
-    /**
-     * Creates new form frmiListar
-     */
-    public frmiListarJugadoresPorPuntaje() {
+        private DefaultTableModel model;
+        private List<Jugador> lista=null;
+        private JugadorData jd;
+        
+    public frmiListarJugadoresPorPuntaje(Conexion con) {
         initComponents();
         model =new DefaultTableModel();
-//        cargarCbo();
         armarCabeceraTablaJugador();
+        jd= new JugadorData(con);
+        
     }
 
     /**
@@ -113,31 +114,14 @@ public void borrarFilas(){
             }
     }
 }
-//public void cargarCbo(){
-//        try {
-//            Conexion con = new Conexion();
-//            JugadorData jugador=new JugadorData(con);
-//             List<Jugador> juga= jugador.buscarTodosJugadores();
-//            for (int i = 0; i < juga.size(); i++) {
-//                cboListar.addItem(juga.get(i)); 
-//            }
-//        } catch (ClassNotFoundException ex) {
-//            System.out.println("Error al cargar cbo" +ex);
-//        }}
+
 public void cargarDatos(){
-        try {
-            List<Jugador> lista=null;
-            borrarFilas();
-            Conexion con =new Conexion();
-            JugadorData jd= new JugadorData(con);
-//            Jugador a= (Jugador)cboListar.getSelectedItem();
-            lista= (List) jd.listarPuntajeDeJugadores();
-            for(Jugador i:lista ){
-                //if(a.getIdAlumno()==i.getAlumno().getIdAlumno())
-                 model.addRow(new Object[]{i.getIdJugador(),i.getNombre(),i.getPuntaje()});
-            }   } catch (ClassNotFoundException ex) {
-            Logger.getLogger(frmiListarJugadoresPorPuntaje.class.getName()).log(Level.SEVERE, null, ex);
-        }
+    borrarFilas();
+    lista= (List) jd.listarPuntajeDeJugadores();
+    for(Jugador i:lista ){
+        //if(a.getIdAlumno()==i.getAlumno().getIdAlumno())
+        model.addRow(new Object[]{i.getIdJugador(),i.getNombre(),i.getPuntaje()});
+    }
 }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnListar;

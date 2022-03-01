@@ -102,7 +102,7 @@ public class PatrocinioData {
             ps.setDate(5,Date.valueOf(  patrocinio.getFechaFinContrato()));
             ps.setBoolean(6,patrocinio.isActivo());
             ps.setString(7, patrocinio.getIndumentaria()); 
-             ps.setInt(8, patrocinio.getIdPatrocinio());
+            ps.setInt(8, patrocinio.getIdPatrocinio());
             ps.executeUpdate();
             ps.close();
                 a = true;

@@ -11,6 +11,7 @@ import Modelo.Estadio;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -18,11 +19,19 @@ import java.util.logging.Logger;
  */
 public class frmiModificarEstadio extends javax.swing.JInternalFrame {
 
-    /**
-     * Creates new form frmiModificarEstadio
-     */
-    public frmiModificarEstadio() {
+        private Estadio j;
+        private EstadioData jd;
+        private Estadio j1;
+        private EstadioData jd1;
+       
+    public frmiModificarEstadio(Conexion con) {
         initComponents();
+        
+        j= new Estadio();
+        jd=new EstadioData(con);
+        j1=new Estadio();
+        jd1=new EstadioData(con);
+        
            cargarCbo();
     }
 
@@ -182,46 +191,65 @@ public class frmiModificarEstadio extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_btnLimpiarMouseClicked
 
     private void BtnBuscarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BtnBuscarMouseClicked
-        Estadio j= new Estadio();
-        j= (Estadio) jComboBox1.getSelectedItem();
-        tfNombre.setText(j.getNombre());
-        tfCiudad.setText(j.getCiudad());
-        tfDimension.setText(j.getDimension());
-        tfDirCom.setText(j.getDireccionComercial());
+        
+       j= (Estadio) jComboBox1.getSelectedItem();
+       tfNombre.setText(j.getNombre());
+       tfCiudad.setText(j.getCiudad());
+       tfDimension.setText(j.getDimension());
+       tfDirCom.setText(j.getDireccionComercial());
        cbActivo.setSelected(j.isActivo());
-       cboCategoria.setSelectedItem(j.getCategoria().toString());
+       cboCategoria.setSelectedItem(j.getCategoria());
+      
     }//GEN-LAST:event_BtnBuscarMouseClicked
     public void cargarCbo(){
-        try {
-            Conexion con = new Conexion();
-            EstadioData jd=new EstadioData(con);
-            
-            List<Estadio> tor= jd.buscarTodosEstadio();
-            for (int i = 0; i < tor.size(); i++) {
-                jComboBox1.addItem(tor.get(i)); 
-            }
-        } catch (ClassNotFoundException ex) {
-            Logger.getLogger(frmiModificarSponsor.class.getName()).log(Level.SEVERE, null, ex);
+        List<Estadio> tor= jd.buscarTodosEstadio();
+        for (int i = 0; i < tor.size(); i++) {
+            jComboBox1.addItem(tor.get(i));
         }
  }
+    
+     public void limpiar(){
+       tfCiudad.setText("");
+        tfDimension.setText("");
+        tfDirCom.setText("");
+        tfNombre.setText("");
+        cbActivo.setSelected(false);
+        cboCategoria.setSelectedIndex(0);
+ }
+    
+      public boolean validarCampos(){
+
+       if(j1.getNombre().isEmpty())                   {return false;}
+       if(j1.getCiudad().isEmpty())                   {return false;}
+       if(j1.getCategoria().isEmpty())                {return false;}
+       
+       if(j1.getDireccionComercial().isEmpty())       {return false;}
+       if(j1.getDimension().isEmpty())                {return false;}
+      
+       return true;
+   }
+      
     private void btnModificarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnModificarMouseClicked
-         try {
-           Conexion con = new Conexion();
-            Estadio j=new Estadio();
-            EstadioData jd=new EstadioData(con);
-            j=(Estadio)jComboBox1.getSelectedItem();
-            j.setNombre(tfNombre.getText());
-           j.setCiudad(tfCiudad.getText());
-           j.setDimension(tfDimension.getText());
-           j.setCategoria(cboCategoria.getSelectedItem().toString());
-            j.setActivo(cbActivo.isSelected());
-            j.setDireccionComercial(tfDirCom.getText());
-            jd.modificadarEstadio(j);
-        } catch (ClassNotFoundException ex) {
-            Logger.getLogger(frmiAgregarSponsor.class.getName()).log(Level.SEVERE, null, ex);
-        }
+         
+        j1=(Estadio)jComboBox1.getSelectedItem();
+        j1.setNombre(tfNombre.getText());
+        j1.setCiudad(tfCiudad.getText());  
+        j1.setCategoria(cboCategoria.getSelectedItem().toString());
+        j1.setActivo(cbActivo.isSelected());
+        j1.setDireccionComercial(tfDirCom.getText());
+        j1.setDimension(tfDimension.getText());
+        
+        if(validarCampos()){
+        jd1.modificadarEstadio(j1);
+        JOptionPane.showMessageDialog(null,"El Estadio se modifico con exito"); 
+        limpiar();
+        }else{JOptionPane.showMessageDialog(null, "Por favor complete todos los campos.");}
+       
+    
         jComboBox1.removeAllItems();
         cargarCbo();
+    
+        
     }//GEN-LAST:event_btnModificarMouseClicked
 
 

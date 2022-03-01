@@ -22,12 +22,11 @@ import javax.swing.table.DefaultTableModel;
  */
 public class frmiVerPatrocinios extends javax.swing.JInternalFrame {
     private DefaultTableModel model;
-    /**
-     * Creates new form frmiListar
-     */
-    public frmiVerPatrocinios() {
+    PatrocinioData jd;
+    public frmiVerPatrocinios(Conexion con) {
         initComponents();
         model =new DefaultTableModel();
+        jd= new PatrocinioData(con);
 //        cargarCbo();
         armarCabeceraTablaJugador();
     }
@@ -131,19 +130,14 @@ public void borrarFilas(){
 //            System.out.println("Error al cargar cbo" +ex);
 //        }}
 public void cargarDatos(){
-        try {
-            List<Patrocinio> lista=null;
-            borrarFilas();
-            Conexion con =new Conexion();
-            PatrocinioData jd= new PatrocinioData(con);
-//            Jugador a= (Jugador)cboListar.getSelectedItem();
-            lista= (List) jd.buscarTodosPatrocinio();
-            for(Patrocinio i:lista ){
-                //if(a.getIdAlumno()==i.getAlumno().getIdAlumno())
-                model.addRow(new Object[]{i.getIdPatrocinio(),i.getSponsor().getIdSponsor(),i.getSponsor().getMarca(),i.getJugador().getIdJugador(),i.getJugador().getNombre(),i.getFechaInicioContrato(),i.getFechaFinContrato(),i.isActivo()});
-            }   } catch (ClassNotFoundException ex) {
-            Logger.getLogger(frmiVerPatrocinios.class.getName()).log(Level.SEVERE, null, ex);
-        }
+    List<Patrocinio> lista=null;
+    borrarFilas();
+    //            Jugador a= (Jugador)cboListar.getSelectedItem();
+    lista= (List) jd.buscarTodosPatrocinio();
+    for(Patrocinio i:lista ){
+        //if(a.getIdAlumno()==i.getAlumno().getIdAlumno())
+        model.addRow(new Object[]{i.getIdPatrocinio(),i.getSponsor().getIdSponsor(),i.getSponsor().getMarca(),i.getJugador().getIdJugador(),i.getJugador().getNombre(),i.getFechaInicioContrato(),i.getFechaFinContrato(),i.isActivo()});
+    }
 }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnListar;

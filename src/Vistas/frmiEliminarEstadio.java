@@ -12,6 +12,7 @@ import Modelo.Torneo;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -19,30 +20,32 @@ import java.util.logging.Logger;
  */
 public class frmiEliminarEstadio extends javax.swing.JInternalFrame {
 
-    /**
-     * Creates new form frmiEliminarEstadio
-     */
-    public frmiEliminarEstadio() {
+     private EstadioData jd;
+     private Estadio p;
+     private EstadioData ed;
+     private Estadio p1;
+     private EstadioData ed2;
+    public frmiEliminarEstadio(Conexion con) {
         initComponents();
+        
+        jd=new EstadioData(con);
+        ed=new EstadioData(con);
+        p =new Estadio();
+        p1=new Estadio();
+        ed2=new EstadioData(con);
         cargarCbo(); 
     }
   public void cargarCbo(){
-        try {
-            Conexion con = new Conexion();
-            EstadioData jd=new EstadioData(con);
-            
-            List<Estadio> tor= jd.buscarTodosEstadio();
-            for (int i = 0; i < tor.size(); i++) {
-                if(tor.get(i).isActivo()==true)
-                CboEliminarEstadio.addItem(tor.get(i)); 
-            }
-            for (int i = 0; i < tor.size(); i++) {
-                if(tor.get(i).isActivo()==false)
-                CboActivarEstadio.addItem(tor.get(i)); 
-            }
-        } catch (ClassNotFoundException ex) {
-            Logger.getLogger(frmiModificarSponsor.class.getName()).log(Level.SEVERE, null, ex);
-        }
+      List<Estadio> tor= jd.buscarTodosEstadio();
+      for (int i = 0; i < tor.size(); i++) {
+          if(tor.get(i).isActivo()==true)
+              CboEliminarEstadio.addItem(tor.get(i));
+      }
+      for (int i = 0; i < tor.size(); i++) {
+          if(tor.get(i).isActivo()==false)
+              CboActivarEstadio.addItem(tor.get(i));
+      }
+      
  }
     /**
      * This method is called from within the constructor to initialize the form.
@@ -76,6 +79,11 @@ public class frmiEliminarEstadio extends javax.swing.JInternalFrame {
         jButton1.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jButton1MouseClicked(evt);
+            }
+        });
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
             }
         });
 
@@ -153,20 +161,14 @@ public class frmiEliminarEstadio extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton1MouseClicked
-         try {
-            Conexion con = new Conexion();
-            Estadio p=new Estadio();
-            EstadioData ed=new EstadioData(con);
-            p=(Estadio)CboEliminarEstadio.getSelectedItem();
-            ed.bajaEstadio(p.getIdEstadio());
-        } catch (ClassNotFoundException ex) {
-            Logger.getLogger(frmiEliminarSponsor.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        if(CboEliminarEstadio.getSelectedItem() != null){
+        p=(Estadio)CboEliminarEstadio.getSelectedItem();
+        ed.bajaEstadio(p.getIdEstadio());
+        JOptionPane.showMessageDialog(null,"Estadio dado de baja con exito:" );
+        }else{JOptionPane.showMessageDialog(null, "Seleccione un estadio");}
          CboActivarEstadio.removeAllItems();
          CboEliminarEstadio.removeAllItems(); 
-        cargarCbo();
-        
-                   
+         cargarCbo();           
     }//GEN-LAST:event_jButton1MouseClicked
 
     private void btnActivarMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnActivarMouseEntered
@@ -174,19 +176,19 @@ public class frmiEliminarEstadio extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_btnActivarMouseEntered
 
     private void btnActivarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnActivarMouseClicked
-   try {
-            Conexion con = new Conexion();
-            Estadio p=new Estadio();
-            EstadioData ed=new EstadioData(con);
-            p=(Estadio)CboActivarEstadio.getSelectedItem();
-            ed.altaEstadio(p.getIdEstadio());
-        } catch (ClassNotFoundException ex) {
-            Logger.getLogger(frmiEliminarSponsor.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        if(CboActivarEstadio.getSelectedItem() != null){
+        p1=(Estadio)CboActivarEstadio.getSelectedItem();
+        ed2.altaEstadio(p1.getIdEstadio());
+        JOptionPane.showMessageDialog(null,"Estadio activado con exito:" );
          CboActivarEstadio.removeAllItems();
          CboEliminarEstadio.removeAllItems(); 
         cargarCbo();        // TODO add your handling code here:
+        }else{JOptionPane.showMessageDialog(null, "Seleccione un estadio.");}
     }//GEN-LAST:event_btnActivarMouseClicked
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton1ActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

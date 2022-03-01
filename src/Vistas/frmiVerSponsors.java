@@ -22,12 +22,11 @@ import javax.swing.table.DefaultTableModel;
  */
 public class frmiVerSponsors extends javax.swing.JInternalFrame {
     private DefaultTableModel model;
-    /**
-     * Creates new form frmiListar
-     */
-    public frmiVerSponsors() {
+    SponsorData jd;
+    public frmiVerSponsors(Conexion con) {
         initComponents();
         model =new DefaultTableModel();
+        jd= new SponsorData(con);
 //        cargarCbo();
         armarCabeceraTablaJugador();
     }
@@ -125,19 +124,14 @@ public void borrarFilas(){
 //            System.out.println("Error al cargar cbo" +ex);
 //        }}
 public void cargarDatos(){
-        try {
-            List<Sponsor> lista=null;
-            borrarFilas();
-            Conexion con =new Conexion();
-           SponsorData jd= new SponsorData(con);
-//            Jugador a= (Jugador)cboListar.getSelectedItem();
-            lista= (List) jd.buscarTodosSposor();
-            for(Sponsor i:lista ){
-                //if(a.getIdAlumno()==i.getAlumno().getIdAlumno())
-                model.addRow(new Object[]{i.getIdSponsor(),i.getMarca(),i.isActivo()});
-            }   } catch (ClassNotFoundException ex) {
-            Logger.getLogger(frmiVerSponsors.class.getName()).log(Level.SEVERE, null, ex);
-        }
+    List<Sponsor> lista=null;
+    borrarFilas();
+    //            Jugador a= (Jugador)cboListar.getSelectedItem();
+    lista= (List) jd.buscarTodosSposor();
+    for(Sponsor i:lista ){
+        //if(a.getIdAlumno()==i.getAlumno().getIdAlumno())
+        model.addRow(new Object[]{i.getIdSponsor(),i.getMarca(),i.isActivo()});
+    }
 }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnListar;

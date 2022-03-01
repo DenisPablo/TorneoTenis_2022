@@ -16,6 +16,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -23,16 +24,21 @@ import javax.swing.table.DefaultTableModel;
  * @author Romi
  */
 public class frmiBuscarSponsorxJugador extends javax.swing.JInternalFrame {
+    
     private DefaultTableModel model;
-    /**
-     * Creates new form frmiListar
-     */
-    public frmiBuscarSponsorxJugador() {
+    private JugadorData jugador;
+    List<Sponsor> lista=null;
+    private PatrocinioData jd;
+    
+    public frmiBuscarSponsorxJugador(Conexion con) {
         initComponents();
         model =new DefaultTableModel();
 //        cargarCbo();
-        armarCabeceraTablaJugador();
-        cargarCbo();
+      armarCabeceraTablaJugador();
+       
+      jugador = new JugadorData(con);
+      jd= new PatrocinioData(con);
+       cargarCbo();
     }
 
     /**
@@ -72,6 +78,11 @@ public class frmiBuscarSponsorxJugador extends javax.swing.JInternalFrame {
                 btnListarMouseClicked(evt);
             }
         });
+        btnListar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnListarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -103,6 +114,10 @@ public class frmiBuscarSponsorxJugador extends javax.swing.JInternalFrame {
     private void btnListarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnListarMouseClicked
           cargarDatos();
     }//GEN-LAST:event_btnListarMouseClicked
+
+    private void btnListarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnListarActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnListarActionPerformed
 public void armarCabeceraTablaJugador(){
         ArrayList<Object> column= new ArrayList<Object>();
         column.add("Id");
@@ -122,30 +137,19 @@ public void borrarFilas(){
     }
 }
 public void cargarCbo(){
-        try {
-            Conexion con = new Conexion();
-            JugadorData jugador=new JugadorData(con);
-             List<Jugador> juga= jugador.buscarTodosJugadores();
-            for (int i = 0; i < juga.size(); i++) {
-                cboListar.addItem(juga.get(i)); 
-            }
-        } catch (ClassNotFoundException ex) {
-            System.out.println("Error al cargar cbo" +ex);
-        }}
+    List<Jugador> juga= jugador.buscarTodosJugadores();
+    for (int i = 0; i < juga.size(); i++) {
+        cboListar.addItem(juga.get(i));
+    }
+}
 public void cargarDatos(){
-        try {
-            List<Sponsor> lista=null;
-            borrarFilas();
-            Conexion con =new Conexion();
-            PatrocinioData jd= new PatrocinioData(con);
-                Jugador a= (Jugador)cboListar.getSelectedItem();
-            lista= (List) jd.buscarSponsordeJugador(a.getIdJugador());
-            for(Sponsor i:lista ){
-                //if(a.getIdAlumno()==i.getAlumno().getIdAlumno())
-                  model.addRow(new Object[]{i.getIdSponsor(),i.getMarca(),i.isActivo()});
-            }   } catch (ClassNotFoundException ex) {
-            Logger.getLogger(frmiBuscarSponsorxJugador.class.getName()).log(Level.SEVERE, null, ex);
-        }
+    borrarFilas();
+    Jugador a= (Jugador)cboListar.getSelectedItem();
+    lista= (List) jd.buscarSponsordeJugador(a.getIdJugador());
+    for(Sponsor i:lista ){
+        //if(a.getIdAlumno()==i.getAlumno().getIdAlumno())
+        model.addRow(new Object[]{i.getIdSponsor(),i.getMarca(),i.isActivo()});
+    }
 }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnListar;

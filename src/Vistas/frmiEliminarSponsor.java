@@ -11,6 +11,7 @@ import Modelo.Sponsor;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -18,32 +19,33 @@ import java.util.logging.Logger;
  */
 public class frmiEliminarSponsor extends javax.swing.JInternalFrame {
 
-    /**
-     * Creates new form frmiEliminarSponsor
-     */
-    public frmiEliminarSponsor() {
+        private SponsorData sponsor;
+        private Sponsor s;
+        private SponsorData sponsor1;
+        private Sponsor s1;
+        private SponsorData sponsor2;
+        
+    public frmiEliminarSponsor(Conexion con) {
         initComponents();
+        sponsor=new SponsorData(con);
+        s=new Sponsor();
+        sponsor1=new SponsorData(con);
+        s1=new Sponsor();
+        sponsor2=new SponsorData(con);
         cargarCbo();
     }
     public void cargarCbo(){
-        try {
-            Conexion con = new Conexion();
-            SponsorData sponsor=new SponsorData(con);
+        sponsor.buscarTodosSposor();
+        List<Sponsor> spone= sponsor.buscarTodosSposor();
+        for (int i = 0; i < spone.size(); i++) {
+            if(spone.get(i).isActivo()==true)
+                CboEliminarSponsor.addItem(spone.get(i));
             
-            sponsor.buscarTodosSposor();
-            List<Sponsor> spone= sponsor.buscarTodosSposor();
-            for (int i = 0; i < spone.size(); i++) {
-                if(spone.get(i).isActivo()==true)
-                CboEliminarSponsor.addItem(spone.get(i)); 
-              
-            }
-             List<Sponsor> spona= sponsor.buscarTodosSposor();
-            for (int i = 0; i < spona.size(); i++) {
-                if(spona.get(i).isActivo()==false)
-                CboActivarSponsor.addItem(spona.get(i)); }
-        } catch (ClassNotFoundException ex) {
-            System.out.println("Error al cargar cbo" +ex);
         }
+        List<Sponsor> spona= sponsor.buscarTodosSposor();
+        for (int i = 0; i < spona.size(); i++) {
+            if(spona.get(i).isActivo()==false)
+                CboActivarSponsor.addItem(spona.get(i)); }
  }
     /**
      * This method is called from within the constructor to initialize the form.
@@ -77,6 +79,11 @@ public class frmiEliminarSponsor extends javax.swing.JInternalFrame {
         jButton1.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jButton1MouseClicked(evt);
+            }
+        });
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
             }
         });
 
@@ -151,34 +158,28 @@ public class frmiEliminarSponsor extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton1MouseClicked
-        try {
-            Conexion con = new Conexion();
-            Sponsor s=new Sponsor();
-            SponsorData sponsor=new SponsorData(con);
-            s=(Sponsor)CboEliminarSponsor.getSelectedItem();
-            sponsor.bajaSponsor(s.getIdSponsor());
-        } catch (ClassNotFoundException ex) {
-            Logger.getLogger(frmiEliminarSponsor.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        if(CboEliminarSponsor.getSelectedItem() != null){
+        s=(Sponsor)CboEliminarSponsor.getSelectedItem();
+        sponsor1.bajaSponsor(s.getIdSponsor());
+        }else{JOptionPane.showMessageDialog(null, "Seleccione un Sponsor");}
          CboActivarSponsor.removeAllItems();
          CboEliminarSponsor.removeAllItems(); 
         cargarCbo();
     }//GEN-LAST:event_jButton1MouseClicked
 
     private void btnActivar1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnActivar1MouseClicked
-         try {
-            Conexion con = new Conexion();
-            Sponsor s=new Sponsor();
-            SponsorData sponsor=new SponsorData(con);
-            s=(Sponsor)CboActivarSponsor.getSelectedItem();
-            sponsor.altaSponsor(s.getIdSponsor());
-        } catch (ClassNotFoundException ex) {
-            Logger.getLogger(frmiEliminarSponsor.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        if(CboActivarSponsor.getSelectedItem() != null){
+        s=(Sponsor)CboActivarSponsor.getSelectedItem();
+        sponsor.altaSponsor(s.getIdSponsor());
+        }else{JOptionPane.showMessageDialog(null, "Seleccione un Sponsor.");}
          CboActivarSponsor.removeAllItems();
          CboEliminarSponsor.removeAllItems();   
          cargarCbo();
     }//GEN-LAST:event_btnActivar1MouseClicked
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton1ActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

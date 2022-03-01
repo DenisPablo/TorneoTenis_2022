@@ -20,13 +20,12 @@ import javax.swing.table.DefaultTableModel;
  */
 public class frmiVerJugadores extends javax.swing.JInternalFrame {
     private DefaultTableModel model;
-    /**
-     * Creates new form frmiListar
-     */
-    public frmiVerJugadores() {
+     JugadorData jd;
+    
+    public frmiVerJugadores(Conexion con) {
         initComponents();
         model =new DefaultTableModel();
-//        cargarCbo();
+          jd= new JugadorData(con);
         armarCabeceraTablaJugador();
     }
 
@@ -131,19 +130,14 @@ public void borrarFilas(){
 //            System.out.println("Error al cargar cbo" +ex);
 //        }}
 public void cargarDatos(){
-        try {
-            List<Jugador> lista=null;
-            borrarFilas();
-            Conexion con =new Conexion();
-            JugadorData jd= new JugadorData(con);
-//            Jugador a= (Jugador)cboListar.getSelectedItem();
-            lista= (List) jd.buscarTodosJugadores();
-            for(Jugador i:lista ){
-                //if(a.getIdAlumno()==i.getAlumno().getIdAlumno())
-                model.addRow(new Object[]{i.getIdJugador(),i.getNombre(),i.getDni(),i.getFechaNac(),i.getAltura(),i.getPeso(),i.getEstilo(),i.getManoHabil(),i.getRanking(),i.getPuntaje(),i.isActivo()});
-            }   } catch (ClassNotFoundException ex) {
-            Logger.getLogger(frmiVerJugadores.class.getName()).log(Level.SEVERE, null, ex);
-        }
+    List<Jugador> lista=null;
+    borrarFilas();
+    //            Jugador a= (Jugador)cboListar.getSelectedItem();
+    lista= (List) jd.buscarTodosJugadores();
+    for(Jugador i:lista ){
+        //if(a.getIdAlumno()==i.getAlumno().getIdAlumno())
+        model.addRow(new Object[]{i.getIdJugador(),i.getNombre(),i.getDni(),i.getFechaNac(),i.getAltura(),i.getPeso(),i.getEstilo(),i.getManoHabil(),i.getRanking(),i.getPuntaje(),i.isActivo()});
+    }
 }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnListar;
